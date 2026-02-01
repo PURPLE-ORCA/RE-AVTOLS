@@ -1,0 +1,13 @@
+# robots.txt for AV Tools (https://avtoolspro.com)
+# Last updated: 2025
+
+User-agent: *
+Allow: /
+
+# Blocked paths
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemap
+Sitemap: https://avtoolspro.com/sitemap.xml

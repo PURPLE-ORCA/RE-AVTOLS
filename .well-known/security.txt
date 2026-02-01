@@ -1,0 +1,8 @@
+Contact: mailto:contact@avtoolspro.com
+Contact: mailto:amine.marda@gmail.com
+Expires: 2026-12-26T05:31:00Z
+Encryption: https://avtoolspro.com/security-policy
+Acknowledgements: https://avtoolspro.com/security-thanks
+Canonical: https://avtoolspro.com/.well-known/security.txt
+Policy: https://avtoolspro.com/security-policy
+Preferred-Languages: en

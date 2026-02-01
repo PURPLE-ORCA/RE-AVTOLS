@@ -1,0 +1,29 @@
+# AV Tools Pro API Security
+# Protect formula files from direct access
+
+# Deny access to formula directory
+<FilesMatch "^formulas/">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# Only allow calculate.php to be accessed
+<Files "calculate.php">
+    Order allow,deny
+    Allow from all
+</Files>
+
+# Block direct access to PHP files in formulas
+<Directory "formulas">
+    Order deny,allow
+    Deny from all
+</Directory>
+
+# Prevent directory listing
+Options -Indexes
+
+# Block access to .htaccess itself
+<Files ".htaccess">
+    Order allow,deny
+    Deny from all
+</Files>

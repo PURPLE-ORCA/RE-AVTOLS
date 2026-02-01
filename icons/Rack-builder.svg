@@ -1,0 +1,20 @@
+<svg id="Rack-builder" xmlns="http://www.w3.org/2000/svg" width="116" height="110" viewBox="0 0 116 110">
+  <g id="Group_2" data-name="Group 2" transform="translate(-443 -62)">
+    <g id="Group_1" data-name="Group 1" transform="translate(443 62)">
+      <g id="Rectangle_1" data-name="Rectangle 1" fill="none" stroke="#4683ff" stroke-width="10">
+        <rect width="116" height="110" stroke="none"/>
+        <rect x="5" y="5" width="106" height="100" fill="none"/>
+      </g>
+    </g>
+  </g>
+  <g id="Icon_clarity-rack-server-line" data-name="Icon clarity-rack-server-line" transform="translate(19.292 16.292)">
+    <path id="Path_1" data-name="Path 1" d="M6,9h4.3v4.3H6Z" transform="translate(6.903 10.354)" fill="#4683ff"/>
+    <path id="Path_2" data-name="Path 2" d="M10,9H40.106v4.3H10Z" transform="translate(11.504 10.354)" fill="#4683ff"/>
+    <path id="Path_3" data-name="Path 3" d="M6,17h4.3v4.3H6Z" transform="translate(6.903 19.557)" fill="#4683ff"/>
+    <path id="Path_4" data-name="Path 4" d="M10,17H40.106v4.3H10Z" transform="translate(11.504 19.557)" fill="#4683ff"/>
+    <path id="Path_5" data-name="Path 5" d="M66.513,5H6.3A4.3,4.3,0,0,0,2,9.3V56.61a4.3,4.3,0,0,0,4.3,4.3H66.513a4.3,4.3,0,0,0,4.3-4.3V9.3A4.3,4.3,0,0,0,66.513,5ZM6.3,9.3H66.513V22.2H6.3Zm0,17.2H66.513v12.9H6.3Zm0,30.106v-12.9H66.513v12.9Z" transform="translate(2.301 5.752)" fill="#4683ff" stroke="#4683ff" stroke-width="2"/>
+    <path id="Path_6" data-name="Path 6" d="M6,25h4.3v4.3H6Z" transform="translate(6.903 28.76)" fill="#4683ff"/>
+    <path id="Path_7" data-name="Path 7" d="M10,25H40.106v4.3H10Z" transform="translate(11.504 28.76)" fill="#4683ff"/>
+    <path id="Path_8" data-name="Path 8" d="M0,0H77.415V77.415H0Z" fill="none"/>
+  </g>
+</svg>
