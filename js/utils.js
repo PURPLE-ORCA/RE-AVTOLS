@@ -1,4 +1,4 @@
-export const _jsx = (e, t, s) => {
+const _jsx = (e, t, s) => {
         const { children: a, ...r } = t || {};
         return void 0 !== s && (r.key = s), React.createElement(e, r, a);
     },
@@ -106,9 +106,9 @@ export const _jsx = (e, t, s) => {
                       ],
                   }),
               })
-            : null,
-    { useState: useState, useEffect: useEffect, useRef: useRef } = React,
-    _0x99bba9 = (e, t = 0, s = null) => {
+            : null;
+
+const _0x99bba9 = (e, t = 0, s = null) => {
         if ("" === e || null == e) return t;
         const a = "string" == typeof e ? parseFloat(e) : e;
         return isNaN(a) ? t : null !== s && a < s ? s : a;
@@ -1829,4 +1829,4 @@ function calculateDSP(e) {
     );
 }
 
-export { _jsxs, _Fragment, ResetConfirmModal, _0x99bba9, calculateCameraWithZoom, calculateMixedConduitFill, _0xb9cb50, _0xae89d3, calculateProjectorThrow, _0x78d92f, _0xac743b, _0x9860ed, calculateDvLEDPixelPitch, calculateVideoWallController, calculateRackCooling, calculateSpeakerPower, _0xb402b0, calculateCameraDistance, calculateDSP };
+export { _jsx, _jsxs, _Fragment, ResetConfirmModal, _0x99bba9, calculateCameraWithZoom, calculateMixedConduitFill, _0xb9cb50, _0xae89d3, calculateProjectorThrow, _0x78d92f, _0xac743b, _0x9860ed, calculateDvLEDPixelPitch, calculateVideoWallController, calculateRackCooling, calculateSpeakerPower, _0xb402b0, calculateCameraDistance, calculateDSP };

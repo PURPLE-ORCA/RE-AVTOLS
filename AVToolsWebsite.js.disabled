@@ -1,4 +1,52 @@
 // @license Proprietary - avtoolspro.com
+!(function () {
+    "use strict";
+    var e = window;
+    try {
+        Object.defineProperty(e, "_avp", { value: 1, writable: !1, configurable: !1 });
+    } catch (e) {}
+    setInterval(function () {
+        try {
+            (function () {}).constructor("debugger")();
+        } catch (e) {}
+    }, 2e3),
+        (e.navigator.webdriver || e.callPhantom || e._phantom) && (document.body.innerHTML = "<h1>Access Denied</h1>");
+})(),
+    /* @preserve Protected by avtoolspro.com - Unauthorized use prohibited */
+    (function () {
+        if ("undefined" != typeof window) {
+            Object.defineProperty(window, "_$av", { value: "protected", writable: !1, configurable: !1 });
+            var e = "avtoolspro_" + Date.now().toString(36);
+            if (
+                (Object.defineProperty(window, "_$avIntegrity", {
+                    get: function () {
+                        return e;
+                    },
+                    set: function () {
+                        console.warn("Tampering detected");
+                    },
+                    configurable: !1,
+                }),
+                "undefined" != typeof process || "undefined" != typeof require)
+            )
+                throw new Error("Invalid environment");
+            setTimeout(function () {
+                return (
+                    !!(
+                        window.navigator.webdriver ||
+                        window.document.documentElement.getAttribute("webdriver") ||
+                        window.callPhantom ||
+                        window._phantom ||
+                        window.__nightmare ||
+                        window.Buffer ||
+                        (window.navigator.plugins &&
+                            0 === window.navigator.plugins.length &&
+                            -1 !== navigator.userAgent.indexOf("HeadlessChrome"))
+                    ) && ((document.body.innerHTML = "<h1>Access Denied</h1>"), !0)
+                );
+            }, 1e3);
+        }
+    })();
 const _jsx = (e, t, s) => {
         const { children: a, ...r } = t || {};
         return void 0 !== s && (r.key = s), React.createElement(e, r, a);
@@ -1851,23 +1899,29 @@ function AVToolsWebsite() {
             cooling: "cooling-calculator",
             "rack-builder": "rack-builder",
         },
+        n = Object.fromEntries(Object.entries(i).map(([e, t]) => [t, e])),
         o = () => {
-            window.location.href = "/";
+            window.history.pushState({ page: "home" }, "", "/"), t("home"), a(null), l("all"), window.scrollTo(0, 0);
         };
     useEffect(() => {
-        "scrollRestoration" in history && (history.scrollRestoration = "manual"), window.scrollTo(0, 0);
-        const toolParam = new URLSearchParams(window.location.search).get("tool");
-        console.log('[AVToolsWebsite] Loading, toolParam:', toolParam);
-        if (toolParam && i[toolParam]) {
-            console.log('[AVToolsWebsite] Showing tool:', toolParam);
-            t("tool");
-            a(toolParam);
-        } else {
-            console.log('[AVToolsWebsite] Showing home');
-            t("home");
-            a(null);
-        }
+        const e = (e) => {
+            if (e.state)
+                "tool" === e.state.page && e.state.tool ? (t("tool"), a(e.state.tool)) : (t("home"), a(null), l("all"));
+            else {
+                const e = window.location.pathname.slice(1);
+                e && n[e] ? (t("tool"), a(n[e])) : (t("home"), a(null));
+            }
+            window.scrollTo(0, 0);
+        };
+        return window.addEventListener("popstate", e), () => window.removeEventListener("popstate", e);
     }, []),
+        useEffect(() => {
+            "scrollRestoration" in history && (history.scrollRestoration = "manual"), window.scrollTo(0, 0);
+            const e = window.location.pathname.slice(1);
+            e && n[e]
+                ? (t("tool"), a(n[e]), window.history.replaceState({ page: "tool", tool: n[e] }, "", "/" + e))
+                : ("" !== e && "/" !== e) || window.history.replaceState({ page: "home" }, "", "/");
+        }, []),
         useEffect(() => {
             const t = "AV Tools - Professional AV/IT Calculators | AVIXA & IEC Compliant";
             if (s && "tool" === e) {
@@ -2097,7 +2151,17 @@ function AVToolsWebsite() {
                             return _jsxs(
                                 "a",
                                 {
-                                     href: "?tool=" + e.id,
+                                    href: "/" + (i[e.id] || e.id),
+                                    onClick: (s) => {
+                                        s.preventDefault(),
+                                            ((e) => {
+                                                const s = i[e] || e;
+                                                window.history.pushState({ page: "tool", tool: e }, "", "/" + s),
+                                                    t("tool"),
+                                                    a(e),
+                                                    window.scrollTo(0, 0);
+                                            })(e.id);
+                                    },
                                     className:
                                         "bg-white rounded-xl shadow-md p-4 sm:p-6 border border-gray-200 hover:shadow-xl hover:border-blue-300 hover:-translate-y-1 transition-all text-left group relative overflow-visible flex flex-col cursor-pointer no-underline",
                                     children: [
