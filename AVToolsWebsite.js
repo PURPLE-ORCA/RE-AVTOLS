@@ -27,7 +27,7 @@ const _jsx = (e, t, s) => {
                   },
                   children: _jsxs("div", {
                       className:
-                          "bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden transform transition-all",
+                          "bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden transform transition-all",
                       style: { animation: "modalFadeIn 0.2s ease-out" },
                       children: [
                           _jsxs("div", {
@@ -40,7 +40,7 @@ const _jsx = (e, t, s) => {
                                   _jsx("button", {
                                       onClick: s,
                                       className:
-                                          "absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-colors",
+                                          "absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white dark:bg-gray-800/20 hover:bg-white dark:bg-gray-800/30 transition-colors",
                                       children: _jsx("svg", {
                                           className: "w-5 h-5 text-white",
                                           fill: "none",
@@ -59,7 +59,7 @@ const _jsx = (e, t, s) => {
                                           "absolute left-1/2 bottom-0 transform -translate-x-1/2 translate-y-1/2",
                                       children: _jsx("div", {
                                           className:
-                                              "w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center",
+                                              "w-16 h-16 bg-white dark:bg-gray-800 rounded-full shadow-lg dark:shadow-gray-950/30 flex items-center justify-center",
                                           children: _jsx("svg", {
                                               className: "w-9 h-9 text-blue-600",
                                               fill: "none",
@@ -79,21 +79,21 @@ const _jsx = (e, t, s) => {
                           _jsxs("div", {
                               className: "px-6 pt-12 pb-6 text-center",
                               children: [
-                                  _jsx("h3", { className: "text-xl font-bold text-gray-900 mb-3", children: a }),
-                                  _jsx("p", { className: "text-gray-600 text-sm leading-relaxed mb-6", children: r }),
+                                  _jsx("h3", { className: "text-xl font-bold text-gray-900 dark:text-gray-100 mb-3", children: a }),
+                                  _jsx("p", { className: "text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6", children: r }),
                                   _jsxs("div", {
                                       className: "flex flex-col gap-3",
                                       children: [
                                           _jsx("button", {
                                               onClick: t,
                                               className:
-                                                  "w-full py-3 px-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl transition-colors shadow-md hover:shadow-lg",
+                                                  "w-full py-3 px-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl transition-colors shadow-md dark:shadow-gray-950/20 hover:shadow-lg dark:shadow-gray-950/30",
                                               children: "Yes, Reset Tool",
                                           }),
                                           _jsx("button", {
                                               onClick: s,
                                               className:
-                                                  "w-full py-2.5 px-4 text-gray-600 hover:text-gray-800 font-medium transition-colors",
+                                                  "w-full py-2.5 px-4 text-gray-600 dark:text-gray-400 hover:text-gray-800 font-medium transition-colors",
                                               children: "Cancel",
                                           }),
                                       ],
@@ -1833,6 +1833,26 @@ function AVToolsWebsite() {
     const [e, t] = useState("home"),
         [s, a] = useState(null),
         [r, l] = useState("all"),
+        [theme, setTheme] = useState(() => {
+            if (typeof window !== 'undefined') {
+                const stored = localStorage.getItem('avtools-theme');
+                if (stored) return stored;
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            return 'light';
+        }),
+        toggleTheme = () => {
+            const newTheme = theme === 'light' ? 'dark' : 'light';
+            setTheme(newTheme);
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('avtools-theme', newTheme);
+                if (newTheme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            }
+        },
         i = {
             bandwidth: "bandwidth-calculator",
             projector: "projector-calculator",
@@ -1878,7 +1898,16 @@ function AVToolsWebsite() {
                 }),
                     e && (document.title = t + " - " + e);
             } else document.title = t;
-        }, [s, e]);
+        }, [s, e]),
+        useEffect(() => {
+            if (typeof window !== 'undefined') {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            }
+        }, [theme]);
     const d = {
             video: {
                 name: "Video",
@@ -2004,20 +2033,20 @@ function AVToolsWebsite() {
         m = (e) => {
             const t = {
                 blue: {
-                    bg: "bg-blue-50",
-                    border: "border-blue-200",
+                    bg: "bg-blue-50 dark:bg-blue-900/20",
+                    border: "border-blue-200 dark:border-blue-800",
                     text: "text-blue-700",
                     hover: "hover:bg-blue-100",
                 },
                 green: {
-                    bg: "bg-green-50",
-                    border: "border-green-200",
+                    bg: "bg-green-50 dark:bg-green-900/20",
+                    border: "border-green-200 dark:border-green-800",
                     text: "text-green-700",
                     hover: "hover:bg-green-100",
                 },
                 purple: {
-                    bg: "bg-purple-50",
-                    border: "border-purple-200",
+                    bg: "bg-purple-50 dark:bg-purple-900/20",
+                    border: "border-purple-200 dark:border-purple-800",
                     text: "text-purple-700",
                     hover: "hover:bg-purple-100",
                 },
@@ -2038,7 +2067,7 @@ function AVToolsWebsite() {
                                 children: "Professional AV/IT Calculation Tools",
                             }),
                             _jsx("p", {
-                                className: "text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-2",
+                                className: "text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 dark:text-gray-400 max-w-3xl mx-auto px-2",
                                 children:
                                     "Complete suite of precision calculators for audiovisual and IT professionals. Built on AVIXA standards.",
                             }),
@@ -2052,8 +2081,8 @@ function AVToolsWebsite() {
                                 className:
                                     "px-3 sm:px-5 py-2 sm:py-2.5 rounded-full text-sm sm:text-base font-medium transition-all cursor-pointer " +
                                     ("all" === r
-                                        ? "bg-gray-900 text-white shadow-lg"
-                                        : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"),
+                                        ? "bg-gray-900 dark:bg-gray-700 text-white shadow-lg dark:shadow-gray-950/30"
+                                        : "bg-white dark:bg-gray-800 dark:bg-gray-800 text-gray-700 dark:text-gray-300 dark:text-gray-300 border border-gray-300 dark:border-gray-600 dark:border-gray-600 hover:bg-gray-50 dark:bg-gray-900/50 dark:hover:bg-gray-700"),
                                 children: ["All Tools (", c().length, ")"],
                             }),
                             Object.entries(d).map(([e, t]) => {
@@ -2065,8 +2094,8 @@ function AVToolsWebsite() {
                                         className:
                                             "px-3 sm:px-5 py-2 sm:py-2.5 rounded-full text-sm sm:text-base font-medium transition-all cursor-pointer flex items-center gap-1 sm:gap-2 " +
                                             (r === e
-                                                ? `${s.bg} ${s.text} ${s.border} border-2 shadow-md`
-                                                : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-50"),
+                                                ? `${s.bg} ${s.text} ${s.border} border-2 shadow-md dark:shadow-gray-950/20`
+                                                : "bg-white dark:bg-gray-800 dark:bg-gray-800 text-gray-700 dark:text-gray-300 dark:text-gray-300 border border-gray-300 dark:border-gray-600 dark:border-gray-600 hover:bg-gray-50 dark:bg-gray-900/50 dark:hover:bg-gray-700"),
                                         children: [
                                             _jsx("span", { children: t.icon }),
                                             _jsx("span", { className: "hidden md:inline", children: t.name }),
@@ -2099,12 +2128,12 @@ function AVToolsWebsite() {
                                 {
                                      href: "?tool=" + e.id,
                                     className:
-                                        "bg-white rounded-xl shadow-md p-4 sm:p-6 border border-gray-200 hover:shadow-xl hover:border-blue-300 hover:-translate-y-1 transition-all text-left group relative overflow-visible flex flex-col cursor-pointer no-underline",
+                                        "bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 dark:shadow-gray-900/20 p-4 sm:p-6 border border-gray-200 dark:border-gray-700 dark:border-gray-700 hover:shadow-xl hover:border-blue-300 dark:hover:border-blue-600 hover:-translate-y-1 transition-all text-left group relative overflow-visible flex flex-col cursor-pointer no-underline",
                                     children: [
                                         e.advanced &&
                                             _jsx("span", {
                                                 className:
-                                                    "absolute -top-2 -right-2 text-xs px-2 sm:px-3 py-1 rounded-full bg-red-600 text-white font-bold shadow-lg z-10",
+                                                    "absolute -top-2 -right-2 text-xs px-2 sm:px-3 py-1 rounded-full bg-red-600 text-white font-bold shadow-lg dark:shadow-gray-950/30 z-10",
                                                 children: "Advanced",
                                             }),
                                         _jsx("div", {
@@ -2124,11 +2153,11 @@ function AVToolsWebsite() {
                                         }),
                                         _jsx("h3", {
                                             className:
-                                                "text-base sm:text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors text-center",
+                                                "text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors text-center",
                                             children: e.name,
                                         }),
                                         _jsx("p", {
-                                            className: "text-xs sm:text-sm text-gray-600 text-center flex-grow",
+                                            className: "text-xs sm:text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400 text-center flex-grow",
                                             children: e.desc,
                                         }),
                                     ],
@@ -2141,27 +2170,27 @@ function AVToolsWebsite() {
                         className: "mt-10 sm:mt-16 grid grid-cols-3 gap-2 sm:gap-6 max-w-2xl mx-auto",
                         children: [
                             _jsxs("div", {
-                                className: "text-center p-3 sm:p-6 bg-white rounded-xl shadow-sm border",
+                                className: "text-center p-3 sm:p-6 bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-gray-950/10 border dark:border-gray-700",
                                 children: [
                                     _jsx("div", {
                                         className: "text-2xl sm:text-3xl font-bold text-blue-600",
                                         children: c().length,
                                     }),
                                     _jsx("div", {
-                                        className: "text-xs sm:text-sm text-gray-600",
+                                        className: "text-xs sm:text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400",
                                         children: "Calculators",
                                     }),
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "text-center p-3 sm:p-6 bg-white rounded-xl shadow-sm border",
+                                className: "text-center p-3 sm:p-6 bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-gray-950/10 border dark:border-gray-700",
                                 children: [
                                     _jsx("div", {
                                         className: "text-2xl sm:text-3xl font-bold text-green-600",
                                         children: "3",
                                     }),
                                     _jsx("div", {
-                                        className: "text-xs sm:text-sm text-gray-600",
+                                        className: "text-xs sm:text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400",
                                         children: "Categories",
                                     }),
                                 ],
@@ -2171,14 +2200,14 @@ function AVToolsWebsite() {
                                 target: "_blank",
                                 rel: "noopener noreferrer",
                                 className:
-                                    "text-center p-3 sm:p-6 bg-white rounded-xl shadow-sm border hover:shadow-md hover:border-purple-300 transition-all cursor-pointer block",
+                                    "text-center p-3 sm:p-6 bg-white dark:bg-gray-800 dark:bg-gray-800 rounded-xl shadow-sm dark:shadow-gray-950/10 border dark:border-gray-700 hover:shadow-md dark:shadow-gray-950/20 hover:border-purple-300 transition-all cursor-pointer block",
                                 children: [
                                     _jsx("div", {
                                         className: "text-2xl sm:text-3xl font-bold text-purple-600",
                                         children: "AVIXA",
                                     }),
                                     _jsx("div", {
-                                        className: "text-xs sm:text-sm text-gray-600",
+                                        className: "text-xs sm:text-sm text-gray-600 dark:text-gray-400 dark:text-gray-400",
                                         children: "Standards",
                                     }),
                                 ],
@@ -2189,15 +2218,15 @@ function AVToolsWebsite() {
                         className: "mt-10 sm:mt-16 text-center px-2",
                         children: _jsxs("div", {
                             className:
-                                "bg-gradient-to-r from-blue-50 via-purple-50 to-blue-50 rounded-xl sm:rounded-2xl p-5 sm:p-8 border border-blue-100 max-w-3xl mx-auto",
+                                "bg-gradient-to-r from-blue-50 via-purple-50 to-blue-50 dark:from-blue-900/20 dark:via-purple-900/20 dark:to-blue-900/20 rounded-xl sm:rounded-2xl p-5 sm:p-8 border border-blue-100 dark:border-blue-800 max-w-3xl mx-auto",
                             children: [
                                 _jsx("div", { className: "text-4xl sm:text-5xl mb-3 sm:mb-4", children: "🚀" }),
                                 _jsx("h2", {
-                                    className: "text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-3",
+                                    className: "text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 dark:text-gray-100 mb-2 sm:mb-3",
                                     children: "More Tools Coming Soon",
                                 }),
                                 _jsx("p", {
-                                    className: "text-sm sm:text-base text-gray-600 max-w-xl mx-auto",
+                                    className: "text-sm sm:text-base text-gray-600 dark:text-gray-400 dark:text-gray-400 max-w-xl mx-auto",
                                     children:
                                         "We're continuously expanding our toolkit with new professional calculators. Stay tuned for additional AVIXA-compliant tools to help streamline your AV/IT projects.",
                                 }),
@@ -2207,7 +2236,7 @@ function AVToolsWebsite() {
                     _jsx("div", {
                         className: "mt-10 sm:mt-16 px-2",
                         children: _jsx("div", {
-                            className: "bg-amber-50 border border-amber-200 rounded-xl p-4 sm:p-6 max-w-4xl mx-auto",
+                            className: "bg-amber-50 dark:bg-amber-900/20 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 dark:border-amber-800 rounded-xl p-4 sm:p-6 max-w-4xl mx-auto",
                             children: _jsxs("div", {
                                 className: "flex items-start gap-3",
                                 children: [
@@ -2215,11 +2244,11 @@ function AVToolsWebsite() {
                                     _jsxs("div", {
                                         children: [
                                             _jsx("h3", {
-                                                className: "font-semibold text-amber-800 text-sm sm:text-base mb-1",
+                                                className: "font-semibold text-amber-800 dark:text-amber-200 dark:text-amber-400 text-sm sm:text-base mb-1",
                                                 children: "Important Disclaimer",
                                             }),
                                             _jsx("p", {
-                                                className: "text-xs sm:text-sm text-amber-700 leading-relaxed",
+                                                className: "text-xs sm:text-sm text-amber-700 dark:text-amber-300 leading-relaxed",
                                                 children:
                                                     "These calculators are based on best practices and formulas provided by AVIXA and industry standards leaders. For any project design, please verify all results and final decisions with qualified Consultants, Senior Design Teams, and/or Manufacturers.",
                                             }),
@@ -2233,7 +2262,7 @@ function AVToolsWebsite() {
             });
         };
     return _jsxs("div", {
-        className: "min-h-screen bg-gray-50 flex flex-col",
+        className: "min-h-screen bg-gray-50 dark:bg-gray-900/50 dark:bg-gray-950 flex flex-col transition-colors",
         children: [
             _jsx("style", {
                 children:
@@ -2242,7 +2271,7 @@ function AVToolsWebsite() {
             _jsx(
                 () =>
                     _jsx("header", {
-                        className: "bg-white shadow-sm border-b sticky top-0 z-50",
+className: "bg-white dark:bg-gray-800 dark:bg-gray-900 shadow-sm dark:shadow-gray-950/10 border-b dark:border-gray-800 sticky top-0 z-50 transition-colors",
                         children: _jsx("nav", {
                             className: "max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4",
                             children: _jsxs("div", {
@@ -2258,24 +2287,55 @@ function AVToolsWebsite() {
                                             className: "h-8 sm:h-10 w-auto",
                                         }),
                                     }),
-                                    _jsx("div", {
-                                        className: "flex gap-4 sm:gap-6",
-                                        children:
-                                            "tool" === e &&
-                                            _jsxs("button", {
-                                                onClick: () => o(),
-                                                className:
-                                                    "text-sm sm:text-base font-medium text-gray-600 hover:text-blue-600 transition-colors flex items-center gap-1 sm:gap-2 cursor-pointer",
-                                                children: [
-                                                    _jsx("span", { children: "←" }),
-                                                    " ",
-                                                    _jsx("span", {
-                                                        className: "hidden sm:inline",
-                                                        children: "Back to",
-                                                    }),
-                                                    " Tools",
-                                                ],
+                                    _jsxs("div", {
+                                        className: "flex gap-4 sm:gap-6 items-center",
+                                        children: [
+                                            _jsx("button", {
+                                                onClick: () => toggleTheme(),
+                                                className: "p-2 rounded-lg bg-gray-100 dark:bg-gray-700 dark:bg-gray-800 text-gray-600 dark:text-gray-400 dark:text-gray-300 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-700 transition-colors cursor-pointer",
+                                                title: theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode',
+                                                children: theme === 'light'
+                                                    ? _jsx("svg", {
+                                                          className: "w-5 h-5",
+                                                          fill: "none",
+                                                          stroke: "currentColor",
+                                                          viewBox: "0 0 24 24",
+                                                          children: _jsx("path", {
+                                                              strokeLinecap: "round",
+                                                              strokeLinejoin: "round",
+                                                              strokeWidth: 2,
+                                                              d: "M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z",
+                                                          }),
+                                                      })
+                                                    : _jsx("svg", {
+                                                          className: "w-5 h-5",
+                                                          fill: "none",
+                                                          stroke: "currentColor",
+                                                          viewBox: "0 0 24 24",
+                                                          children: _jsx("path", {
+                                                              strokeLinecap: "round",
+                                                              strokeLinejoin: "round",
+                                                              strokeWidth: 2,
+                                                              d: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z",
+                                                          }),
+                                                      }),
                                             }),
+                                            "tool" === e &&
+                                                _jsxs("button", {
+                                                    onClick: () => o(),
+                                                    className:
+                                                        "text-sm sm:text-base font-medium text-gray-600 dark:text-gray-400 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-1 sm:gap-2 cursor-pointer",
+                                                    children: [
+                                                        _jsx("span", { children: "←" }),
+                                                        " ",
+                                                        _jsx("span", {
+                                                            className: "hidden sm:inline",
+                                                            children: "Back to",
+                                                        }),
+                                                        " Tools",
+                                                    ],
+                                                }),
+                                        ],
                                     }),
                                 ],
                             }),
@@ -2313,11 +2373,11 @@ function AVToolsWebsite() {
                                     children: [
                                         _jsx("div", { className: "text-6xl mb-4", children: "🔍" }),
                                         _jsx("h2", {
-                                            className: "text-2xl font-bold text-gray-900 mb-2",
+                                            className: "text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2",
                                             children: "Tool Not Found",
                                         }),
                                         _jsx("p", {
-                                            className: "text-gray-600 mb-6",
+                                            className: "text-gray-600 dark:text-gray-400 mb-6",
                                             children: "The requested calculator could not be found.",
                                         }),
                                         _jsx("button", {
@@ -2336,7 +2396,7 @@ function AVToolsWebsite() {
             _jsx(
                 () =>
                     _jsx("footer", {
-                        className: "bg-gradient-to-r from-blue-600 to-blue-800 mt-10 sm:mt-16",
+                        className: "bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-800 dark:to-blue-950 mt-10 sm:mt-16",
                         children: _jsx("div", {
                             className: "max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8",
                             children: _jsxs("div", {
@@ -2352,7 +2412,7 @@ function AVToolsWebsite() {
                                     }),
                                     _jsxs("div", {
                                         className:
-                                            "flex flex-wrap justify-center gap-2 sm:gap-4 text-xs sm:text-sm text-blue-200",
+                                            "flex flex-wrap justify-center gap-2 sm:gap-4 text-xs sm:text-sm text-blue-200 dark:text-blue-300",
                                         children: [
                                             _jsx("span", { children: "Video" }),
                                             _jsx("span", { children: "•" }),
@@ -2368,7 +2428,7 @@ function AVToolsWebsite() {
                                         ],
                                     }),
                                     _jsxs("div", {
-                                        className: "text-center text-blue-100 text-xs sm:text-sm",
+                                        className: "text-center text-blue-100 dark:text-blue-200 text-xs sm:text-sm",
                                         children: [
                                             _jsx("p", { children: "AV Tools. All Rights Reserved." }),
                                             _jsx("a", {
@@ -2442,14 +2502,14 @@ function BandwidthCalculator() {
                 className: "flex items-center justify-between mb-6",
                 children: [
                     _jsx("h1", {
-                        className: "text-3xl font-bold text-gray-900",
+                        className: "text-3xl font-bold text-gray-900 dark:text-gray-100",
                         children: "AVoIP Bandwidth Calculator",
                     }),
                     g !== null &&
                         _jsx("button", {
                             onClick: () => y(!0),
                             className:
-                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm",
+                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm dark:shadow-gray-950/10",
                             children: "⟲ Reset Tool",
                         }),
                 ],
@@ -2462,20 +2522,20 @@ function BandwidthCalculator() {
                 onCancel: () => y(!1),
             }),
             _jsx("div", {
-                className: "bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200",
+                className: "bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6 border border-gray-200 dark:border-gray-700",
                 children: _jsxs("p", {
-                    className: "text-sm text-gray-600",
+                    className: "text-sm text-gray-600 dark:text-gray-400",
                     children: [
-                        _jsx("span", { className: "font-semibold text-gray-700", children: "What this tool does:" }),
+                        _jsx("span", { className: "font-semibold text-gray-700 dark:text-gray-300", children: "What this tool does:" }),
                         " Calculates the network bandwidth required for uncompressed or compressed video streams over IP. Enter your video resolution, frame rate, color settings, and number of streams to determine the total bandwidth needed and recommended network infrastructure.",
                     ],
                 }),
             }),
             _jsxs("div", {
-                className: "bg-blue-50 rounded-xl p-4 mb-6 border border-blue-200",
+                className: "bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 mb-6 border border-blue-200 dark:border-blue-800",
                 children: [
                     _jsx("h2", {
-                        className: "text-sm font-semibold text-blue-800 mb-2",
+                        className: "text-sm font-semibold text-blue-800 dark:text-blue-200 mb-2",
                         children: "AVIXA Standard Formula",
                     }),
                     _jsx("p", {
@@ -2490,7 +2550,7 @@ function BandwidthCalculator() {
                 ],
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-8 mb-8 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 mb-8 border",
                 children: [
                     _jsx("h2", { className: "text-xl font-semibold mb-6", children: "Video Signal Configuration" }),
                     _jsxs("div", {
@@ -2499,7 +2559,7 @@ function BandwidthCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Resolution",
                                     }),
                                     _jsxs("select", {
@@ -2524,7 +2584,7 @@ function BandwidthCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsxs("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: [
                                             "Frame Rate: ",
                                             _jsx("span", { className: "font-bold text-blue-700", children: j.label }),
@@ -2538,7 +2598,7 @@ function BandwidthCalculator() {
                                         value: r,
                                         onChange: (e) => l(Number(e.target.value)),
                                         className:
-                                            "w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600",
+                                            "w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600",
                                     }),
                                     _jsxs("div", {
                                         className: "flex justify-between text-xs text-gray-400 mt-1 px-1",
@@ -2554,12 +2614,12 @@ function BandwidthCalculator() {
                                             "mt-3 p-3 rounded-lg border " +
                                             ((v = j.standard),
                                             "PAL" === v
-                                                ? "text-green-600 bg-green-50"
+                                                ? "text-green-600 bg-green-50 dark:bg-green-900/20"
                                                 : "NTSC" === v
-                                                  ? "text-blue-600 bg-blue-50"
+                                                  ? "text-blue-600 bg-blue-50 dark:bg-blue-900/20"
                                                   : "Film" === v
-                                                    ? "text-amber-600 bg-amber-50"
-                                                    : "text-purple-600 bg-purple-50"),
+                                                    ? "text-amber-600 bg-amber-50 dark:bg-amber-900/20"
+                                                    : "text-purple-600 bg-purple-50 dark:bg-purple-900/20"),
                                         children: _jsxs("div", {
                                             className: "flex items-center gap-2",
                                             children: [
@@ -2594,7 +2654,7 @@ function BandwidthCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Color Bit Depth",
                                     }),
                                     _jsxs("select", {
@@ -2616,7 +2676,7 @@ function BandwidthCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Chroma Subsampling",
                                     }),
                                     _jsx("select", {
@@ -2635,13 +2695,13 @@ function BandwidthCalculator() {
                                             )
                                         ),
                                     }),
-                                    _jsx("p", { className: "text-xs text-gray-500 mt-1", children: _.description }),
+                                    _jsx("p", { className: "text-xs text-gray-500 dark:text-gray-400 mt-1", children: _.description }),
                                 ],
                             }),
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Compression",
                                     }),
                                     _jsxs("select", {
@@ -2667,7 +2727,7 @@ function BandwidthCalculator() {
                                         ],
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children:
                                             "Compression ratio = original size ÷ compressed size. Higher ratios = smaller files but more quality loss.",
                                     }),
@@ -2676,7 +2736,7 @@ function BandwidthCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsxs("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: ["Network Overhead: ", h, "%"],
                                     }),
                                     _jsx("input", {
@@ -2687,10 +2747,10 @@ function BandwidthCalculator() {
                                         value: h,
                                         onChange: (e) => p(Number(e.target.value)),
                                         className:
-                                            "w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600",
+                                            "w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600",
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "IP headers, encapsulation (typically 3-10%)",
                                     }),
                                 ],
@@ -2699,7 +2759,7 @@ function BandwidthCalculator() {
                                 className: "md:col-span-2",
                                 children: [
                                     _jsxs("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: ["Number of Streams: ", x],
                                     }),
                                     _jsx("input", {
@@ -2709,7 +2769,7 @@ function BandwidthCalculator() {
                                         value: x,
                                         onChange: (e) => u(Number(e.target.value)),
                                         className:
-                                            "w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600",
+                                            "w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600",
                                     }),
                                     _jsxs("div", {
                                         className: "flex justify-between text-xs text-gray-400 mt-1",
@@ -2727,24 +2787,24 @@ function BandwidthCalculator() {
                     }),
                     _jsxs("div", {
                         className:
-                            "mt-6 p-4 bg-gradient-to-r from-blue-50 via-green-50 to-purple-50 rounded-lg border border-gray-200",
+                            "mt-6 p-4 bg-gradient-to-r from-blue-50 via-green-50 to-purple-50 rounded-lg border border-gray-200 dark:border-gray-700",
                         children: [
                             _jsx("h3", {
-                                className: "text-sm font-semibold text-gray-700 mb-3",
+                                className: "text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3",
                                 children: "📺 Broadcast Standards Frame Rates",
                             }),
                             _jsxs("div", {
                                 className: "grid grid-cols-1 md:grid-cols-4 gap-3 text-xs",
                                 children: [
                                     _jsxs("div", {
-                                        className: "bg-white p-3 rounded-lg border border-blue-200",
+                                        className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-blue-200 dark:border-blue-800",
                                         children: [
                                             _jsx("p", {
                                                 className: "font-semibold text-blue-600 mb-2",
                                                 children: "🇺🇸 ATSC (Americas/Korea)",
                                             }),
                                             _jsxs("ul", {
-                                                className: "text-gray-600 space-y-1",
+                                                className: "text-gray-600 dark:text-gray-400 space-y-1",
                                                 children: [
                                                     _jsx("li", { children: "• 23.976/24 fps - Film" }),
                                                     _jsx("li", { children: "• 29.97/30 fps - SD/HD" }),
@@ -2754,14 +2814,14 @@ function BandwidthCalculator() {
                                         ],
                                     }),
                                     _jsxs("div", {
-                                        className: "bg-white p-3 rounded-lg border border-green-200",
+                                        className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-green-200 dark:border-green-800",
                                         children: [
                                             _jsx("p", {
                                                 className: "font-semibold text-green-600 mb-2",
                                                 children: "🇪🇺 DVB (Europe/Africa/ME)",
                                             }),
                                             _jsxs("ul", {
-                                                className: "text-gray-600 space-y-1",
+                                                className: "text-gray-600 dark:text-gray-400 space-y-1",
                                                 children: [
                                                     _jsx("li", { children: "• 25 fps - SD/HD" }),
                                                     _jsx("li", { children: "• 50 fps - Sports/HFR" }),
@@ -2771,14 +2831,14 @@ function BandwidthCalculator() {
                                         ],
                                     }),
                                     _jsxs("div", {
-                                        className: "bg-white p-3 rounded-lg border border-orange-200",
+                                        className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-orange-200",
                                         children: [
                                             _jsx("p", {
                                                 className: "font-semibold text-orange-600 mb-2",
                                                 children: "🇯🇵 ISDB (Japan/S.America)",
                                             }),
                                             _jsxs("ul", {
-                                                className: "text-gray-600 space-y-1",
+                                                className: "text-gray-600 dark:text-gray-400 space-y-1",
                                                 children: [
                                                     _jsx("li", { children: "• 29.97 fps - SD" }),
                                                     _jsx("li", { children: "• 59.94 fps - HD" }),
@@ -2788,14 +2848,14 @@ function BandwidthCalculator() {
                                         ],
                                     }),
                                     _jsxs("div", {
-                                        className: "bg-white p-3 rounded-lg border border-purple-200",
+                                        className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-purple-200 dark:border-purple-800",
                                         children: [
                                             _jsx("p", {
                                                 className: "font-semibold text-purple-600 mb-2",
                                                 children: "🇨🇳 DTMB (China/Cuba/Pak)",
                                             }),
                                             _jsxs("ul", {
-                                                className: "text-gray-600 space-y-1",
+                                                className: "text-gray-600 dark:text-gray-400 space-y-1",
                                                 children: [
                                                     _jsx("li", { children: "• 25 fps - SD" }),
                                                     _jsx("li", { children: "• 50 fps - HD" }),
@@ -2845,17 +2905,17 @@ function BandwidthCalculator() {
             }),
             g &&
                 _jsxs("div", {
-                    className: "bg-white rounded-xl shadow-md p-8 border",
+                    className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 border",
                     children: [
                         _jsx("h2", { className: "text-xl font-semibold mb-6", children: "Bandwidth Results" }),
                         _jsxs("div", {
                             className: "grid md:grid-cols-4 gap-4 mb-6",
                             children: [
                                 _jsxs("div", {
-                                    className: "bg-blue-50 p-5 rounded-lg border-2 border-blue-200",
+                                    className: "bg-blue-50 dark:bg-blue-900/20 p-5 rounded-lg border-2 border-blue-200 dark:border-blue-800",
                                     children: [
                                         _jsx("div", {
-                                            className: "text-xs text-gray-600",
+                                            className: "text-xs text-gray-600 dark:text-gray-400",
                                             children: "Raw Uncompressed",
                                         }),
                                         _jsx("div", {
@@ -2865,14 +2925,14 @@ function BandwidthCalculator() {
                                                     ? `${g.rawBitrateGbps} Gbps`
                                                     : `${g.rawBitrateMbps} Mbps`,
                                         }),
-                                        _jsx("div", { className: "text-xs text-gray-500", children: "per stream" }),
+                                        _jsx("div", { className: "text-xs text-gray-500 dark:text-gray-400", children: "per stream" }),
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-green-50 p-5 rounded-lg border-2 border-green-200",
+                                    className: "bg-green-50 dark:bg-green-900/20 p-5 rounded-lg border-2 border-green-200 dark:border-green-800",
                                     children: [
                                         _jsx("div", {
-                                            className: "text-xs text-gray-600",
+                                            className: "text-xs text-gray-600 dark:text-gray-400",
                                             children: "Per Stream (w/ overhead)",
                                         }),
                                         _jsxs("div", {
@@ -2880,16 +2940,16 @@ function BandwidthCalculator() {
                                             children: [g.perStreamBitrate, " Mbps"],
                                         }),
                                         _jsx("div", {
-                                            className: "text-xs text-gray-500",
+                                            className: "text-xs text-gray-500 dark:text-gray-400",
                                             children: c > 1 ? `${c}:1 compression` : "uncompressed",
                                         }),
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-purple-50 p-5 rounded-lg border-2 border-purple-200",
+                                    className: "bg-purple-50 dark:bg-purple-900/20 p-5 rounded-lg border-2 border-purple-200 dark:border-purple-800",
                                     children: [
                                         _jsxs("div", {
-                                            className: "text-xs text-gray-600",
+                                            className: "text-xs text-gray-600 dark:text-gray-400",
                                             children: ["Total (", x, " stream", x > 1 ? "s" : "", ")"],
                                         }),
                                         _jsx("div", {
@@ -2902,10 +2962,10 @@ function BandwidthCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-yellow-50 p-5 rounded-lg border-2 border-yellow-200",
+                                    className: "bg-yellow-50 dark:bg-yellow-900/20 p-5 rounded-lg border-2 border-yellow-200 dark:border-yellow-800",
                                     children: [
                                         _jsx("div", {
-                                            className: "text-xs text-gray-600",
+                                            className: "text-xs text-gray-600 dark:text-gray-400",
                                             children: "Recommended Port",
                                         }),
                                         _jsx("div", {
@@ -2913,7 +2973,7 @@ function BandwidthCalculator() {
                                             children: g.switchType,
                                         }),
                                         _jsxs("div", {
-                                            className: "text-xs text-gray-500",
+                                            className: "text-xs text-gray-500 dark:text-gray-400",
                                             children: [g.utilization, "% utilization"],
                                         }),
                                     ],
@@ -2921,10 +2981,10 @@ function BandwidthCalculator() {
                             ],
                         }),
                         _jsxs("div", {
-                            className: "p-4 bg-gray-50 rounded-lg mb-6",
+                            className: "p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg mb-6",
                             children: [
                                 _jsx("h3", {
-                                    className: "font-semibold text-gray-700 mb-3",
+                                    className: "font-semibold text-gray-700 dark:text-gray-300 mb-3",
                                     children: "AVIXA Calculation Breakdown",
                                 }),
                                 _jsxs("div", {
@@ -2936,7 +2996,7 @@ function BandwidthCalculator() {
                                                 _jsxs("p", {
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-500",
+                                                            className: "text-gray-500 dark:text-gray-400",
                                                             children: "Resolution:",
                                                         }),
                                                         " ",
@@ -2946,7 +3006,7 @@ function BandwidthCalculator() {
                                                 _jsxs("p", {
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-500",
+                                                            className: "text-gray-500 dark:text-gray-400",
                                                             children: "Total Pixels:",
                                                         }),
                                                         " ",
@@ -2956,7 +3016,7 @@ function BandwidthCalculator() {
                                                 _jsxs("p", {
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-500",
+                                                            className: "text-gray-500 dark:text-gray-400",
                                                             children: "Frame Rate:",
                                                         }),
                                                         " ",
@@ -2966,7 +3026,7 @@ function BandwidthCalculator() {
                                                 _jsxs("p", {
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-500",
+                                                            className: "text-gray-500 dark:text-gray-400",
                                                             children: "Pixels/Second:",
                                                         }),
                                                         " ",
@@ -2983,7 +3043,7 @@ function BandwidthCalculator() {
                                                 _jsxs("p", {
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-500",
+                                                            className: "text-gray-500 dark:text-gray-400",
                                                             children: "Color Depth:",
                                                         }),
                                                         " ",
@@ -2993,7 +3053,7 @@ function BandwidthCalculator() {
                                                 _jsxs("p", {
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-500",
+                                                            className: "text-gray-500 dark:text-gray-400",
                                                             children: "Chroma Subsampling:",
                                                         }),
                                                         " ",
@@ -3003,7 +3063,7 @@ function BandwidthCalculator() {
                                                 _jsxs("p", {
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-500",
+                                                            className: "text-gray-500 dark:text-gray-400",
                                                             children: "Bits per Pixel:",
                                                         }),
                                                         " ",
@@ -3013,7 +3073,7 @@ function BandwidthCalculator() {
                                                 _jsxs("p", {
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-500",
+                                                            className: "text-gray-500 dark:text-gray-400",
                                                             children: "Network Overhead:",
                                                         }),
                                                         " ",
@@ -3025,10 +3085,10 @@ function BandwidthCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "mt-4 pt-4 border-t border-gray-200",
+                                    className: "mt-4 pt-4 border-t border-gray-200 dark:border-gray-700",
                                     children: [
                                         _jsxs("p", {
-                                            className: "text-xs text-gray-600 font-mono",
+                                            className: "text-xs text-gray-600 dark:text-gray-400 font-mono",
                                             children: [
                                                 "Raw: ",
                                                 s.split("x")[0],
@@ -3044,7 +3104,7 @@ function BandwidthCalculator() {
                                         }),
                                         c > 1 &&
                                             _jsxs("p", {
-                                                className: "text-xs text-gray-600 font-mono mt-1",
+                                                className: "text-xs text-gray-600 dark:text-gray-400 font-mono mt-1",
                                                 children: [
                                                     "Compressed: ",
                                                     g.rawBitrateMbps,
@@ -3059,10 +3119,10 @@ function BandwidthCalculator() {
                             ],
                         }),
                         _jsxs("div", {
-                            className: "p-4 bg-yellow-50 rounded-lg border border-yellow-200",
+                            className: "p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800",
                             children: [
                                 _jsx("h3", {
-                                    className: "font-semibold text-yellow-800 mb-2",
+                                    className: "font-semibold text-yellow-800 dark:text-yellow-200 mb-2",
                                     children: "Chroma Subsampling Reference (AVIXA)",
                                 }),
                                 _jsx("div", {
@@ -3349,7 +3409,7 @@ function ConduitCalculator() {
         F = (e) => {
             const t = {
                 "High Risk": "bg-red-600 text-white",
-                Borderline: "bg-yellow-500 text-white",
+                Borderline: "bg-yellow-50 dark:bg-yellow-900/200 text-white",
                 "Low Risk": "bg-green-600 text-white",
                 "N/A": "bg-gray-400 text-white",
             };
@@ -3362,14 +3422,14 @@ function ConduitCalculator() {
                 className: "flex items-center justify-between mb-4 sm:mb-6",
                 children: [
                     _jsx("h1", {
-                        className: "text-2xl sm:text-3xl font-bold text-gray-900",
+                        className: "text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100",
                         children: "Cable Conduit Capacity Calculator",
                     }),
                     (i || b.length > 0) &&
                         _jsx("button", {
                             onClick: () => p(!0),
                             className:
-                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm",
+                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm dark:shadow-gray-950/10",
                             children: "⟲ Reset Tool",
                         }),
                 ],
@@ -3397,11 +3457,11 @@ function ConduitCalculator() {
                 onCancel: () => p(!1),
             }),
             _jsx("div", {
-                className: "bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200",
+                className: "bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6 border border-gray-200 dark:border-gray-700",
                 children: _jsxs("p", {
-                    className: "text-sm text-gray-600",
+                    className: "text-sm text-gray-600 dark:text-gray-400",
                     children: [
-                        _jsx("span", { className: "font-semibold text-gray-700", children: "What this tool does:" }),
+                        _jsx("span", { className: "font-semibold text-gray-700 dark:text-gray-300", children: "What this tool does:" }),
                         " Determines the correct EMT conduit size for your cable runs based on NEC Chapter 9 fill requirements. Enter the number of cables and their outer diameter to get the recommended conduit size, fill percentage, and JAM ratio risk assessment for cable pulls with 3+ conductors.",
                     ],
                 }),
@@ -3414,7 +3474,7 @@ function ConduitCalculator() {
                         onClick: () => u("single"),
                         className:
                             "flex-1 py-3 px-4 rounded-lg font-medium transition-colors cursor-pointer " +
-                            ("single" === x ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"),
+                            ("single" === x ? "bg-blue-600 text-white" : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:bg-gray-700"),
                         children: "📏 Single Cable Type",
                     }),
                     _jsx("button", {
@@ -3422,34 +3482,34 @@ function ConduitCalculator() {
                         onClick: () => u("mixed"),
                         className:
                             "flex-1 py-3 px-4 rounded-lg font-medium transition-colors cursor-pointer " +
-                            ("mixed" === x ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"),
+                            ("mixed" === x ? "bg-blue-600 text-white" : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:bg-gray-700"),
                         children: "🔀 Multiple Cable Types",
                     }),
                 ],
             }),
             "mixed" === x &&
                 _jsxs("div", {
-                    className: "bg-white rounded-xl shadow-md p-6 mb-6 border",
+                    className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-6 mb-6 border",
                     children: [
                         _jsx("h2", {
                             className: "text-lg font-semibold text-gray-800 mb-4",
                             children: "Mixed Cable Configuration",
                         }),
                         _jsx("p", {
-                            className: "text-sm text-gray-600 mb-4",
+                            className: "text-sm text-gray-600 dark:text-gray-400 mb-4",
                             children: "Select cable types from the NEC/AVIXA database or add custom cables:",
                         }),
                         _jsxs("div", {
-                            className: "bg-blue-50 p-4 rounded-lg border border-blue-200 mb-4",
+                            className: "bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800 mb-4",
                             children: [
-                                _jsx("h3", { className: "font-semibold text-blue-800 mb-3", children: "Add Cable" }),
+                                _jsx("h3", { className: "font-semibold text-blue-800 dark:text-blue-200 mb-3", children: "Add Cable" }),
                                 _jsxs("div", {
                                     className: "grid sm:grid-cols-3 gap-4",
                                     children: [
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "Cable Type",
                                                 }),
                                                 _jsxs("select", {
@@ -3610,7 +3670,7 @@ function ConduitCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "Quantity",
                                                 }),
                                                 _jsx("input", {
@@ -3671,7 +3731,7 @@ function ConduitCalculator() {
                                                     "w-full py-2 rounded-lg font-medium cursor-pointer " +
                                                     (y
                                                         ? "bg-blue-600 text-white hover:bg-blue-700"
-                                                        : "bg-gray-300 text-gray-500 cursor-not-allowed"),
+                                                        : "bg-gray-300 text-gray-500 dark:text-gray-400 cursor-not-allowed"),
                                                 children: "+ Add Cable",
                                             }),
                                         }),
@@ -3679,10 +3739,10 @@ function ConduitCalculator() {
                                 }),
                                 "custom" === y &&
                                     _jsxs("div", {
-                                        className: "mt-4 p-3 bg-white rounded-lg border",
+                                        className: "mt-4 p-3 bg-white dark:bg-gray-800 rounded-lg border",
                                         children: [
                                             _jsx("h4", {
-                                                className: "font-medium text-gray-700 mb-2",
+                                                className: "font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                 children: "Custom Cable Details",
                                             }),
                                             _jsxs("div", {
@@ -3691,7 +3751,7 @@ function ConduitCalculator() {
                                                     _jsxs("div", {
                                                         children: [
                                                             _jsx("label", {
-                                                                className: "block text-xs text-gray-600 mb-1",
+                                                                className: "block text-xs text-gray-600 dark:text-gray-400 mb-1",
                                                                 children: "Cable Name",
                                                             }),
                                                             _jsx("input", {
@@ -3706,7 +3766,7 @@ function ConduitCalculator() {
                                                     _jsxs("div", {
                                                         children: [
                                                             _jsx("label", {
-                                                                className: "block text-xs text-gray-600 mb-1",
+                                                                className: "block text-xs text-gray-600 dark:text-gray-400 mb-1",
                                                                 children: "Outer Diameter",
                                                             }),
                                                             _jsx("input", {
@@ -3727,7 +3787,7 @@ function ConduitCalculator() {
                                                     _jsxs("div", {
                                                         children: [
                                                             _jsx("label", {
-                                                                className: "block text-xs text-gray-600 mb-1",
+                                                                className: "block text-xs text-gray-600 dark:text-gray-400 mb-1",
                                                                 children: "Unit",
                                                             }),
                                                             _jsxs("select", {
@@ -3752,7 +3812,7 @@ function ConduitCalculator() {
                                 className: "mb-4",
                                 children: [
                                     _jsx("h3", {
-                                        className: "font-semibold text-gray-700 mb-2",
+                                        className: "font-semibold text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Selected Cables",
                                     }),
                                     _jsx("div", {
@@ -3762,7 +3822,7 @@ function ConduitCalculator() {
                                                 "div",
                                                 {
                                                     className:
-                                                        "flex items-center justify-between bg-gray-50 p-3 rounded-lg border",
+                                                        "flex items-center justify-between bg-gray-50 dark:bg-gray-900/50 p-3 rounded-lg border",
                                                     children: [
                                                         _jsxs("div", {
                                                             className: "flex-1",
@@ -3772,7 +3832,7 @@ function ConduitCalculator() {
                                                                     children: e.type,
                                                                 }),
                                                                 _jsxs("span", {
-                                                                    className: "text-gray-500 text-sm ml-2",
+                                                                    className: "text-gray-500 dark:text-gray-400 text-sm ml-2",
                                                                     children: ["(", e.diameter.toFixed(3), '" OD)'],
                                                                 }),
                                                             ],
@@ -3806,7 +3866,7 @@ function ConduitCalculator() {
                                                                         );
                                                                         var e;
                                                                     },
-                                                                    className: "text-red-600 hover:text-red-800 px-2",
+                                                                    className: "text-red-600 hover:text-red-800 dark:text-red-200 px-2",
                                                                     children: "✕",
                                                                 }),
                                                             ],
@@ -3833,7 +3893,7 @@ function ConduitCalculator() {
                                 "w-full py-3 rounded-lg font-semibold cursor-pointer " +
                                 (b.length > 0
                                     ? "bg-blue-600 hover:bg-blue-700 text-white"
-                                    : "bg-gray-300 text-gray-500 cursor-not-allowed"),
+                                    : "bg-gray-300 text-gray-500 dark:text-gray-400 cursor-not-allowed"),
                             children: "Calculate Conduit Size",
                         }),
                     ],
@@ -3844,14 +3904,14 @@ function ConduitCalculator() {
                     children: [
                         R.exceedsMaximum &&
                             _jsxs("div", {
-                                className: "bg-red-50 rounded-xl shadow-md p-6 mb-6 border-2 border-red-300",
+                                className: "bg-red-50 dark:bg-red-900/20 rounded-xl shadow-md dark:shadow-gray-950/20 p-6 mb-6 border-2 border-red-300",
                                 children: [
                                     _jsxs("div", {
                                         className: "flex items-center gap-2 mb-3",
                                         children: [
                                             _jsx("span", { className: "text-2xl", children: "⚠️" }),
                                             _jsx("h2", {
-                                                className: "text-xl font-bold text-red-800",
+                                                className: "text-xl font-bold text-red-800 dark:text-red-200",
                                                 children: "Exceeds Maximum Single Conduit Capacity",
                                             }),
                                         ],
@@ -3867,7 +3927,7 @@ function ConduitCalculator() {
                                             className: "mb-4",
                                             children: [
                                                 _jsx("h3", {
-                                                    className: "font-semibold text-red-800 mb-2",
+                                                    className: "font-semibold text-red-800 dark:text-red-200 mb-2",
                                                     children: "📋 Multi-Conduit Recommendations:",
                                                 }),
                                                 _jsx("div", {
@@ -3879,8 +3939,8 @@ function ConduitCalculator() {
                                                                 className:
                                                                     "p-3 rounded-lg border-2 " +
                                                                     (0 === t
-                                                                        ? "bg-green-50 border-green-400"
-                                                                        : "bg-white border-gray-200"),
+                                                                        ? "bg-green-50 dark:bg-green-900/20 border-green-400"
+                                                                        : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"),
                                                                 children: [
                                                                     0 === t &&
                                                                         _jsx("div", {
@@ -3898,7 +3958,7 @@ function ConduitCalculator() {
                                                                         ],
                                                                     }),
                                                                     _jsxs("div", {
-                                                                        className: "text-sm text-gray-600 space-y-1",
+                                                                        className: "text-sm text-gray-600 dark:text-gray-400 space-y-1",
                                                                         children: [
                                                                             _jsxs("div", {
                                                                                 children: [
@@ -3937,14 +3997,14 @@ function ConduitCalculator() {
                                     R.bestPractices &&
                                         R.bestPractices.length > 0 &&
                                         _jsxs("div", {
-                                            className: "mt-4 p-3 bg-white rounded-lg",
+                                            className: "mt-4 p-3 bg-white dark:bg-gray-800 rounded-lg",
                                             children: [
                                                 _jsx("h4", {
                                                     className: "font-semibold text-gray-800 mb-2",
                                                     children: "💡 Best Practices:",
                                                 }),
                                                 _jsx("ul", {
-                                                    className: "text-sm text-gray-600 space-y-1",
+                                                    className: "text-sm text-gray-600 dark:text-gray-400 space-y-1",
                                                     children: R.bestPractices.map((e, t) =>
                                                         _jsxs(
                                                             "li",
@@ -3967,7 +4027,7 @@ function ConduitCalculator() {
                                 ],
                             }),
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-6 mb-6 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-6 mb-6 border",
                             children: [
                                 _jsx("h2", {
                                     className: "text-xl font-semibold text-gray-800 mb-4",
@@ -3980,11 +4040,11 @@ function ConduitCalculator() {
                                     children: [
                                         _jsxs("div", {
                                             className: R.exceedsMaximum
-                                                ? "bg-red-50 p-5 rounded-lg border-2 border-red-200 text-center"
-                                                : "bg-blue-50 p-5 rounded-lg border-2 border-blue-200 text-center",
+                                                ? "bg-red-50 dark:bg-red-900/20 p-5 rounded-lg border-2 border-red-200 dark:border-red-800 text-center"
+                                                : "bg-blue-50 dark:bg-blue-900/20 p-5 rounded-lg border-2 border-blue-200 dark:border-blue-800 text-center",
                                             children: [
                                                 _jsx("div", {
-                                                    className: "text-sm text-gray-600",
+                                                    className: "text-sm text-gray-600 dark:text-gray-400",
                                                     children: R.exceedsMaximum
                                                         ? "Largest Conduit"
                                                         : "Recommended Conduit",
@@ -3996,18 +4056,18 @@ function ConduitCalculator() {
                                                     children: R.recommendedConduit.trade,
                                                 }),
                                                 _jsxs("div", {
-                                                    className: "text-xs text-gray-500",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                     children: ["EMT - ID: ", R.recommendedConduit.id, '"'],
                                                 }),
                                             ],
                                         }),
                                         _jsxs("div", {
                                             className: R.exceedsMaximum
-                                                ? "bg-red-50 p-5 rounded-lg border-2 border-red-200 text-center"
-                                                : "bg-green-50 p-5 rounded-lg border-2 border-green-200 text-center",
+                                                ? "bg-red-50 dark:bg-red-900/20 p-5 rounded-lg border-2 border-red-200 dark:border-red-800 text-center"
+                                                : "bg-green-50 dark:bg-green-900/20 p-5 rounded-lg border-2 border-green-200 dark:border-green-800 text-center",
                                             children: [
                                                 _jsx("div", {
-                                                    className: "text-sm text-gray-600",
+                                                    className: "text-sm text-gray-600 dark:text-gray-400",
                                                     children: "Actual Fill",
                                                 }),
                                                 _jsxs("div", {
@@ -4019,7 +4079,7 @@ function ConduitCalculator() {
                                                     children: [R.recommendedConduit.actualFillPercent, "%"],
                                                 }),
                                                 _jsxs("div", {
-                                                    className: "text-xs text-gray-500",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                     children: [
                                                         R.exceedsMaximum ? "❌ Exceeds " : "NEC limit: ",
                                                         R.fillPercentAllowed,
@@ -4030,10 +4090,10 @@ function ConduitCalculator() {
                                         }),
                                         _jsxs("div", {
                                             className:
-                                                "bg-purple-50 p-5 rounded-lg border-2 border-purple-200 text-center",
+                                                "bg-purple-50 dark:bg-purple-900/20 p-5 rounded-lg border-2 border-purple-200 dark:border-purple-800 text-center",
                                             children: [
                                                 _jsx("div", {
-                                                    className: "text-sm text-gray-600",
+                                                    className: "text-sm text-gray-600 dark:text-gray-400",
                                                     children: "Total Cables",
                                                 }),
                                                 _jsx("div", {
@@ -4041,7 +4101,7 @@ function ConduitCalculator() {
                                                     children: R.totalCables,
                                                 }),
                                                 _jsxs("div", {
-                                                    className: "text-xs text-gray-500",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                     children: [R.cableBreakdown.length, " type(s)"],
                                                 }),
                                             ],
@@ -4052,7 +4112,7 @@ function ConduitCalculator() {
                                     className: "mb-4",
                                     children: [
                                         _jsx("h3", {
-                                            className: "font-semibold text-gray-700 mb-2",
+                                            className: "font-semibold text-gray-700 dark:text-gray-300 mb-2",
                                             children: "Cable Breakdown",
                                         }),
                                         _jsx("div", {
@@ -4062,7 +4122,7 @@ function ConduitCalculator() {
                                                 children: [
                                                     _jsx("thead", {
                                                         children: _jsxs("tr", {
-                                                            className: "bg-gray-50",
+                                                            className: "bg-gray-50 dark:bg-gray-900/50",
                                                             children: [
                                                                 _jsx("th", {
                                                                     className: "px-3 py-2 text-left",
@@ -4121,14 +4181,14 @@ function ConduitCalculator() {
                         }),
                         !R.exceedsMaximum &&
                             _jsxs("div", {
-                                className: "bg-white rounded-xl shadow-md p-4 sm:p-6 mb-6 border",
+                                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 mb-6 border",
                                 children: [
                                     _jsx("h2", {
                                         className: "text-lg sm:text-xl font-semibold text-gray-800 mb-2",
                                         children: "Adjust Conduit Size",
                                     }),
                                     _jsx("p", {
-                                        className: "text-sm text-gray-600 mb-4",
+                                        className: "text-sm text-gray-600 dark:text-gray-400 mb-4",
                                         children:
                                             "Slide to explore different conduit sizes and see how they affect fill percentage and JAM risk per NEC and AVIXA standards.",
                                     }),
@@ -4139,7 +4199,7 @@ function ConduitCalculator() {
                                                 className: "flex justify-between items-center mb-2",
                                                 children: [
                                                     _jsxs("label", {
-                                                        className: "text-sm font-medium text-gray-700",
+                                                        className: "text-sm font-medium text-gray-700 dark:text-gray-300",
                                                         children: [
                                                             "Selected Conduit: ",
                                                             _jsx("span", {
@@ -4181,11 +4241,11 @@ function ConduitCalculator() {
                                                 value: A,
                                                 onChange: (e) => D(parseInt(e.target.value)),
                                                 className:
-                                                    "w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600",
+                                                    "w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600",
                                             }),
                                             _jsx("div", {
                                                 className:
-                                                    "flex justify-between text-xs text-gray-500 mt-1 overflow-x-auto",
+                                                    "flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1 overflow-x-auto",
                                                 children: R.conduitOptions.map((e, t) =>
                                                     _jsx(
                                                         "span",
@@ -4201,7 +4261,7 @@ function ConduitCalculator() {
                                                 className: "flex flex-wrap gap-2 mt-4",
                                                 children: [
                                                     _jsx("span", {
-                                                        className: "text-xs text-gray-500 self-center",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400 self-center",
                                                         children: "Quick Select:",
                                                     }),
                                                     R.conduitOptions
@@ -4217,8 +4277,8 @@ function ConduitCalculator() {
                                                                         (A === t
                                                                             ? "bg-blue-600 text-white border-blue-600"
                                                                             : R.recommendedConduit.trade === e.trade
-                                                                              ? "bg-blue-50 text-blue-700 border-blue-300 hover:bg-blue-100"
-                                                                              : "bg-white text-gray-600 border-gray-300 hover:bg-gray-50"),
+                                                                              ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 border-blue-300 hover:bg-blue-100"
+                                                                              : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:bg-gray-900/50"),
                                                                     children: [
                                                                         e.trade,
                                                                         R.recommendedConduit.trade === e.trade &&
@@ -4240,20 +4300,20 @@ function ConduitCalculator() {
                                             "p-4 rounded-lg border-2 " +
                                             (R.conduitOptions[A]?.compliant
                                                 ? "High Risk" === R.conduitOptions[A]?.jamStatus
-                                                    ? "bg-yellow-50 border-yellow-300"
+                                                    ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-300"
                                                     : "Borderline" === R.conduitOptions[A]?.jamStatus
-                                                      ? "bg-amber-50 border-amber-300"
-                                                      : "bg-green-50 border-green-300"
-                                                : "bg-red-50 border-red-300"),
+                                                      ? "bg-amber-50 dark:bg-amber-900/20 border-amber-300"
+                                                      : "bg-green-50 dark:bg-green-900/20 border-green-300"
+                                                : "bg-red-50 dark:bg-red-900/20 border-red-300"),
                                         children: [
                                             _jsxs("div", {
                                                 className: "grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4",
                                                 children: [
                                                     _jsxs("div", {
-                                                        className: "text-center p-3 bg-white rounded-lg border",
+                                                        className: "text-center p-3 bg-white dark:bg-gray-800 rounded-lg border",
                                                         children: [
                                                             _jsx("div", {
-                                                                className: "text-xs text-gray-500 font-medium",
+                                                                className: "text-xs text-gray-500 dark:text-gray-400 font-medium",
                                                                 children: "Conduit",
                                                             }),
                                                             _jsx("div", {
@@ -4270,11 +4330,11 @@ function ConduitCalculator() {
                                                         className:
                                                             "text-center p-3 rounded-lg border " +
                                                             (R.conduitOptions[A]?.compliant
-                                                                ? "bg-white"
+                                                                ? "bg-white dark:bg-gray-800"
                                                                 : "bg-red-100 border-red-300"),
                                                         children: [
                                                             _jsx("div", {
-                                                                className: "text-xs text-gray-500 font-medium",
+                                                                className: "text-xs text-gray-500 dark:text-gray-400 font-medium",
                                                                 children: "Fill %",
                                                             }),
                                                             _jsxs("div", {
@@ -4292,10 +4352,10 @@ function ConduitCalculator() {
                                                         ],
                                                     }),
                                                     _jsxs("div", {
-                                                        className: "text-center p-3 bg-white rounded-lg border",
+                                                        className: "text-center p-3 bg-white dark:bg-gray-800 rounded-lg border",
                                                         children: [
                                                             _jsx("div", {
-                                                                className: "text-xs text-gray-500 font-medium",
+                                                                className: "text-xs text-gray-500 dark:text-gray-400 font-medium",
                                                                 children: "JAM Ratio",
                                                             }),
                                                             _jsx("div", {
@@ -4323,10 +4383,10 @@ function ConduitCalculator() {
                                                                   ? "bg-yellow-100 border-yellow-300"
                                                                   : "Low Risk" === R.conduitOptions[A]?.jamStatus
                                                                     ? "bg-green-100 border-green-300"
-                                                                    : "bg-gray-100 border-gray-300"),
+                                                                    : "bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600"),
                                                         children: [
                                                             _jsx("div", {
-                                                                className: "text-xs text-gray-500 font-medium",
+                                                                className: "text-xs text-gray-500 dark:text-gray-400 font-medium",
                                                                 children: "JAM Risk",
                                                             }),
                                                             _jsx("div", {
@@ -4340,7 +4400,7 @@ function ConduitCalculator() {
                                                                           : "Low Risk" ===
                                                                               R.conduitOptions[A]?.jamStatus
                                                                             ? "text-green-600"
-                                                                            : "text-gray-600"),
+                                                                            : "text-gray-600 dark:text-gray-400"),
                                                                 children: R.conduitOptions[A]?.jamStatus || "N/A",
                                                             }),
                                                             _jsx("div", {
@@ -4364,13 +4424,13 @@ function ConduitCalculator() {
                                                 className: "space-y-2",
                                                 children: [
                                                     _jsx("h4", {
-                                                        className: "font-semibold text-gray-700 text-sm",
+                                                        className: "font-semibold text-gray-700 dark:text-gray-300 text-sm",
                                                         children: "Analysis & Recommendations:",
                                                     }),
                                                     !R.conduitOptions[A]?.compliant &&
                                                         _jsx("div", {
                                                             className:
-                                                                "p-3 rounded-lg border text-sm bg-red-100 border-red-200",
+                                                                "p-3 rounded-lg border text-sm bg-red-100 border-red-200 dark:border-red-800",
                                                             children: _jsxs("div", {
                                                                 className: "flex gap-2",
                                                                 children: [
@@ -4378,7 +4438,7 @@ function ConduitCalculator() {
                                                                     _jsxs("div", {
                                                                         children: [
                                                                             _jsx("span", {
-                                                                                className: "font-semibold text-red-800",
+                                                                                className: "font-semibold text-red-800 dark:text-red-200",
                                                                                 children: "NEC Violation: ",
                                                                             }),
                                                                             _jsxs("span", {
@@ -4399,7 +4459,7 @@ function ConduitCalculator() {
                                                         "High Risk" === R.conduitOptions[A]?.jamStatus &&
                                                         _jsx("div", {
                                                             className:
-                                                                "p-3 rounded-lg border text-sm bg-red-100 border-red-200",
+                                                                "p-3 rounded-lg border text-sm bg-red-100 border-red-200 dark:border-red-800",
                                                             children: _jsxs("div", {
                                                                 className: "flex gap-2",
                                                                 children: [
@@ -4407,7 +4467,7 @@ function ConduitCalculator() {
                                                                     _jsxs("div", {
                                                                         children: [
                                                                             _jsx("span", {
-                                                                                className: "font-semibold text-red-800",
+                                                                                className: "font-semibold text-red-800 dark:text-red-200",
                                                                                 children: "High JAM Risk (AVIXA): ",
                                                                             }),
                                                                             _jsxs("span", {
@@ -4428,7 +4488,7 @@ function ConduitCalculator() {
                                                         "Borderline" === R.conduitOptions[A]?.jamStatus &&
                                                         _jsx("div", {
                                                             className:
-                                                                "p-3 rounded-lg border text-sm bg-yellow-100 border-yellow-200",
+                                                                "p-3 rounded-lg border text-sm bg-yellow-100 border-yellow-200 dark:border-yellow-800",
                                                             children: _jsxs("div", {
                                                                 className: "flex gap-2",
                                                                 children: [
@@ -4437,7 +4497,7 @@ function ConduitCalculator() {
                                                                         children: [
                                                                             _jsx("span", {
                                                                                 className:
-                                                                                    "font-semibold text-yellow-800",
+                                                                                    "font-semibold text-yellow-800 dark:text-yellow-200",
                                                                                 children:
                                                                                     "Borderline JAM Risk (AVIXA): ",
                                                                             }),
@@ -4460,7 +4520,7 @@ function ConduitCalculator() {
                                                             "High Risk" === R.conduitOptions[A]?.jamStatus) &&
                                                         _jsx("div", {
                                                             className:
-                                                                "p-3 rounded-lg border text-sm bg-amber-100 border-amber-200",
+                                                                "p-3 rounded-lg border text-sm bg-amber-100 border-amber-200 dark:border-amber-800",
                                                             children: _jsxs("div", {
                                                                 className: "flex gap-2",
                                                                 children: [
@@ -4469,7 +4529,7 @@ function ConduitCalculator() {
                                                                         children: [
                                                                             _jsx("span", {
                                                                                 className:
-                                                                                    "font-semibold text-amber-800",
+                                                                                    "font-semibold text-amber-800 dark:text-amber-200",
                                                                                 children: "Recommendation: ",
                                                                             }),
                                                                             _jsx("span", {
@@ -4487,7 +4547,7 @@ function ConduitCalculator() {
                                                             R.fillPercentAllowed - 5 &&
                                                         _jsx("div", {
                                                             className:
-                                                                "p-3 rounded-lg border text-sm bg-blue-50 border-blue-200",
+                                                                "p-3 rounded-lg border text-sm bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800",
                                                             children: _jsxs("div", {
                                                                 className: "flex gap-2",
                                                                 children: [
@@ -4496,7 +4556,7 @@ function ConduitCalculator() {
                                                                         children: [
                                                                             _jsx("span", {
                                                                                 className:
-                                                                                    "font-semibold text-blue-800",
+                                                                                    "font-semibold text-blue-800 dark:text-blue-200",
                                                                                 children: "Near Maximum Fill: ",
                                                                             }),
                                                                             _jsxs("span", {
@@ -4521,7 +4581,7 @@ function ConduitCalculator() {
                                                             R.fillPercentAllowed - 5 &&
                                                         _jsx("div", {
                                                             className:
-                                                                "p-3 rounded-lg border text-sm bg-green-100 border-green-200",
+                                                                "p-3 rounded-lg border text-sm bg-green-100 border-green-200 dark:border-green-800",
                                                             children: _jsxs("div", {
                                                                 className: "flex gap-2",
                                                                 children: [
@@ -4530,7 +4590,7 @@ function ConduitCalculator() {
                                                                         children: [
                                                                             _jsx("span", {
                                                                                 className:
-                                                                                    "font-semibold text-green-800",
+                                                                                    "font-semibold text-green-800 dark:text-green-200",
                                                                                 children: "Good Selection: ",
                                                                             }),
                                                                             _jsx("span", {
@@ -4553,11 +4613,11 @@ function ConduitCalculator() {
                             R.totalCables >= 3 &&
                             "Low Risk" !== R.conduitOptions[A]?.jamStatus &&
                             _jsxs("div", {
-                                className: "bg-amber-50 rounded-xl shadow-md p-4 sm:p-6 mb-6 border border-amber-300",
+                                className: "bg-amber-50 dark:bg-amber-900/20 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 mb-6 border border-amber-300",
                                 children: [
                                     _jsxs("h2", {
                                         className:
-                                            "text-lg sm:text-xl font-semibold text-amber-800 mb-4 flex items-center gap-2",
+                                            "text-lg sm:text-xl font-semibold text-amber-800 dark:text-amber-200 mb-4 flex items-center gap-2",
                                         children: [_jsx("span", { children: "⚠️" }), " JAM Risk - Recommendations"],
                                     }),
                                     (() => {
@@ -4568,14 +4628,14 @@ function ConduitCalculator() {
                                             e &&
                                             _jsxs("div", {
                                                 className:
-                                                    "mb-4 p-3 sm:p-4 bg-white rounded-lg border border-amber-200",
+                                                    "mb-4 p-3 sm:p-4 bg-white dark:bg-gray-800 rounded-lg border border-amber-200 dark:border-amber-800",
                                                 children: [
                                                     _jsx("h3", {
                                                         className: "font-semibold text-amber-700 mb-2",
                                                         children: "Option 1: Use Larger Conduit",
                                                     }),
                                                     _jsxs("p", {
-                                                        className: "text-sm text-amber-800 mb-2",
+                                                        className: "text-sm text-amber-800 dark:text-amber-200 mb-2",
                                                         children: [
                                                             "Upgrade to ",
                                                             _jsx("strong", { children: e.trade }),
@@ -4598,10 +4658,10 @@ function ConduitCalculator() {
                                 ],
                             }),
                         _jsxs("div", {
-                            className: "bg-blue-50 rounded-xl p-4 sm:p-5 mb-6 border border-blue-200",
+                            className: "bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 sm:p-5 mb-6 border border-blue-200 dark:border-blue-800",
                             children: [
                                 _jsx("h2", {
-                                    className: "text-base sm:text-lg font-semibold text-blue-800 mb-2 sm:mb-3",
+                                    className: "text-base sm:text-lg font-semibold text-blue-800 dark:text-blue-200 mb-2 sm:mb-3",
                                     children: "AVIXA JAM Ratio Standard",
                                 }),
                                 _jsxs("p", {
@@ -4612,9 +4672,9 @@ function ConduitCalculator() {
                                     ],
                                 }),
                                 _jsx("div", {
-                                    className: "bg-white rounded-lg p-3 border border-blue-200 mb-3",
+                                    className: "bg-white dark:bg-gray-800 rounded-lg p-3 border border-blue-200 dark:border-blue-800 mb-3",
                                     children: _jsxs("p", {
-                                        className: "text-xs sm:text-sm font-mono text-blue-800 mb-1",
+                                        className: "text-xs sm:text-sm font-mono text-blue-800 dark:text-blue-200 mb-1",
                                         children: [
                                             _jsx("strong", { children: "Formula:" }),
                                             " JAM = Conduit ID ÷ Average Cable OD",
@@ -4625,7 +4685,7 @@ function ConduitCalculator() {
                                     className: "grid grid-cols-3 gap-2 sm:gap-3 text-xs",
                                     children: [
                                         _jsxs("div", {
-                                            className: "bg-red-50 p-2 rounded border border-red-200 text-center",
+                                            className: "bg-red-50 dark:bg-red-900/20 p-2 rounded border border-red-200 dark:border-red-800 text-center",
                                             children: [
                                                 _jsx("div", {
                                                     className: "font-bold text-red-700",
@@ -4635,7 +4695,7 @@ function ConduitCalculator() {
                                             ],
                                         }),
                                         _jsxs("div", {
-                                            className: "bg-yellow-50 p-2 rounded border border-yellow-200 text-center",
+                                            className: "bg-yellow-50 dark:bg-yellow-900/20 p-2 rounded border border-yellow-200 dark:border-yellow-800 text-center",
                                             children: [
                                                 _jsx("div", {
                                                     className: "font-bold text-yellow-700",
@@ -4645,7 +4705,7 @@ function ConduitCalculator() {
                                             ],
                                         }),
                                         _jsxs("div", {
-                                            className: "bg-green-50 p-2 rounded border border-green-200 text-center",
+                                            className: "bg-green-50 dark:bg-green-900/20 p-2 rounded border border-green-200 dark:border-green-800 text-center",
                                             children: [
                                                 _jsx("div", {
                                                     className: "font-bold text-green-700",
@@ -4662,10 +4722,10 @@ function ConduitCalculator() {
                 }),
             "single" === x &&
                 _jsxs("div", {
-                    className: "bg-blue-50 rounded-xl p-4 sm:p-5 mb-6 border border-blue-200",
+                    className: "bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 sm:p-5 mb-6 border border-blue-200 dark:border-blue-800",
                     children: [
                         _jsx("h2", {
-                            className: "text-base sm:text-lg font-semibold text-blue-800 mb-2 sm:mb-3",
+                            className: "text-base sm:text-lg font-semibold text-blue-800 dark:text-blue-200 mb-2 sm:mb-3",
                             children: "AVIXA JAM Ratio Standard",
                         }),
                         _jsxs("p", {
@@ -4676,9 +4736,9 @@ function ConduitCalculator() {
                             ],
                         }),
                         _jsx("div", {
-                            className: "bg-white rounded-lg p-3 border border-blue-200 mb-3",
+                            className: "bg-white dark:bg-gray-800 rounded-lg p-3 border border-blue-200 dark:border-blue-800 mb-3",
                             children: _jsxs("p", {
-                                className: "text-xs sm:text-sm font-mono text-blue-800 mb-1",
+                                className: "text-xs sm:text-sm font-mono text-blue-800 dark:text-blue-200 mb-1",
                                 children: [_jsx("strong", { children: "Formula:" }), " JAM = Conduit ID ÷ Cable OD"],
                             }),
                         }),
@@ -4686,21 +4746,21 @@ function ConduitCalculator() {
                             className: "grid grid-cols-3 gap-2 sm:gap-3 text-xs",
                             children: [
                                 _jsxs("div", {
-                                    className: "bg-red-50 p-2 rounded border border-red-200 text-center",
+                                    className: "bg-red-50 dark:bg-red-900/20 p-2 rounded border border-red-200 dark:border-red-800 text-center",
                                     children: [
                                         _jsx("div", { className: "font-bold text-red-700", children: "JAM < 2.8" }),
                                         _jsx("div", { className: "text-red-600", children: "High Risk" }),
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-yellow-50 p-2 rounded border border-yellow-200 text-center",
+                                    className: "bg-yellow-50 dark:bg-yellow-900/20 p-2 rounded border border-yellow-200 dark:border-yellow-800 text-center",
                                     children: [
                                         _jsx("div", { className: "font-bold text-yellow-700", children: "2.8 - 3.2" }),
                                         _jsx("div", { className: "text-yellow-600", children: "Borderline" }),
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-green-50 p-2 rounded border border-green-200 text-center",
+                                    className: "bg-green-50 dark:bg-green-900/20 p-2 rounded border border-green-200 dark:border-green-800 text-center",
                                     children: [
                                         _jsx("div", { className: "font-bold text-green-700", children: "JAM > 3.2" }),
                                         _jsx("div", { className: "text-green-600", children: "Low Risk" }),
@@ -4712,7 +4772,7 @@ function ConduitCalculator() {
                 }),
             "single" === x &&
                 _jsxs("div", {
-                    className: "bg-white rounded-xl shadow-md p-4 sm:p-8 mb-6 sm:mb-8 border",
+                    className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-8 mb-6 sm:mb-8 border",
                     children: [
                         _jsx("h2", {
                             className: "text-lg sm:text-xl font-semibold text-gray-800 mb-4",
@@ -4724,7 +4784,7 @@ function ConduitCalculator() {
                                 _jsxs("div", {
                                     children: [
                                         _jsx("label", {
-                                            className: "block text-sm font-medium text-gray-700 mb-2",
+                                            className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                             children: "Number of Cables",
                                         }),
                                         _jsxs("div", {
@@ -4744,7 +4804,7 @@ function ConduitCalculator() {
                                                         "w-20 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-center font-bold text-blue-600",
                                                 }),
                                                 _jsx("span", {
-                                                    className: "text-sm text-gray-500 self-center",
+                                                    className: "text-sm text-gray-500 dark:text-gray-400 self-center",
                                                     children: "cables",
                                                 }),
                                             ],
@@ -4756,7 +4816,7 @@ function ConduitCalculator() {
                                             value: Math.min(e, 24),
                                             onChange: (e) => t("" === e.target.value ? "" : parseFloat(e.target.value)),
                                             className:
-                                                "w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600",
+                                                "w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600",
                                         }),
                                         _jsxs("div", {
                                             className: "flex justify-between text-xs text-gray-400 mt-1",
@@ -4769,7 +4829,7 @@ function ConduitCalculator() {
                                             ],
                                         }),
                                         _jsx("p", {
-                                            className: "text-xs text-gray-500 mt-1",
+                                            className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                             children: "Use slider for quick select or type any number (1-100)",
                                         }),
                                     ],
@@ -4777,7 +4837,7 @@ function ConduitCalculator() {
                                 _jsxs("div", {
                                     children: [
                                         _jsx("label", {
-                                            className: "block text-sm font-medium text-gray-700 mb-2",
+                                            className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                             children: "Cable Outer Diameter",
                                         }),
                                         _jsxs("div", {
@@ -4799,7 +4859,7 @@ function ConduitCalculator() {
                                                         var t;
                                                     },
                                                     className:
-                                                        "px-2 sm:px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-gray-50",
+                                                        "px-2 sm:px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-gray-50 dark:bg-gray-900/50",
                                                     children: [
                                                         _jsx("option", { value: "in", children: "in" }),
                                                         _jsx("option", { value: "mm", children: "mm" }),
@@ -4808,7 +4868,7 @@ function ConduitCalculator() {
                                             ],
                                         }),
                                         _jsx("p", {
-                                            className: "text-xs text-gray-500 mt-1",
+                                            className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                             children: "Total outer diameter including jacket",
                                         }),
                                     ],
@@ -4817,7 +4877,7 @@ function ConduitCalculator() {
                                     className: "sm:col-span-2 lg:col-span-1",
                                     children: [
                                         _jsx("label", {
-                                            className: "block text-sm font-medium text-gray-700 mb-2",
+                                            className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                             children: "Common Cable Sizes",
                                         }),
                                         _jsx("div", {
@@ -4846,7 +4906,7 @@ function ConduitCalculator() {
                                                             "px-2 py-1 text-xs rounded border transition-colors cursor-pointer " +
                                                             (Math.abs(s - e.od) < 0.01
                                                                 ? "bg-blue-600 text-white border-blue-600"
-                                                                : "bg-white text-gray-600 border-gray-300 hover:bg-blue-50"),
+                                                                : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600 hover:bg-blue-50 dark:bg-blue-900/20"),
                                                         children: e.label,
                                                     },
                                                     e.label
@@ -4879,14 +4939,14 @@ function ConduitCalculator() {
                     children: [
                         i.exceedsMaximum &&
                             _jsxs("div", {
-                                className: "bg-red-50 rounded-xl shadow-md p-4 sm:p-6 border-2 border-red-300",
+                                className: "bg-red-50 dark:bg-red-900/20 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border-2 border-red-300",
                                 children: [
                                     _jsxs("div", {
                                         className: "flex items-center gap-2 mb-3",
                                         children: [
                                             _jsx("span", { className: "text-2xl", children: "⚠️" }),
                                             _jsx("h2", {
-                                                className: "text-lg sm:text-xl font-bold text-red-800",
+                                                className: "text-lg sm:text-xl font-bold text-red-800 dark:text-red-200",
                                                 children: "Exceeds Maximum Single Conduit Capacity",
                                             }),
                                         ],
@@ -4902,7 +4962,7 @@ function ConduitCalculator() {
                                             className: "mb-4",
                                             children: [
                                                 _jsx("h3", {
-                                                    className: "font-semibold text-red-800 mb-2",
+                                                    className: "font-semibold text-red-800 dark:text-red-200 mb-2",
                                                     children: "📋 Multi-Conduit Recommendations:",
                                                 }),
                                                 _jsx("div", {
@@ -4914,8 +4974,8 @@ function ConduitCalculator() {
                                                                 className:
                                                                     "p-3 rounded-lg border-2 " +
                                                                     (0 === t
-                                                                        ? "bg-green-50 border-green-400"
-                                                                        : "bg-white border-gray-200"),
+                                                                        ? "bg-green-50 dark:bg-green-900/20 border-green-400"
+                                                                        : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"),
                                                                 children: [
                                                                     0 === t &&
                                                                         _jsx("div", {
@@ -4933,7 +4993,7 @@ function ConduitCalculator() {
                                                                         ],
                                                                     }),
                                                                     _jsxs("div", {
-                                                                        className: "text-sm text-gray-600 space-y-1",
+                                                                        className: "text-sm text-gray-600 dark:text-gray-400 space-y-1",
                                                                         children: [
                                                                             _jsxs("div", {
                                                                                 children: [
@@ -4972,14 +5032,14 @@ function ConduitCalculator() {
                                     i.bestPractices &&
                                         i.bestPractices.length > 0 &&
                                         _jsxs("div", {
-                                            className: "mt-4 p-3 bg-white rounded-lg",
+                                            className: "mt-4 p-3 bg-white dark:bg-gray-800 rounded-lg",
                                             children: [
                                                 _jsx("h4", {
                                                     className: "font-semibold text-gray-800 mb-2",
                                                     children: "💡 Best Practices:",
                                                 }),
                                                 _jsx("ul", {
-                                                    className: "text-sm text-gray-600 space-y-1",
+                                                    className: "text-sm text-gray-600 dark:text-gray-400 space-y-1",
                                                     children: i.bestPractices.map((e, t) =>
                                                         _jsxs(
                                                             "li",
@@ -5002,7 +5062,7 @@ function ConduitCalculator() {
                                 ],
                             }),
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-4 sm:p-6 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border",
                             children: [
                                 _jsxs("div", {
                                     className: "mb-4",
@@ -5018,8 +5078,8 @@ function ConduitCalculator() {
                                     children: [
                                         _jsxs("div", {
                                             className: i.exceedsMaximum
-                                                ? "bg-red-50 p-4 sm:p-5 rounded-lg border-2 border-red-300"
-                                                : "bg-blue-50 p-4 sm:p-5 rounded-lg border-2 border-blue-300",
+                                                ? "bg-red-50 dark:bg-red-900/20 p-4 sm:p-5 rounded-lg border-2 border-red-300"
+                                                : "bg-blue-50 dark:bg-blue-900/20 p-4 sm:p-5 rounded-lg border-2 border-blue-300",
                                             children: [
                                                 _jsx("div", {
                                                     className: i.exceedsMaximum
@@ -5053,8 +5113,8 @@ function ConduitCalculator() {
                                         }),
                                         _jsxs("div", {
                                             className: i.exceedsMaximum
-                                                ? "bg-red-50 p-4 sm:p-5 rounded-lg border-2 border-red-300"
-                                                : "bg-green-50 p-4 sm:p-5 rounded-lg border-2 border-green-300",
+                                                ? "bg-red-50 dark:bg-red-900/20 p-4 sm:p-5 rounded-lg border-2 border-red-300"
+                                                : "bg-green-50 dark:bg-green-900/20 p-4 sm:p-5 rounded-lg border-2 border-green-300",
                                             children: [
                                                 _jsx("div", {
                                                     className: i.exceedsMaximum
@@ -5082,8 +5142,8 @@ function ConduitCalculator() {
                                         }),
                                         _jsxs("div", {
                                             className: i.exceedsMaximum
-                                                ? "bg-red-50 p-4 sm:p-5 rounded-lg border-2 border-red-300"
-                                                : "bg-purple-50 p-4 sm:p-5 rounded-lg border-2 border-purple-300",
+                                                ? "bg-red-50 dark:bg-red-900/20 p-4 sm:p-5 rounded-lg border-2 border-red-300"
+                                                : "bg-purple-50 dark:bg-purple-900/20 p-4 sm:p-5 rounded-lg border-2 border-purple-300",
                                             children: [
                                                 _jsx("div", {
                                                     className: i.exceedsMaximum
@@ -5114,13 +5174,13 @@ function ConduitCalculator() {
                                         }),
                                         _jsxs("div", {
                                             className: i.exceedsMaximum
-                                                ? "bg-red-50 p-4 sm:p-5 rounded-lg border-2 border-red-300"
+                                                ? "bg-red-50 dark:bg-red-900/20 p-4 sm:p-5 rounded-lg border-2 border-red-300"
                                                 : `p-4 sm:p-5 rounded-lg border-2 ${((e) => {
                                                       const t = {
-                                                          red: "bg-red-100 border-red-300 text-red-800",
-                                                          yellow: "bg-yellow-100 border-yellow-300 text-yellow-800",
-                                                          green: "bg-green-100 border-green-300 text-green-800",
-                                                          gray: "bg-gray-100 border-gray-300 text-gray-600",
+                                                          red: "bg-red-100 border-red-300 text-red-800 dark:text-red-200",
+                                                          yellow: "bg-yellow-100 border-yellow-300 text-yellow-800 dark:text-yellow-200",
+                                                          green: "bg-green-100 border-green-300 text-green-800 dark:text-green-200",
+                                                          gray: "bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400",
                                                       };
                                                       return t[e] || t.gray;
                                                   })(i.jamRiskColor)}`,
@@ -5156,13 +5216,13 @@ function ConduitCalculator() {
                                     ],
                                 }),
                                 _jsx("div", {
-                                    className: "p-3 sm:p-4 bg-gray-50 rounded-lg text-xs sm:text-sm",
+                                    className: "p-3 sm:p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg text-xs sm:text-sm",
                                     children: _jsxs("div", {
                                         className: "grid sm:grid-cols-3 gap-2 sm:gap-4",
                                         children: [
                                             _jsxs("div", {
                                                 children: [
-                                                    _jsx("span", { className: "text-gray-500", children: "Cables:" }),
+                                                    _jsx("span", { className: "text-gray-500 dark:text-gray-400", children: "Cables:" }),
                                                     " ",
                                                     _jsxs("strong", {
                                                         children: [i.cableQty, " × ", i.outerDiameter, " ", i.unit],
@@ -5172,7 +5232,7 @@ function ConduitCalculator() {
                                             _jsxs("div", {
                                                 children: [
                                                     _jsx("span", {
-                                                        className: "text-gray-500",
+                                                        className: "text-gray-500 dark:text-gray-400",
                                                         children: "Min ID Required:",
                                                     }),
                                                     " ",
@@ -5189,7 +5249,7 @@ function ConduitCalculator() {
                                             _jsxs("div", {
                                                 children: [
                                                     _jsx("span", {
-                                                        className: "text-gray-500",
+                                                        className: "text-gray-500 dark:text-gray-400",
                                                         children: "NEC Fill Rule:",
                                                     }),
                                                     " ",
@@ -5214,14 +5274,14 @@ function ConduitCalculator() {
                         }),
                         !i.exceedsMaximum &&
                             _jsxs("div", {
-                                className: "bg-white rounded-xl shadow-md p-4 sm:p-6 border",
+                                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border",
                                 children: [
                                     _jsx("h2", {
                                         className: "text-lg sm:text-xl font-semibold text-gray-800 mb-2",
                                         children: "Adjust Conduit Size",
                                     }),
                                     _jsx("p", {
-                                        className: "text-sm text-gray-600 mb-4",
+                                        className: "text-sm text-gray-600 dark:text-gray-400 mb-4",
                                         children:
                                             "Slide to explore different conduit sizes and see how they affect fill percentage and JAM risk per NEC and AVIXA standards.",
                                     }),
@@ -5232,7 +5292,7 @@ function ConduitCalculator() {
                                                 className: "flex justify-between items-center mb-2",
                                                 children: [
                                                     _jsxs("label", {
-                                                        className: "text-sm font-medium text-gray-700",
+                                                        className: "text-sm font-medium text-gray-700 dark:text-gray-300",
                                                         children: [
                                                             "Selected Conduit: ",
                                                             _jsx("span", {
@@ -5271,11 +5331,11 @@ function ConduitCalculator() {
                                                 value: null !== o ? o : 0,
                                                 onChange: (e) => E(parseInt(e.target.value)),
                                                 className:
-                                                    "w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600",
+                                                    "w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600",
                                             }),
                                             _jsx("div", {
                                                 className:
-                                                    "flex justify-between text-xs text-gray-500 mt-1 overflow-x-auto",
+                                                    "flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1 overflow-x-auto",
                                                 children: i._0xf639dc.map((e, t) =>
                                                     _jsx(
                                                         "span",
@@ -5291,7 +5351,7 @@ function ConduitCalculator() {
                                                 className: "flex flex-wrap gap-2 mt-4",
                                                 children: [
                                                     _jsx("span", {
-                                                        className: "text-xs text-gray-500 self-center",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400 self-center",
                                                         children: "Quick Select:",
                                                     }),
                                                     i._0xf639dc
@@ -5306,8 +5366,8 @@ function ConduitCalculator() {
                                                                         (o === t
                                                                             ? "bg-blue-600 text-white border-blue-600"
                                                                             : i._0xd93e1a?.trade === e.trade
-                                                                              ? "bg-blue-50 text-blue-700 border-blue-300 hover:bg-blue-100"
-                                                                              : "bg-white text-gray-600 border-gray-300 hover:bg-gray-50"),
+                                                                              ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 border-blue-300 hover:bg-blue-100"
+                                                                              : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:bg-gray-900/50"),
                                                                     children: [
                                                                         e.trade,
                                                                         i._0xd93e1a?.trade === e.trade &&
@@ -5329,21 +5389,21 @@ function ConduitCalculator() {
                                             className:
                                                 "p-4 rounded-lg border-2 " +
                                                 ("error" === c.status
-                                                    ? "bg-red-50 border-red-300"
+                                                    ? "bg-red-50 dark:bg-red-900/20 border-red-300"
                                                     : "warning" === c.status
-                                                      ? "bg-yellow-50 border-yellow-300"
+                                                      ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-300"
                                                       : "caution" === c.status
-                                                        ? "bg-amber-50 border-amber-300"
-                                                        : "bg-green-50 border-green-300"),
+                                                        ? "bg-amber-50 dark:bg-amber-900/20 border-amber-300"
+                                                        : "bg-green-50 dark:bg-green-900/20 border-green-300"),
                                             children: [
                                                 _jsxs("div", {
                                                     className: "grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4",
                                                     children: [
                                                         _jsxs("div", {
-                                                            className: "text-center p-3 bg-white rounded-lg border",
+                                                            className: "text-center p-3 bg-white dark:bg-gray-800 rounded-lg border",
                                                             children: [
                                                                 _jsx("div", {
-                                                                    className: "text-xs text-gray-500 font-medium",
+                                                                    className: "text-xs text-gray-500 dark:text-gray-400 font-medium",
                                                                     children: "Conduit",
                                                                 }),
                                                                 _jsx("div", {
@@ -5361,10 +5421,10 @@ function ConduitCalculator() {
                                                                 "text-center p-3 rounded-lg border " +
                                                                 (c.exceedsNEC
                                                                     ? "bg-red-100 border-red-300"
-                                                                    : "bg-white"),
+                                                                    : "bg-white dark:bg-gray-800"),
                                                             children: [
                                                                 _jsx("div", {
-                                                                    className: "text-xs text-gray-500 font-medium",
+                                                                    className: "text-xs text-gray-500 dark:text-gray-400 font-medium",
                                                                     children: "Fill %",
                                                                 }),
                                                                 _jsxs("div", {
@@ -5382,10 +5442,10 @@ function ConduitCalculator() {
                                                             ],
                                                         }),
                                                         _jsxs("div", {
-                                                            className: "text-center p-3 bg-white rounded-lg border",
+                                                            className: "text-center p-3 bg-white dark:bg-gray-800 rounded-lg border",
                                                             children: [
                                                                 _jsx("div", {
-                                                                    className: "text-xs text-gray-500 font-medium",
+                                                                    className: "text-xs text-gray-500 dark:text-gray-400 font-medium",
                                                                     children: "JAM Ratio",
                                                                 }),
                                                                 _jsx("div", {
@@ -5408,10 +5468,10 @@ function ConduitCalculator() {
                                                                       ? "bg-yellow-100 border-yellow-300"
                                                                       : "green" === c.jamRiskColor
                                                                         ? "bg-green-100 border-green-300"
-                                                                        : "bg-gray-100 border-gray-300"),
+                                                                        : "bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600"),
                                                             children: [
                                                                 _jsx("div", {
-                                                                    className: "text-xs text-gray-500 font-medium",
+                                                                    className: "text-xs text-gray-500 dark:text-gray-400 font-medium",
                                                                     children: "JAM Risk",
                                                                 }),
                                                                 _jsx("div", {
@@ -5423,7 +5483,7 @@ function ConduitCalculator() {
                                                                               ? "text-yellow-600"
                                                                               : "green" === c.jamRiskColor
                                                                                 ? "text-green-600"
-                                                                                : "text-gray-600"),
+                                                                                : "text-gray-600 dark:text-gray-400"),
                                                                     children: c.jamRisk,
                                                                 }),
                                                                 _jsx("div", {
@@ -5445,7 +5505,7 @@ function ConduitCalculator() {
                                                     className: "space-y-2",
                                                     children: [
                                                         _jsx("h4", {
-                                                            className: "font-semibold text-gray-700 text-sm",
+                                                            className: "font-semibold text-gray-700 dark:text-gray-300 text-sm",
                                                             children: "Analysis & Recommendations:",
                                                         }),
                                                         c.recommendations.map((e, t) =>
@@ -5455,14 +5515,14 @@ function ConduitCalculator() {
                                                                     className:
                                                                         "p-3 rounded-lg border text-sm " +
                                                                         ("error" === e.type
-                                                                            ? "bg-red-100 border-red-200"
+                                                                            ? "bg-red-100 border-red-200 dark:border-red-800"
                                                                             : "warning" === e.type
-                                                                              ? "bg-yellow-100 border-yellow-200"
+                                                                              ? "bg-yellow-100 border-yellow-200 dark:border-yellow-800"
                                                                               : "caution" === e.type
-                                                                                ? "bg-amber-100 border-amber-200"
+                                                                                ? "bg-amber-100 border-amber-200 dark:border-amber-800"
                                                                                 : "success" === e.type
-                                                                                  ? "bg-green-100 border-green-200"
-                                                                                  : "bg-blue-50 border-blue-200"),
+                                                                                  ? "bg-green-100 border-green-200 dark:border-green-800"
+                                                                                  : "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800"),
                                                                     children: _jsxs("div", {
                                                                         className: "flex gap-2",
                                                                         children: [
@@ -5473,15 +5533,15 @@ function ConduitCalculator() {
                                                                                         className:
                                                                                             "font-semibold " +
                                                                                             ("error" === e.type
-                                                                                                ? "text-red-800"
+                                                                                                ? "text-red-800 dark:text-red-200"
                                                                                                 : "warning" === e.type
-                                                                                                  ? "text-yellow-800"
+                                                                                                  ? "text-yellow-800 dark:text-yellow-200"
                                                                                                   : "caution" === e.type
-                                                                                                    ? "text-amber-800"
+                                                                                                    ? "text-amber-800 dark:text-amber-200"
                                                                                                     : "success" ===
                                                                                                         e.type
-                                                                                                      ? "text-green-800"
-                                                                                                      : "text-blue-800"),
+                                                                                                      ? "text-green-800 dark:text-green-200"
+                                                                                                      : "text-blue-800 dark:text-blue-200"),
                                                                                         children: [e.title, ": "],
                                                                                     }),
                                                                                     _jsx("span", {
@@ -5510,7 +5570,7 @@ function ConduitCalculator() {
                                                 }),
                                                 "minimum" !== c.comparison &&
                                                     _jsxs("div", {
-                                                        className: "mt-3 p-2 bg-white rounded text-xs text-gray-600",
+                                                        className: "mt-3 p-2 bg-white dark:bg-gray-800 rounded text-xs text-gray-600 dark:text-gray-400",
                                                         children: [
                                                             _jsx("strong", { children: "Note:" }),
                                                             " NEC minimum for ",
@@ -5535,23 +5595,23 @@ function ConduitCalculator() {
                             i.cableQty >= 3 &&
                             "Low Risk" !== i.jamRisk &&
                             _jsxs("div", {
-                                className: "bg-amber-50 rounded-xl shadow-md p-4 sm:p-6 border border-amber-300",
+                                className: "bg-amber-50 dark:bg-amber-900/20 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border border-amber-300",
                                 children: [
                                     _jsxs("h2", {
                                         className:
-                                            "text-lg sm:text-xl font-semibold text-amber-800 mb-4 flex items-center gap-2",
+                                            "text-lg sm:text-xl font-semibold text-amber-800 dark:text-amber-200 mb-4 flex items-center gap-2",
                                         children: [_jsx("span", { children: "⚠️" }), " JAM Risk - Recommendations"],
                                     }),
                                     i.safeJamConduit &&
                                         _jsxs("div", {
-                                            className: "mb-4 p-3 sm:p-4 bg-white rounded-lg border border-amber-200",
+                                            className: "mb-4 p-3 sm:p-4 bg-white dark:bg-gray-800 rounded-lg border border-amber-200 dark:border-amber-800",
                                             children: [
                                                 _jsx("h3", {
                                                     className: "font-semibold text-amber-700 mb-2",
                                                     children: "Option 1: Use Larger Conduit",
                                                 }),
                                                 _jsxs("p", {
-                                                    className: "text-sm text-amber-800 mb-2",
+                                                    className: "text-sm text-amber-800 dark:text-amber-200 mb-2",
                                                     children: [
                                                         "Upgrade to ",
                                                         _jsx("strong", { children: i.safeJamConduit.trade }),
@@ -5570,7 +5630,7 @@ function ConduitCalculator() {
                                         }),
                                     i.multiConduitOptions.length > 0 &&
                                         _jsxs("div", {
-                                            className: "p-3 sm:p-4 bg-white rounded-lg border border-amber-200",
+                                            className: "p-3 sm:p-4 bg-white dark:bg-gray-800 rounded-lg border border-amber-200 dark:border-amber-800",
                                             children: [
                                                 _jsx("h3", {
                                                     className: "font-semibold text-amber-700 mb-3",
@@ -5586,8 +5646,8 @@ function ConduitCalculator() {
                                                                 className:
                                                                     "p-3 rounded-lg border " +
                                                                     ("Low Risk" === e.jamRisk
-                                                                        ? "bg-green-50 border-green-200"
-                                                                        : "bg-yellow-50 border-yellow-200"),
+                                                                        ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800"
+                                                                        : "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800"),
                                                                 children: [
                                                                     _jsxs("div", {
                                                                         className: "font-semibold text-gray-800 mb-1",
@@ -5600,7 +5660,7 @@ function ConduitCalculator() {
                                                                     }),
                                                                     _jsxs("div", {
                                                                         className:
-                                                                            "text-xs sm:text-sm text-gray-600 space-y-1",
+                                                                            "text-xs sm:text-sm text-gray-600 dark:text-gray-400 space-y-1",
                                                                         children: [
                                                                             _jsxs("div", {
                                                                                 children: [
@@ -5648,11 +5708,11 @@ function ConduitCalculator() {
                             i.cableQty >= 3 &&
                             "Low Risk" === i.jamRisk &&
                             _jsxs("div", {
-                                className: "bg-green-50 rounded-xl shadow-md p-4 sm:p-6 border border-green-300",
+                                className: "bg-green-50 dark:bg-green-900/20 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border border-green-300",
                                 children: [
                                     _jsxs("h2", {
                                         className:
-                                            "text-lg sm:text-xl font-semibold text-green-800 mb-2 flex items-center gap-2",
+                                            "text-lg sm:text-xl font-semibold text-green-800 dark:text-green-200 mb-2 flex items-center gap-2",
                                         children: [_jsx("span", { children: "✅" }), " Safe Configuration"],
                                     }),
                                     _jsxs("p", {
@@ -5668,7 +5728,7 @@ function ConduitCalculator() {
                                 ],
                             }),
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-4 sm:p-6 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border",
                             children: [
                                 _jsx("h2", {
                                     className: "text-lg font-semibold text-gray-800 mb-4",
@@ -5682,17 +5742,17 @@ function ConduitCalculator() {
                                                 "p-3 rounded-lg border-2 text-center " +
                                                 (1 === i.cableQty
                                                     ? "bg-blue-100 border-blue-400"
-                                                    : "bg-gray-50 border-gray-200"),
+                                                    : "bg-gray-50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-700"),
                                             children: [
                                                 _jsx("div", {
-                                                    className: "font-bold text-gray-700",
+                                                    className: "font-bold text-gray-700 dark:text-gray-300",
                                                     children: "1 Cable",
                                                 }),
                                                 _jsx("div", {
                                                     className: "text-2xl font-bold text-blue-600",
                                                     children: "53%",
                                                 }),
-                                                _jsx("div", { className: "text-gray-500", children: "Max Fill" }),
+                                                _jsx("div", { className: "text-gray-500 dark:text-gray-400", children: "Max Fill" }),
                                             ],
                                         }),
                                         _jsxs("div", {
@@ -5700,17 +5760,17 @@ function ConduitCalculator() {
                                                 "p-3 rounded-lg border-2 text-center " +
                                                 (2 === i.cableQty
                                                     ? "bg-blue-100 border-blue-400"
-                                                    : "bg-gray-50 border-gray-200"),
+                                                    : "bg-gray-50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-700"),
                                             children: [
                                                 _jsx("div", {
-                                                    className: "font-bold text-gray-700",
+                                                    className: "font-bold text-gray-700 dark:text-gray-300",
                                                     children: "2 Cables",
                                                 }),
                                                 _jsx("div", {
                                                     className: "text-2xl font-bold text-blue-600",
                                                     children: "31%",
                                                 }),
-                                                _jsx("div", { className: "text-gray-500", children: "Max Fill" }),
+                                                _jsx("div", { className: "text-gray-500 dark:text-gray-400", children: "Max Fill" }),
                                             ],
                                         }),
                                         _jsxs("div", {
@@ -5718,17 +5778,17 @@ function ConduitCalculator() {
                                                 "p-3 rounded-lg border-2 text-center " +
                                                 (i.cableQty >= 3
                                                     ? "bg-blue-100 border-blue-400"
-                                                    : "bg-gray-50 border-gray-200"),
+                                                    : "bg-gray-50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-700"),
                                             children: [
                                                 _jsx("div", {
-                                                    className: "font-bold text-gray-700",
+                                                    className: "font-bold text-gray-700 dark:text-gray-300",
                                                     children: "3+ Cables",
                                                 }),
                                                 _jsx("div", {
                                                     className: "text-2xl font-bold text-blue-600",
                                                     children: "40%",
                                                 }),
-                                                _jsx("div", { className: "text-gray-500", children: "Max Fill" }),
+                                                _jsx("div", { className: "text-gray-500 dark:text-gray-400", children: "Max Fill" }),
                                             ],
                                         }),
                                     ],
@@ -5736,7 +5796,7 @@ function ConduitCalculator() {
                             ],
                         }),
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-4 sm:p-6 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border",
                             children: [
                                 _jsxs("h2", {
                                     className: "text-lg font-semibold text-gray-800 mb-4",
@@ -5763,7 +5823,7 @@ function ConduitCalculator() {
                                         children: [
                                             _jsx("thead", {
                                                 children: _jsxs("tr", {
-                                                    className: "bg-gray-100",
+                                                    className: "bg-gray-100 dark:bg-gray-700",
                                                     children: [
                                                         _jsx("th", {
                                                             className: "px-2 sm:px-3 py-2 text-left",
@@ -5814,13 +5874,13 @@ function ConduitCalculator() {
                                                                 : "Low Risk";
                                                     const x = l > (1 === i.cableQty ? 53 : 2 === i.cableQty ? 31 : 40),
                                                         u = i.exceedsMaximum
-                                                            ? "bg-red-50"
+                                                            ? "bg-red-50 dark:bg-red-900/20"
                                                             : o
-                                                              ? "bg-purple-50 border-purple-200"
+                                                              ? "bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800"
                                                               : n
-                                                                ? "bg-blue-50"
+                                                                ? "bg-blue-50 dark:bg-blue-900/20"
                                                                 : d
-                                                                  ? "bg-green-50"
+                                                                  ? "bg-green-50 dark:bg-green-900/20"
                                                                   : "";
                                                     return _jsxs(
                                                         "tr",
@@ -5906,7 +5966,7 @@ function ConduitCalculator() {
                                     }),
                                 }),
                                 _jsxs("div", {
-                                    className: "flex flex-wrap gap-4 mt-3 text-xs text-gray-500",
+                                    className: "flex flex-wrap gap-4 mt-3 text-xs text-gray-500 dark:text-gray-400",
                                     children: [
                                         _jsxs("span", {
                                             children: [
@@ -5935,7 +5995,7 @@ function ConduitCalculator() {
                                                   className: "flex items-center gap-1 text-xs",
                                                   children: [
                                                       _jsx("span", {
-                                                          className: "w-3 h-3 bg-red-50 border border-red-200 rounded",
+                                                          className: "w-3 h-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded",
                                                       }),
                                                       " All Exceeded",
                                                   ],
@@ -5957,7 +6017,7 @@ function ConduitCalculator() {
                                                   children: [
                                                       _jsx("span", {
                                                           className:
-                                                              "w-3 h-3 bg-blue-50 border border-blue-200 rounded",
+                                                              "w-3 h-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded",
                                                       }),
                                                       " NEC Minimum",
                                                   ],
@@ -5967,7 +6027,7 @@ function ConduitCalculator() {
                                                   children: [
                                                       _jsx("span", {
                                                           className:
-                                                              "w-3 h-3 bg-green-50 border border-green-200 rounded",
+                                                              "w-3 h-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded",
                                                       }),
                                                       " Safe JAM",
                                                   ],
@@ -5977,7 +6037,7 @@ function ConduitCalculator() {
                                                   children: [
                                                       _jsx("span", {
                                                           className:
-                                                              "w-3 h-3 bg-purple-50 border border-purple-200 rounded",
+                                                              "w-3 h-3 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded",
                                                       }),
                                                       " Selected",
                                                   ],
@@ -6020,12 +6080,12 @@ function AudioCalculator() {
             _jsxs("div", {
                 className: "flex items-center justify-between mb-6",
                 children: [
-                    _jsx("h1", { className: "text-3xl font-bold text-gray-900", children: "Audio Calculator" }),
+                    _jsx("h1", { className: "text-3xl font-bold text-gray-900 dark:text-gray-100", children: "Audio Calculator" }),
                     (x !== null || w !== null || U !== null) &&
                         _jsx("button", {
                             onClick: () => W(!0),
                             className:
-                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm",
+                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm dark:shadow-gray-950/10",
                             children: "⟲ Reset Tool",
                         }),
                 ],
@@ -6059,11 +6119,11 @@ function AudioCalculator() {
                 onCancel: () => W(!1),
             }),
             _jsx("div", {
-                className: "bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200",
+                className: "bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6 border border-gray-200 dark:border-gray-700",
                 children: _jsxs("p", {
-                    className: "text-sm text-gray-600",
+                    className: "text-sm text-gray-600 dark:text-gray-400",
                     children: [
-                        _jsx("span", { className: "font-semibold text-gray-700", children: "What this tool does:" }),
+                        _jsx("span", { className: "font-semibold text-gray-700 dark:text-gray-300", children: "What this tool does:" }),
                         " Comprehensive audio calculations including PCM data rate, Dante/AES67 network bandwidth, and acoustic wavelength with room mode analysis.",
                     ],
                 }),
@@ -6078,7 +6138,7 @@ function AudioCalculator() {
                             "flex-1 py-3 px-4 rounded-lg font-medium transition-colors cursor-pointer " +
                             ("datarate" === e
                                 ? "bg-green-600 text-white"
-                                : "bg-gray-100 text-gray-700 hover:bg-gray-200"),
+                                : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:bg-gray-700"),
                         children: "📊 Data Rate",
                     }),
                     _jsx("button", {
@@ -6086,7 +6146,7 @@ function AudioCalculator() {
                         onClick: () => t("dante"),
                         className:
                             "flex-1 py-3 px-4 rounded-lg font-medium transition-colors cursor-pointer " +
-                            ("dante" === e ? "bg-green-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"),
+                            ("dante" === e ? "bg-green-600 text-white" : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:bg-gray-700"),
                         children: "🌐 Dante/AES67",
                     }),
                     _jsx("button", {
@@ -6096,7 +6156,7 @@ function AudioCalculator() {
                             "flex-1 py-3 px-4 rounded-lg font-medium transition-colors cursor-pointer " +
                             ("wavelength" === e
                                 ? "bg-green-600 text-white"
-                                : "bg-gray-100 text-gray-700 hover:bg-gray-200"),
+                                : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:bg-gray-700"),
                         children: "🔊 Wavelength",
                     }),
                 ],
@@ -6105,7 +6165,7 @@ function AudioCalculator() {
                 _jsxs(_Fragment, {
                     children: [
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-8 mb-8 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 mb-8 border",
                             children: [
                                 _jsx("h2", {
                                     className: "text-lg font-semibold text-gray-800 mb-4",
@@ -6117,7 +6177,7 @@ function AudioCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-2",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                     children: "Sampling Rate",
                                                 }),
                                                 _jsxs("select", {
@@ -6149,7 +6209,7 @@ function AudioCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-2",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                     children: "Bit Depth",
                                                 }),
                                                 _jsxs("select", {
@@ -6171,7 +6231,7 @@ function AudioCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-2",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                     children: "Channels",
                                                 }),
                                                 _jsxs("select", {
@@ -6191,7 +6251,7 @@ function AudioCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-2",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                     children: "Duration",
                                                 }),
                                                 _jsxs("div", {
@@ -6243,7 +6303,7 @@ function AudioCalculator() {
                         }),
                         x &&
                             _jsxs("div", {
-                                className: "bg-white rounded-xl shadow-md p-8 border",
+                                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 border",
                                 children: [
                                     _jsx("h2", { className: "text-xl font-semibold mb-6", children: "Results" }),
                                     _jsxs("div", {
@@ -6251,10 +6311,10 @@ function AudioCalculator() {
                                         children: [
                                             _jsxs("div", {
                                                 className:
-                                                    "bg-green-50 p-5 rounded-lg border-2 border-green-200 text-center",
+                                                    "bg-green-50 dark:bg-green-900/20 p-5 rounded-lg border-2 border-green-200 dark:border-green-800 text-center",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Data Rate",
                                                     }),
                                                     _jsxs("div", {
@@ -6262,17 +6322,17 @@ function AudioCalculator() {
                                                         children: [x.dataRateMbps, " Mbps"],
                                                     }),
                                                     _jsxs("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: [x.dataRateKbps, " Kbps"],
                                                     }),
                                                 ],
                                             }),
                                             _jsxs("div", {
                                                 className:
-                                                    "bg-blue-50 p-5 rounded-lg border-2 border-blue-200 text-center",
+                                                    "bg-blue-50 dark:bg-blue-900/20 p-5 rounded-lg border-2 border-blue-200 dark:border-blue-800 text-center",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "File Size",
                                                     }),
                                                     _jsx("div", {
@@ -6280,7 +6340,7 @@ function AudioCalculator() {
                                                         children: x.fileSizeFormatted,
                                                     }),
                                                     _jsx("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: ((e, t) => {
                                                             if (0 === e && 0 === t) return "0 seconds";
                                                             const s = [];
@@ -6295,10 +6355,10 @@ function AudioCalculator() {
                                             }),
                                             _jsxs("div", {
                                                 className:
-                                                    "bg-purple-50 p-5 rounded-lg border-2 border-purple-200 text-center",
+                                                    "bg-purple-50 dark:bg-purple-900/20 p-5 rounded-lg border-2 border-purple-200 dark:border-purple-800 text-center",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Bits per Second",
                                                     }),
                                                     _jsx("div", {
@@ -6306,7 +6366,7 @@ function AudioCalculator() {
                                                         children: x.dataRateBps.toLocaleString(),
                                                     }),
                                                     _jsx("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: "bps",
                                                     }),
                                                 ],
@@ -6321,10 +6381,10 @@ function AudioCalculator() {
                 _jsxs(_Fragment, {
                     children: [
                         _jsxs("div", {
-                            className: "bg-green-50 rounded-xl p-4 mb-6 border border-green-200",
+                            className: "bg-green-50 dark:bg-green-900/20 rounded-xl p-4 mb-6 border border-green-200 dark:border-green-800",
                             children: [
                                 _jsx("h2", {
-                                    className: "font-semibold text-green-800 mb-2",
+                                    className: "font-semibold text-green-800 dark:text-green-200 mb-2",
                                     children: "Protocol Selection",
                                 }),
                                 _jsxs("div", {
@@ -6337,7 +6397,7 @@ function AudioCalculator() {
                                                 "flex-1 py-3 px-4 rounded-lg font-medium transition-colors cursor-pointer " +
                                                 ("dante" === h
                                                     ? "bg-green-600 text-white"
-                                                    : "bg-white text-gray-700 border border-gray-300 hover:bg-green-50"),
+                                                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-green-50 dark:bg-green-900/20"),
                                             children: "🎛️ Dante (Audinate)",
                                         }),
                                         _jsx("button", {
@@ -6347,7 +6407,7 @@ function AudioCalculator() {
                                                 "flex-1 py-3 px-4 rounded-lg font-medium transition-colors cursor-pointer " +
                                                 ("aes67" === h
                                                     ? "bg-blue-600 text-white"
-                                                    : "bg-white text-gray-700 border border-gray-300 hover:bg-blue-50"),
+                                                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-blue-50 dark:bg-blue-900/20"),
                                             children: "🌐 AES67 (Open Standard)",
                                         }),
                                     ],
@@ -6362,7 +6422,7 @@ function AudioCalculator() {
                             ],
                         }),
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-8 mb-8 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 mb-8 border",
                             children: [
                                 _jsxs("h2", {
                                     className: "text-lg font-semibold text-gray-800 mb-4",
@@ -6374,7 +6434,7 @@ function AudioCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-2",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                     children: "Channel Count",
                                                 }),
                                                 _jsx("input", {
@@ -6388,7 +6448,7 @@ function AudioCalculator() {
                                                         "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500",
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children: "Total audio channels (1-512)",
                                                 }),
                                             ],
@@ -6396,7 +6456,7 @@ function AudioCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-2",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                     children: "Sample Rate",
                                                 }),
                                                 _jsxs("select", {
@@ -6415,7 +6475,7 @@ function AudioCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-2",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                     children: "Bit Depth",
                                                 }),
                                                 _jsxs("select", {
@@ -6435,7 +6495,7 @@ function AudioCalculator() {
                                             _jsxs("div", {
                                                 children: [
                                                     _jsx("label", {
-                                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                         children: "Redundancy (Dante Only)",
                                                     }),
                                                     _jsxs("div", {
@@ -6473,7 +6533,7 @@ function AudioCalculator() {
                                             _jsx("div", {
                                                 children: _jsx("p", {
                                                     className:
-                                                        "text-xs text-blue-600 bg-blue-50 p-3 rounded-lg border border-blue-200",
+                                                        "text-xs text-blue-600 bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border border-blue-200 dark:border-blue-800",
                                                     children:
                                                         "Note: AES67 does not include built-in redundancy. For redundant streaming, SMPTE 2022-7 can be added externally.",
                                                 }),
@@ -6527,7 +6587,7 @@ function AudioCalculator() {
                         }),
                         w &&
                             _jsxs("div", {
-                                className: "bg-white rounded-xl shadow-md p-8 border",
+                                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 border",
                                 children: [
                                     _jsxs("h2", {
                                         className: "text-xl font-semibold mb-6",
@@ -6539,12 +6599,12 @@ function AudioCalculator() {
                                             _jsxs("div", {
                                                 className:
                                                     ("dante" === w.protocol
-                                                        ? "bg-green-50 border-green-200"
-                                                        : "bg-blue-50 border-blue-200") +
+                                                        ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800"
+                                                        : "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800") +
                                                     " p-5 rounded-lg border-2 text-center",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Total Bandwidth",
                                                     }),
                                                     _jsxs("div", {
@@ -6556,7 +6616,7 @@ function AudioCalculator() {
                                                         children: [w.totalBandwidth, " Mbps"],
                                                     }),
                                                     _jsx("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children:
                                                             "dante" === w.protocol
                                                                 ? w.redundancy
@@ -6568,10 +6628,10 @@ function AudioCalculator() {
                                             }),
                                             _jsxs("div", {
                                                 className:
-                                                    "bg-purple-50 p-5 rounded-lg border-2 border-purple-200 text-center",
+                                                    "bg-purple-50 dark:bg-purple-900/20 p-5 rounded-lg border-2 border-purple-200 dark:border-purple-800 text-center",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Network Recommendation",
                                                     }),
                                                     _jsx("div", {
@@ -6579,7 +6639,7 @@ function AudioCalculator() {
                                                         children: w.networkRecommendation,
                                                     }),
                                                     _jsx("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: "Minimum switch port speed",
                                                     }),
                                                 ],
@@ -6589,7 +6649,7 @@ function AudioCalculator() {
                                                     "bg-orange-50 p-5 rounded-lg border-2 border-orange-200 text-center",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Typical Latency",
                                                     }),
                                                     _jsx("div", {
@@ -6597,7 +6657,7 @@ function AudioCalculator() {
                                                         children: w.latency,
                                                     }),
                                                     _jsx("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: w.protocolName,
                                                     }),
                                                 ],
@@ -6605,10 +6665,10 @@ function AudioCalculator() {
                                         ],
                                     }),
                                     _jsxs("div", {
-                                        className: "bg-gray-50 p-4 rounded-lg border",
+                                        className: "bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border",
                                         children: [
                                             _jsxs("h3", {
-                                                className: "font-semibold text-gray-700 mb-2",
+                                                className: "font-semibold text-gray-700 dark:text-gray-300 mb-2",
                                                 children: [w.protocolName, " Technical Details"],
                                             }),
                                             _jsxs("div", {
@@ -6665,7 +6725,7 @@ function AudioCalculator() {
                 _jsxs(_Fragment, {
                     children: [
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-8 mb-8 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 mb-8 border",
                             children: [
                                 _jsx("h2", {
                                     className: "text-lg font-semibold text-gray-800 mb-4",
@@ -6677,7 +6737,7 @@ function AudioCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-2",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                     children: "Frequency (Hz)",
                                                 }),
                                                 _jsx("input", {
@@ -6693,7 +6753,7 @@ function AudioCalculator() {
                                                     placeholder: "Enter frequency (20-20000 Hz)",
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children: "Human hearing range: 20 Hz - 20,000 Hz",
                                                 }),
                                                 _jsx("div", {
@@ -6708,7 +6768,7 @@ function AudioCalculator() {
                                                                     "px-2 py-1 text-xs rounded border cursor-pointer " +
                                                                     (M === e
                                                                         ? "bg-green-600 text-white border-green-600"
-                                                                        : "bg-white text-gray-600 border-gray-300 hover:bg-green-50"),
+                                                                        : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600 hover:bg-green-50 dark:bg-green-900/20"),
                                                                 children: [e >= 1e3 ? e / 1e3 + "k" : e, " Hz"],
                                                             },
                                                             e
@@ -6720,7 +6780,7 @@ function AudioCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-2",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                     children: "Room Purpose (ISO 3382)",
                                                 }),
                                                 _jsxs("select", {
@@ -6780,7 +6840,7 @@ function AudioCalculator() {
                                                     ],
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children:
                                                         "Room purpose determines target RT60 and treatment approach",
                                                 }),
@@ -6789,7 +6849,7 @@ function AudioCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-2",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                     children: "Temperature (°C)",
                                                 }),
                                                 _jsx("input", {
@@ -6804,7 +6864,7 @@ function AudioCalculator() {
                                                         "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500",
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children: "Temperature affects speed of sound (typical: 20°C)",
                                                 }),
                                             ],
@@ -6816,7 +6876,7 @@ function AudioCalculator() {
                                                     className: "flex items-center justify-between mb-2",
                                                     children: [
                                                         _jsx("label", {
-                                                            className: "block text-sm font-medium text-gray-700",
+                                                            className: "block text-sm font-medium text-gray-700 dark:text-gray-300",
                                                             children: "Room Dimensions",
                                                         }),
                                                         _jsxs("select", {
@@ -6837,7 +6897,7 @@ function AudioCalculator() {
                                                         _jsxs("div", {
                                                             children: [
                                                                 _jsxs("label", {
-                                                                    className: "text-xs text-gray-500",
+                                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                                     children: ["Length (", B, ")"],
                                                                 }),
                                                                 _jsx("input", {
@@ -6859,7 +6919,7 @@ function AudioCalculator() {
                                                         _jsxs("div", {
                                                             children: [
                                                                 _jsxs("label", {
-                                                                    className: "text-xs text-gray-500",
+                                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                                     children: ["Width (", B, ")"],
                                                                 }),
                                                                 _jsx("input", {
@@ -6881,7 +6941,7 @@ function AudioCalculator() {
                                                         _jsxs("div", {
                                                             children: [
                                                                 _jsxs("label", {
-                                                                    className: "text-xs text-gray-500",
+                                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                                     children: ["Height (", B, ")"],
                                                                 }),
                                                                 _jsx("input", {
@@ -7307,7 +7367,7 @@ function AudioCalculator() {
                         }),
                         U &&
                             _jsxs("div", {
-                                className: "bg-white rounded-xl shadow-md p-8 border",
+                                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 border",
                                 children: [
                                     _jsx("h2", {
                                         className: "text-xl font-semibold mb-6",
@@ -7318,10 +7378,10 @@ function AudioCalculator() {
                                         children: [
                                             _jsxs("div", {
                                                 className:
-                                                    "bg-green-50 p-4 rounded-lg border-2 border-green-200 text-center",
+                                                    "bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border-2 border-green-200 dark:border-green-800 text-center",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Wavelength",
                                                     }),
                                                     _jsxs("div", {
@@ -7333,7 +7393,7 @@ function AudioCalculator() {
                                                         ],
                                                     }),
                                                     _jsxs("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: [
                                                             "ft" === U.roomDimensionUnit
                                                                 ? U.wavelengthIn + " in"
@@ -7344,10 +7404,10 @@ function AudioCalculator() {
                                             }),
                                             _jsxs("div", {
                                                 className:
-                                                    "bg-blue-50 p-4 rounded-lg border-2 border-blue-200 text-center",
+                                                    "bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border-2 border-blue-200 dark:border-blue-800 text-center",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Speed of Sound",
                                                     }),
                                                     _jsxs("div", {
@@ -7359,17 +7419,17 @@ function AudioCalculator() {
                                                         ],
                                                     }),
                                                     _jsxs("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: ["at ", S, "°C"],
                                                     }),
                                                 ],
                                             }),
                                             _jsxs("div", {
                                                 className:
-                                                    "bg-purple-50 p-4 rounded-lg border-2 border-purple-200 text-center",
+                                                    "bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border-2 border-purple-200 dark:border-purple-800 text-center",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Schroeder Frequency",
                                                     }),
                                                     _jsxs("div", {
@@ -7377,7 +7437,7 @@ function AudioCalculator() {
                                                         children: [U.schroederFreq, " Hz"],
                                                     }),
                                                     _jsx("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: "Modal/diffuse transition",
                                                     }),
                                                 ],
@@ -7387,7 +7447,7 @@ function AudioCalculator() {
                                                     "bg-orange-50 p-4 rounded-lg border-2 border-orange-200 text-center",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Room Volume",
                                                     }),
                                                     _jsxs("div", {
@@ -7399,7 +7459,7 @@ function AudioCalculator() {
                                                         ],
                                                     }),
                                                     _jsxs("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: [
                                                             "ft" === U.roomDimensionUnit
                                                                 ? U.volumeM3 + " m³"
@@ -7423,10 +7483,10 @@ function AudioCalculator() {
                                                     className: "grid sm:grid-cols-2 md:grid-cols-4 gap-3",
                                                     children: [
                                                         _jsxs("div", {
-                                                            className: "bg-white p-3 rounded border text-center",
+                                                            className: "bg-white dark:bg-gray-800 p-3 rounded border text-center",
                                                             children: [
                                                                 _jsx("div", {
-                                                                    className: "text-xs text-gray-500",
+                                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                                     children: "Target RT60",
                                                                 }),
                                                                 _jsx("div", {
@@ -7440,10 +7500,10 @@ function AudioCalculator() {
                                                             ],
                                                         }),
                                                         _jsxs("div", {
-                                                            className: "bg-white p-3 rounded border text-center",
+                                                            className: "bg-white dark:bg-gray-800 p-3 rounded border text-center",
                                                             children: [
                                                                 _jsx("div", {
-                                                                    className: "text-xs text-gray-500",
+                                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                                     children: "NC Rating Target",
                                                                 }),
                                                                 _jsx("div", {
@@ -7458,7 +7518,7 @@ function AudioCalculator() {
                                                         }),
                                                         _jsxs("div", {
                                                             className:
-                                                                "bg-white p-3 rounded border text-center " +
+                                                                "bg-white dark:bg-gray-800 p-3 rounded border text-center " +
                                                                 ("problematic" === U.roomRatios?.quality
                                                                     ? "border-red-300"
                                                                     : "good" === U.roomRatios?.quality
@@ -7466,7 +7526,7 @@ function AudioCalculator() {
                                                                       : ""),
                                                             children: [
                                                                 _jsx("div", {
-                                                                    className: "text-xs text-gray-500",
+                                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                                     children: "Room Ratios (Bolt)",
                                                                 }),
                                                                 _jsxs("div", {
@@ -7502,10 +7562,10 @@ function AudioCalculator() {
                                                             ],
                                                         }),
                                                         _jsxs("div", {
-                                                            className: "bg-white p-3 rounded border text-center",
+                                                            className: "bg-white dark:bg-gray-800 p-3 rounded border text-center",
                                                             children: [
                                                                 _jsx("div", {
-                                                                    className: "text-xs text-gray-500",
+                                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                                     children: "First Reflection",
                                                                 }),
                                                                 _jsxs("div", {
@@ -7527,7 +7587,7 @@ function AudioCalculator() {
                                                             className: "flex items-center gap-2",
                                                             children: [
                                                                 _jsx("span", {
-                                                                    className: "text-gray-500",
+                                                                    className: "text-gray-500 dark:text-gray-400",
                                                                     children: "Surface Area:",
                                                                 }),
                                                                 _jsxs("span", {
@@ -7540,7 +7600,7 @@ function AudioCalculator() {
                                                             className: "flex items-center gap-2",
                                                             children: [
                                                                 _jsx("span", {
-                                                                    className: "text-gray-500",
+                                                                    className: "text-gray-500 dark:text-gray-400",
                                                                     children: "Mean Free Path:",
                                                                 }),
                                                                 _jsxs("span", {
@@ -7553,7 +7613,7 @@ function AudioCalculator() {
                                                             className: "flex items-center gap-2",
                                                             children: [
                                                                 _jsx("span", {
-                                                                    className: "text-gray-500",
+                                                                    className: "text-gray-500 dark:text-gray-400",
                                                                     children: "Listener Position:",
                                                                 }),
                                                                 _jsxs("span", {
@@ -7576,14 +7636,14 @@ function AudioCalculator() {
                                             ],
                                         }),
                                     _jsxs("div", {
-                                        className: "mb-6 p-4 bg-gray-50 rounded-lg border",
+                                        className: "mb-6 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg border",
                                         children: [
                                             _jsx("h3", {
-                                                className: "font-semibold text-gray-700 mb-3 flex items-center gap-2",
+                                                className: "font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2",
                                                 children: "〰️ Waveform Visualization",
                                             }),
                                             _jsx("div", {
-                                                className: "bg-white rounded-lg border p-2 sm:p-4 overflow-hidden",
+                                                className: "bg-white dark:bg-gray-800 rounded-lg border p-2 sm:p-4 overflow-hidden",
                                                 children: (() => {
                                                     const e = "undefined" != typeof window && window.innerWidth < 640,
                                                         t = e ? 300 : 500,
@@ -7760,7 +7820,7 @@ function AudioCalculator() {
                                                                 },
                                                             }),
                                                             _jsx("span", {
-                                                                className: "text-gray-600",
+                                                                className: "text-gray-600 dark:text-gray-400",
                                                                 children: "Sound wave",
                                                             }),
                                                         ],
@@ -7777,7 +7837,7 @@ function AudioCalculator() {
                                                                 },
                                                             }),
                                                             _jsx("span", {
-                                                                className: "text-gray-600",
+                                                                className: "text-gray-600 dark:text-gray-400",
                                                                 children: "Wavelength (λ)",
                                                             }),
                                                         ],
@@ -7795,19 +7855,19 @@ function AudioCalculator() {
                                                                 },
                                                             }),
                                                             _jsx("span", {
-                                                                className: "text-gray-600",
+                                                                className: "text-gray-600 dark:text-gray-400",
                                                                 children: "Period (T)",
                                                             }),
                                                         ],
                                                     }),
                                                     _jsxs("div", {
-                                                        className: "text-gray-500",
+                                                        className: "text-gray-500 dark:text-gray-400",
                                                         children: ["λ = v/f = ", U.speedOfSound, "/", U.frequency],
                                                     }),
                                                 ],
                                             }),
                                             _jsx("p", {
-                                                className: "text-xs text-gray-500 mt-2",
+                                                className: "text-xs text-gray-500 dark:text-gray-400 mt-2",
                                                 children:
                                                     "A pure sine wave at the specified frequency. Real audio contains multiple frequencies (harmonics) that combine to create complex waveforms. The wavelength (λ) represents one complete cycle of pressure variation in air.",
                                             }),
@@ -7817,11 +7877,11 @@ function AudioCalculator() {
                                         className: "mb-6",
                                         children: [
                                             _jsx("h3", {
-                                                className: "font-semibold text-gray-700 mb-2",
+                                                className: "font-semibold text-gray-700 dark:text-gray-300 mb-2",
                                                 children: "Room Axial Modes",
                                             }),
                                             _jsx("p", {
-                                                className: "text-xs text-gray-500 mb-2",
+                                                className: "text-xs text-gray-500 dark:text-gray-400 mb-2",
                                                 children:
                                                     "Axial modes are resonant frequencies where sound waves bounce between two parallel surfaces. At these frequencies, standing waves form causing peaks and nulls in the room's frequency response. Modes below the Schroeder frequency are particularly problematic and benefit from bass trapping.",
                                             }),
@@ -7836,10 +7896,10 @@ function AudioCalculator() {
                                                 className: "grid md:grid-cols-3 gap-4",
                                                 children: [
                                                     _jsxs("div", {
-                                                        className: "bg-gray-50 p-3 rounded-lg border",
+                                                        className: "bg-gray-50 dark:bg-gray-900/50 p-3 rounded-lg border",
                                                         children: [
                                                             _jsx("h4", {
-                                                                className: "font-medium text-gray-700 mb-2",
+                                                                className: "font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                                 children: "Length Modes",
                                                             }),
                                                             _jsx("div", {
@@ -7864,10 +7924,10 @@ function AudioCalculator() {
                                                         ],
                                                     }),
                                                     _jsxs("div", {
-                                                        className: "bg-gray-50 p-3 rounded-lg border",
+                                                        className: "bg-gray-50 dark:bg-gray-900/50 p-3 rounded-lg border",
                                                         children: [
                                                             _jsx("h4", {
-                                                                className: "font-medium text-gray-700 mb-2",
+                                                                className: "font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                                 children: "Width Modes",
                                                             }),
                                                             _jsx("div", {
@@ -7892,10 +7952,10 @@ function AudioCalculator() {
                                                         ],
                                                     }),
                                                     _jsxs("div", {
-                                                        className: "bg-gray-50 p-3 rounded-lg border",
+                                                        className: "bg-gray-50 dark:bg-gray-900/50 p-3 rounded-lg border",
                                                         children: [
                                                             _jsx("h4", {
-                                                                className: "font-medium text-gray-700 mb-2",
+                                                                className: "font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                                 children: "Height Modes",
                                                             }),
                                                             _jsx("div", {
@@ -7977,8 +8037,8 @@ function AudioCalculator() {
                                                             className:
                                                                 "p-3 rounded-lg border text-center " +
                                                                 (U.isBelowSchroeder
-                                                                    ? "bg-amber-50 border-amber-200"
-                                                                    : "bg-green-50 border-green-200"),
+                                                                    ? "bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800"
+                                                                    : "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800"),
                                                             children: [
                                                                 _jsx("div", {
                                                                     className:
@@ -8015,7 +8075,7 @@ function AudioCalculator() {
                                                         }),
                                                         _jsxs("div", {
                                                             className:
-                                                                "bg-purple-50 p-3 rounded-lg border border-purple-200 text-center",
+                                                                "bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg border border-purple-200 dark:border-purple-800 text-center",
                                                             children: [
                                                                 _jsx("div", {
                                                                     className: "text-xs text-purple-600 font-medium",
@@ -8042,16 +8102,16 @@ function AudioCalculator() {
                                                                 className:
                                                                     "p-3 rounded-lg border " +
                                                                     ("critical" === e.type
-                                                                        ? "bg-red-50 border-red-200"
+                                                                        ? "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800"
                                                                         : "warning" === e.type
-                                                                          ? "bg-amber-50 border-amber-200"
+                                                                          ? "bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800"
                                                                           : "modal" === e.type
-                                                                            ? "bg-purple-50 border-purple-200"
+                                                                            ? "bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800"
                                                                             : "room" === e.type
-                                                                              ? "bg-gray-50 border-gray-200"
+                                                                              ? "bg-gray-50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-700"
                                                                               : "diffusion" === e.type
-                                                                                ? "bg-blue-50 border-blue-200"
-                                                                                : "bg-green-50 border-green-200"),
+                                                                                ? "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800"
+                                                                                : "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800"),
                                                                 children: _jsxs("div", {
                                                                     className: "flex gap-2",
                                                                     children: [
@@ -8065,17 +8125,17 @@ function AudioCalculator() {
                                                                                     className:
                                                                                         "font-semibold text-sm " +
                                                                                         ("critical" === e.type
-                                                                                            ? "text-red-800"
+                                                                                            ? "text-red-800 dark:text-red-200"
                                                                                             : "warning" === e.type
-                                                                                              ? "text-amber-800"
+                                                                                              ? "text-amber-800 dark:text-amber-200"
                                                                                               : "modal" === e.type
-                                                                                                ? "text-purple-800"
+                                                                                                ? "text-purple-800 dark:text-purple-200"
                                                                                                 : "room" === e.type
                                                                                                   ? "text-gray-800"
                                                                                                   : "diffusion" ===
                                                                                                       e.type
-                                                                                                    ? "text-blue-800"
-                                                                                                    : "text-green-800"),
+                                                                                                    ? "text-blue-800 dark:text-blue-200"
+                                                                                                    : "text-green-800 dark:text-green-200"),
                                                                                     children: e.title,
                                                                                 }),
                                                                                 _jsx("div", {
@@ -8088,7 +8148,7 @@ function AudioCalculator() {
                                                                                               : "modal" === e.type
                                                                                                 ? "text-purple-700"
                                                                                                 : "room" === e.type
-                                                                                                  ? "text-gray-700"
+                                                                                                  ? "text-gray-700 dark:text-gray-300"
                                                                                                   : "diffusion" ===
                                                                                                       e.type
                                                                                                     ? "text-blue-700"
@@ -8105,7 +8165,7 @@ function AudioCalculator() {
                                                     ),
                                                 }),
                                                 _jsxs("div", {
-                                                    className: "mt-4 p-3 bg-gray-100 rounded-lg text-xs text-gray-600",
+                                                    className: "mt-4 p-3 bg-gray-100 dark:bg-gray-700 rounded-lg text-xs text-gray-600 dark:text-gray-400",
                                                     children: [
                                                         _jsx("strong", { children: "Standards Reference: " }),
                                                         "Recommendations based on AES/IEC acoustic treatment guidelines, Schroeder diffuser theory, and the λ/4 absorption rule. For professional applications, consult an acoustic engineer.",
@@ -8155,14 +8215,14 @@ function ProjectorCalculator() {
                 className: "flex items-center justify-between mb-6",
                 children: [
                     _jsx("h1", {
-                        className: "text-3xl font-bold text-gray-900",
+                        className: "text-3xl font-bold text-gray-900 dark:text-gray-100",
                         children: "Projector Brightness & Throw Calculator",
                     }),
                     h !== null &&
                         _jsx("button", {
                             onClick: () => b(!0),
                             className:
-                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm",
+                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm dark:shadow-gray-950/10",
                             children: "⟲ Reset Tool",
                         }),
                 ],
@@ -8175,17 +8235,17 @@ function ProjectorCalculator() {
                 onCancel: () => b(!1),
             }),
             _jsx("div", {
-                className: "bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200",
+                className: "bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6 border border-gray-200 dark:border-gray-700",
                 children: _jsxs("p", {
-                    className: "text-sm text-gray-600",
+                    className: "text-sm text-gray-600 dark:text-gray-400",
                     children: [
-                        _jsx("span", { className: "font-semibold text-gray-700", children: "What this tool does:" }),
+                        _jsx("span", { className: "font-semibold text-gray-700 dark:text-gray-300", children: "What this tool does:" }),
                         " Calculates the required projector brightness (lumens) and throw distance based on your screen size, ambient lighting conditions, and screen gain. Helps you select the right projector and determine optimal mounting distance.",
                     ],
                 }),
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-8 mb-8 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 mb-8 border",
                 children: [
                     _jsxs("h2", {
                         className: "text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2",
@@ -8197,7 +8257,7 @@ function ProjectorCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Unit",
                                     }),
                                     _jsxs("select", {
@@ -8217,7 +8277,7 @@ function ProjectorCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Aspect Ratio",
                                     }),
                                     _jsxs("select", {
@@ -8242,7 +8302,7 @@ function ProjectorCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsxs("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: ["Screen Width (", r, ")"],
                                     }),
                                     _jsx("input", {
@@ -8266,7 +8326,7 @@ function ProjectorCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsxs("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: ["Screen Height (", r, ")"],
                                     }),
                                     _jsx("input", {
@@ -8282,10 +8342,10 @@ function ProjectorCalculator() {
                                             })("" === t.target.value ? "" : parseFloat(t.target.value)),
                                         className:
                                             "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 " +
-                                            ("custom" === c ? "" : "bg-gray-50"),
+                                            ("custom" === c ? "" : "bg-gray-50 dark:bg-gray-900/50"),
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children:
                                             "custom" === c
                                                 ? "Enter custom height - aspect ratio will auto-detect"
@@ -8298,7 +8358,7 @@ function ProjectorCalculator() {
                 ],
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-8 mb-8 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 mb-8 border",
                 children: [
                     _jsxs("h2", {
                         className: "text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2",
@@ -8309,7 +8369,7 @@ function ProjectorCalculator() {
                         children: _jsxs("div", {
                             children: [
                                 _jsx("label", {
-                                    className: "block text-sm font-medium text-gray-700 mb-2",
+                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                     children: "Throw Ratio",
                                 }),
                                 _jsx("input", {
@@ -8322,69 +8382,69 @@ function ProjectorCalculator() {
                                         "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
                                 }),
                                 _jsx("p", {
-                                    className: "text-xs text-gray-500 mt-1",
+                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                     children: "From projector specifications (e.g., 1.5 means 1.5× screen width)",
                                 }),
                             ],
                         }),
                     }),
                     _jsxs("div", {
-                        className: "mt-4 p-4 bg-gray-50 rounded-lg",
+                        className: "mt-4 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg",
                         children: [
                             _jsx("div", {
-                                className: "text-sm font-medium text-gray-700 mb-2",
+                                className: "text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                 children: "Common Throw Ratios:",
                             }),
                             _jsxs("div", {
                                 className: "grid grid-cols-2 md:grid-cols-4 gap-3 text-sm",
                                 children: [
                                     _jsxs("div", {
-                                        className: "bg-white p-2 rounded border",
+                                        className: "bg-white dark:bg-gray-800 p-2 rounded border",
                                         children: [
                                             _jsx("div", {
                                                 className: "font-semibold text-purple-600",
                                                 children: "0.3 - 0.5",
                                             }),
                                             _jsx("div", {
-                                                className: "text-xs text-gray-500",
+                                                className: "text-xs text-gray-500 dark:text-gray-400",
                                                 children: "Ultra Short Throw",
                                             }),
                                         ],
                                     }),
                                     _jsxs("div", {
-                                        className: "bg-white p-2 rounded border",
+                                        className: "bg-white dark:bg-gray-800 p-2 rounded border",
                                         children: [
                                             _jsx("div", {
                                                 className: "font-semibold text-blue-600",
                                                 children: "0.5 - 1.0",
                                             }),
                                             _jsx("div", {
-                                                className: "text-xs text-gray-500",
+                                                className: "text-xs text-gray-500 dark:text-gray-400",
                                                 children: "Short Throw",
                                             }),
                                         ],
                                     }),
                                     _jsxs("div", {
-                                        className: "bg-white p-2 rounded border",
+                                        className: "bg-white dark:bg-gray-800 p-2 rounded border",
                                         children: [
                                             _jsx("div", {
                                                 className: "font-semibold text-green-600",
                                                 children: "1.0 - 2.0",
                                             }),
                                             _jsx("div", {
-                                                className: "text-xs text-gray-500",
+                                                className: "text-xs text-gray-500 dark:text-gray-400",
                                                 children: "Standard Throw",
                                             }),
                                         ],
                                     }),
                                     _jsxs("div", {
-                                        className: "bg-white p-2 rounded border",
+                                        className: "bg-white dark:bg-gray-800 p-2 rounded border",
                                         children: [
                                             _jsx("div", {
                                                 className: "font-semibold text-orange-600",
                                                 children: "2.0+",
                                             }),
-                                            _jsx("div", { className: "text-xs text-gray-500", children: "Long Throw" }),
+                                            _jsx("div", { className: "text-xs text-gray-500 dark:text-gray-400", children: "Long Throw" }),
                                         ],
                                     }),
                                 ],
@@ -8394,7 +8454,7 @@ function ProjectorCalculator() {
                 ],
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-8 mb-8 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 mb-8 border",
                 children: [
                     _jsxs("h2", {
                         className: "text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2",
@@ -8404,14 +8464,14 @@ function ProjectorCalculator() {
                         ],
                     }),
                     _jsx("p", {
-                        className: "text-sm text-gray-600 mb-6",
+                        className: "text-sm text-gray-600 dark:text-gray-400 mb-6",
                         children:
                             "Calculate the required projector brightness (lumens) based on ambient light conditions and screen size.",
                     }),
                     _jsxs("div", {
                         children: [
                             _jsx("label", {
-                                className: "block text-sm font-medium text-gray-700 mb-2",
+                                className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                 children: "Ambient Light (lux)",
                             }),
                             _jsx("input", {
@@ -8428,7 +8488,7 @@ function ProjectorCalculator() {
                         className: "mt-4",
                         children: [
                             _jsx("label", {
-                                className: "block text-xs font-medium text-gray-500 mb-2",
+                                className: "block text-xs font-medium text-gray-500 dark:text-gray-400 mb-2",
                                 children: "Quick Presets:",
                             }),
                             _jsx("div", {
@@ -8449,7 +8509,7 @@ function ProjectorCalculator() {
                                                 "px-3 py-2 text-xs rounded-lg border transition-colors " +
                                                 (i === e.lux
                                                     ? "bg-blue-600 text-white border-blue-600"
-                                                    : "bg-white text-gray-600 border-gray-300 hover:border-blue-400 hover:text-blue-600"),
+                                                    : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600 hover:border-blue-400 hover:text-blue-600"),
                                             children: [
                                                 _jsx("div", { className: "font-semibold", children: e.label }),
                                                 _jsxs("div", {
@@ -8468,7 +8528,7 @@ function ProjectorCalculator() {
                         className: "mt-6",
                         children: [
                             _jsx("label", {
-                                className: "block text-sm font-medium text-gray-700 mb-2",
+                                className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                 children: "Screen Gain",
                             }),
                             _jsx("input", {
@@ -8498,7 +8558,7 @@ function ProjectorCalculator() {
                                                 "px-3 py-1 text-xs rounded-lg border transition-colors cursor-pointer " +
                                                 (x === e.gain
                                                     ? "bg-blue-600 text-white border-blue-600"
-                                                    : "bg-white text-gray-600 border-gray-300 hover:border-blue-400"),
+                                                    : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600 hover:border-blue-400"),
                                             children: e.label,
                                         },
                                         e.label
@@ -8506,14 +8566,14 @@ function ProjectorCalculator() {
                                 ),
                             }),
                             _jsx("p", {
-                                className: "text-xs text-gray-500 mt-1",
+                                className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                 children:
                                     "Screen gain affects brightness efficiency. Higher gain = brighter but narrower viewing angle. ALR screens reject ambient light.",
                             }),
                         ],
                     }),
                     _jsx("div", {
-                        className: "mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200",
+                        className: "mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800",
                         children: _jsxs("p", {
                             className: "text-xs text-blue-700",
                             children: [
@@ -8680,17 +8740,17 @@ function ProjectorCalculator() {
                     className: "space-y-6",
                     children: [
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-8 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 border",
                             children: [
                                 _jsx("h3", {
                                     className: "text-lg font-semibold text-gray-800 mb-4",
                                     children: "Throw Distance Result",
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-green-50 p-6 rounded-lg border-2 border-green-200",
+                                    className: "bg-green-50 dark:bg-green-900/20 p-6 rounded-lg border-2 border-green-200 dark:border-green-800",
                                     children: [
                                         _jsx("div", {
-                                            className: "text-sm text-gray-600",
+                                            className: "text-sm text-gray-600 dark:text-gray-400",
                                             children: "Required Throw Distance",
                                         }),
                                         _jsxs("div", {
@@ -8698,7 +8758,7 @@ function ProjectorCalculator() {
                                             children: [h.throwDistance, " ", h.unit],
                                         }),
                                         _jsxs("div", {
-                                            className: "text-sm text-gray-500 mt-2",
+                                            className: "text-sm text-gray-500 dark:text-gray-400 mt-2",
                                             children: [
                                                 e,
                                                 " ",
@@ -8719,7 +8779,7 @@ function ProjectorCalculator() {
                             ],
                         }),
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-8 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 border",
                             children: [
                                 _jsx("h3", {
                                     className: "text-lg font-semibold text-gray-800 mb-4",
@@ -8729,10 +8789,10 @@ function ProjectorCalculator() {
                                     className: "grid md:grid-cols-2 gap-6 mb-6",
                                     children: [
                                         _jsxs("div", {
-                                            className: "bg-yellow-50 p-6 rounded-lg border-2 border-yellow-200",
+                                            className: "bg-yellow-50 dark:bg-yellow-900/20 p-6 rounded-lg border-2 border-yellow-200 dark:border-yellow-800",
                                             children: [
                                                 _jsx("div", {
-                                                    className: "text-sm text-gray-600",
+                                                    className: "text-sm text-gray-600 dark:text-gray-400",
                                                     children: "Required Projector Brightness",
                                                 }),
                                                 _jsx("div", {
@@ -8744,7 +8804,7 @@ function ProjectorCalculator() {
                                                     children: "Lumens",
                                                 }),
                                                 _jsxs("div", {
-                                                    className: "text-xs text-gray-500 mt-2",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-2",
                                                     children: [
                                                         "Recommended range: ",
                                                         h.recommendedMin.toLocaleString(),
@@ -8756,10 +8816,10 @@ function ProjectorCalculator() {
                                             ],
                                         }),
                                         _jsxs("div", {
-                                            className: "bg-blue-50 p-6 rounded-lg border-2 border-blue-200",
+                                            className: "bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg border-2 border-blue-200 dark:border-blue-800",
                                             children: [
                                                 _jsx("div", {
-                                                    className: "text-sm text-gray-600",
+                                                    className: "text-sm text-gray-600 dark:text-gray-400",
                                                     children: "Screen Area",
                                                 }),
                                                 _jsxs("div", {
@@ -8767,7 +8827,7 @@ function ProjectorCalculator() {
                                                     children: [h.screenAreaFt, " ft²"],
                                                 }),
                                                 _jsxs("div", {
-                                                    className: "text-sm text-gray-500",
+                                                    className: "text-sm text-gray-500 dark:text-gray-400",
                                                     children: [h.screenAreaM2, " m²"],
                                                 }),
                                             ],
@@ -8779,10 +8839,10 @@ function ProjectorCalculator() {
                                     children: [
                                         _jsxs("div", {
                                             className:
-                                                "bg-purple-50 p-4 rounded-lg border border-purple-200 text-center",
+                                                "bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-800 text-center",
                                             children: [
                                                 _jsx("div", {
-                                                    className: "text-xs text-gray-600",
+                                                    className: "text-xs text-gray-600 dark:text-gray-400",
                                                     children: "Target Brightness",
                                                 }),
                                                 _jsxs("div", {
@@ -8790,7 +8850,7 @@ function ProjectorCalculator() {
                                                     children: [h.targetFtL, " ft-L"],
                                                 }),
                                                 _jsx("div", {
-                                                    className: "text-xs text-gray-500",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                     children: "SMPTE Standard",
                                                 }),
                                             ],
@@ -8800,7 +8860,7 @@ function ProjectorCalculator() {
                                                 "bg-indigo-50 p-4 rounded-lg border border-indigo-200 text-center",
                                             children: [
                                                 _jsx("div", {
-                                                    className: "text-xs text-gray-600",
+                                                    className: "text-xs text-gray-600 dark:text-gray-400",
                                                     children: "Resulting Brightness",
                                                 }),
                                                 _jsxs("div", {
@@ -8808,7 +8868,7 @@ function ProjectorCalculator() {
                                                     children: [h.resultingNits, " nits"],
                                                 }),
                                                 _jsxs("div", {
-                                                    className: "text-xs text-gray-500",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                     children: [h.resultingFtL, " ft-L"],
                                                 }),
                                             ],
@@ -8817,7 +8877,7 @@ function ProjectorCalculator() {
                                             className: "bg-teal-50 p-4 rounded-lg border border-teal-200 text-center",
                                             children: [
                                                 _jsx("div", {
-                                                    className: "text-xs text-gray-600",
+                                                    className: "text-xs text-gray-600 dark:text-gray-400",
                                                     children: "Screen Gain",
                                                 }),
                                                 _jsx("div", {
@@ -8825,7 +8885,7 @@ function ProjectorCalculator() {
                                                     children: h.screenGain,
                                                 }),
                                                 _jsx("div", {
-                                                    className: "text-xs text-gray-500",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                     children:
                                                         h.screenGain >= 1.3
                                                             ? "High Gain"
@@ -8839,13 +8899,13 @@ function ProjectorCalculator() {
                                 }),
                                 _jsxs("div", {
                                     className:
-                                        "bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg border-2 border-purple-200",
+                                        "bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg border-2 border-purple-200 dark:border-purple-800",
                                     children: [
                                         _jsxs("div", {
                                             className: "flex items-center justify-between mb-2",
                                             children: [
                                                 _jsx("div", {
-                                                    className: "text-sm text-gray-600",
+                                                    className: "text-sm text-gray-600 dark:text-gray-400",
                                                     children: "Environment Type",
                                                 }),
                                                 _jsxs("span", {
@@ -8860,16 +8920,16 @@ function ProjectorCalculator() {
                                             children: h.brightnessCategory,
                                         }),
                                         _jsx("p", {
-                                            className: "text-sm text-gray-600 mt-1",
+                                            className: "text-sm text-gray-600 dark:text-gray-400 mt-1",
                                             children: h.brightnessDescription,
                                         }),
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "mt-6 p-4 bg-gray-50 rounded-lg",
+                                    className: "mt-6 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg",
                                     children: [
                                         _jsx("h4", {
-                                            className: "font-semibold text-gray-700 mb-3",
+                                            className: "font-semibold text-gray-700 dark:text-gray-300 mb-3",
                                             children: "Projector Recommendations",
                                         }),
                                         _jsxs("div", {
@@ -8912,14 +8972,14 @@ function ProjectorCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "mt-4 p-4 bg-gray-50 rounded-lg",
+                                    className: "mt-4 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg",
                                     children: [
                                         _jsx("h4", {
-                                            className: "font-semibold text-gray-700 mb-2",
+                                            className: "font-semibold text-gray-700 dark:text-gray-300 mb-2",
                                             children: "Calculation Breakdown",
                                         }),
                                         _jsxs("div", {
-                                            className: "text-sm text-gray-600 space-y-1",
+                                            className: "text-sm text-gray-600 dark:text-gray-400 space-y-1",
                                             children: [
                                                 _jsxs("p", {
                                                     children: [
@@ -8966,7 +9026,7 @@ function ProjectorCalculator() {
                             h.multiProjector.required &&
                             _jsxs("div", {
                                 className:
-                                    "bg-white rounded-xl shadow-md p-8 border-2 " +
+                                    "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 border-2 " +
                                     (h.multiProjector.ledRecommended ? "border-orange-400" : "border-purple-400"),
                                 children: [
                                     _jsxs("h3", {
@@ -8983,7 +9043,7 @@ function ProjectorCalculator() {
                                             "p-4 rounded-lg mb-4 " +
                                             (h.multiProjector.ledRecommended
                                                 ? "bg-orange-50 border border-orange-200"
-                                                : "bg-purple-50 border border-purple-200"),
+                                                : "bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800"),
                                         children: [
                                             _jsxs("div", {
                                                 className: "grid md:grid-cols-3 gap-4 mb-4",
@@ -8992,7 +9052,7 @@ function ProjectorCalculator() {
                                                         className: "text-center",
                                                         children: [
                                                             _jsx("div", {
-                                                                className: "text-sm text-gray-600",
+                                                                className: "text-sm text-gray-600 dark:text-gray-400",
                                                                 children: "Projectors Required",
                                                             }),
                                                             _jsx("div", {
@@ -9005,7 +9065,7 @@ function ProjectorCalculator() {
                                                         className: "text-center",
                                                         children: [
                                                             _jsx("div", {
-                                                                className: "text-sm text-gray-600",
+                                                                className: "text-sm text-gray-600 dark:text-gray-400",
                                                                 children: "Lumens per Projector",
                                                             }),
                                                             _jsx("div", {
@@ -9019,7 +9079,7 @@ function ProjectorCalculator() {
                                                         className: "text-center",
                                                         children: [
                                                             _jsx("div", {
-                                                                className: "text-sm text-gray-600",
+                                                                className: "text-sm text-gray-600 dark:text-gray-400",
                                                                 children: "Projector Class",
                                                             }),
                                                             _jsx("div", {
@@ -9031,7 +9091,7 @@ function ProjectorCalculator() {
                                                 ],
                                             }),
                                             _jsxs("div", {
-                                                className: "bg-white p-3 rounded border",
+                                                className: "bg-white dark:bg-gray-800 p-3 rounded border",
                                                 children: [
                                                     _jsx("div", {
                                                         className: "font-medium text-gray-800",
@@ -9039,7 +9099,7 @@ function ProjectorCalculator() {
                                                     }),
                                                     h.multiProjector.blendingNote &&
                                                         _jsx("div", {
-                                                            className: "text-sm text-gray-600 mt-1",
+                                                            className: "text-sm text-gray-600 dark:text-gray-400 mt-1",
                                                             children: h.multiProjector.blendingNote,
                                                         }),
                                                 ],
@@ -9049,14 +9109,14 @@ function ProjectorCalculator() {
                                     h.multiProjector.equipmentNeeded &&
                                         h.multiProjector.equipmentNeeded.length > 0 &&
                                         _jsxs("div", {
-                                            className: "bg-gray-50 p-4 rounded-lg",
+                                            className: "bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg",
                                             children: [
                                                 _jsx("div", {
-                                                    className: "text-sm font-medium text-gray-700 mb-2",
+                                                    className: "text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                     children: "Equipment & Considerations:",
                                                 }),
                                                 _jsx("ul", {
-                                                    className: "text-sm text-gray-600 space-y-1",
+                                                    className: "text-sm text-gray-600 dark:text-gray-400 space-y-1",
                                                     children: h.multiProjector.equipmentNeeded.map((e, t) =>
                                                         _jsxs(
                                                             "li",
@@ -9132,12 +9192,12 @@ function POECalculator() {
             _jsxs("div", {
                 className: "flex items-center justify-between mb-6",
                 children: [
-                    _jsx("h1", { className: "text-3xl font-bold text-gray-900", children: "POE Budget Calculator" }),
+                    _jsx("h1", { className: "text-3xl font-bold text-gray-900 dark:text-gray-100", children: "POE Budget Calculator" }),
                     b > 0 &&
                         _jsx("button", {
                             onClick: () => p(!0),
                             className:
-                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm",
+                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm dark:shadow-gray-950/10",
                             children: "⟲ Reset Tool",
                         }),
                 ],
@@ -9150,17 +9210,17 @@ function POECalculator() {
                 onCancel: () => p(!1),
             }),
             _jsx("div", {
-                className: "bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200",
+                className: "bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6 border border-gray-200 dark:border-gray-700",
                 children: _jsxs("p", {
-                    className: "text-sm text-gray-600",
+                    className: "text-sm text-gray-600 dark:text-gray-400",
                     children: [
-                        _jsx("span", { className: "font-semibold text-gray-700", children: "What this tool does:" }),
+                        _jsx("span", { className: "font-semibold text-gray-700 dark:text-gray-300", children: "What this tool does:" }),
                         " Calculates total Power over Ethernet requirements for your network. Enter the count of devices by PoE type (PoE, PoE+, PoE++, 4PPoE) to determine the total wattage needed and recommended switch power budget with headroom.",
                     ],
                 }),
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-8 mb-8 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 mb-8 border",
                 children: [
                     _jsx("h2", {
                         className: "text-lg font-semibold text-gray-800 mb-4",
@@ -9172,7 +9232,7 @@ function POECalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "POE Devices (15.4W each)",
                                     }),
                                     _jsxs("div", {
@@ -9187,13 +9247,13 @@ function POECalculator() {
                                                 placeholder: "0",
                                             }),
                                             _jsxs("span", {
-                                                className: "text-sm text-gray-500 whitespace-nowrap",
+                                                className: "text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap",
                                                 children: ["= ", (15.4 * e).toFixed(1), "W"],
                                             }),
                                         ],
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "IP phones, basic cameras, small APs",
                                     }),
                                 ],
@@ -9201,7 +9261,7 @@ function POECalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "POE+ Devices (30W each)",
                                     }),
                                     _jsxs("div", {
@@ -9216,13 +9276,13 @@ function POECalculator() {
                                                 placeholder: "0",
                                             }),
                                             _jsxs("span", {
-                                                className: "text-sm text-gray-500 whitespace-nowrap",
+                                                className: "text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap",
                                                 children: ["= ", (30 * s).toFixed(1), "W"],
                                             }),
                                         ],
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "PTZ cameras, video phones, advanced APs",
                                     }),
                                 ],
@@ -9230,7 +9290,7 @@ function POECalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "POE++ Devices (60W each)",
                                     }),
                                     _jsxs("div", {
@@ -9245,13 +9305,13 @@ function POECalculator() {
                                                 placeholder: "0",
                                             }),
                                             _jsxs("span", {
-                                                className: "text-sm text-gray-500 whitespace-nowrap",
+                                                className: "text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap",
                                                 children: ["= ", (60 * r).toFixed(1), "W"],
                                             }),
                                         ],
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "Video conferencing, multi-radio APs, small displays",
                                     }),
                                 ],
@@ -9259,7 +9319,7 @@ function POECalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "4PPoE / Type 4 Devices (90W each)",
                                     }),
                                     _jsxs("div", {
@@ -9274,13 +9334,13 @@ function POECalculator() {
                                                 placeholder: "0",
                                             }),
                                             _jsxs("span", {
-                                                className: "text-sm text-gray-500 whitespace-nowrap",
+                                                className: "text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap",
                                                 children: ["= ", (90 * i).toFixed(1), "W"],
                                             }),
                                         ],
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "Large displays, thin clients, high-power devices",
                                     }),
                                 ],
@@ -9288,12 +9348,12 @@ function POECalculator() {
                         ],
                     }),
                     _jsx("div", {
-                        className: "mt-6 p-4 bg-gray-50 rounded-lg border",
+                        className: "mt-6 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg border",
                         children: _jsxs("div", {
                             className: "flex justify-between items-center",
                             children: [
                                 _jsx("span", {
-                                    className: "text-sm font-medium text-gray-700",
+                                    className: "text-sm font-medium text-gray-700 dark:text-gray-300",
                                     children: "Total Devices:",
                                 }),
                                 _jsx("span", { className: "text-lg font-bold text-blue-700", children: b }),
@@ -9304,7 +9364,7 @@ function POECalculator() {
                         className: "mt-6",
                         children: [
                             _jsxs("label", {
-                                className: "block text-sm font-medium text-gray-700 mb-2",
+                                className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                 children: ["Headroom: ", o, "%"],
                             }),
                             _jsx("input", {
@@ -9317,7 +9377,7 @@ function POECalculator() {
                                 className: "w-full",
                             }),
                             _jsx("p", {
-                                className: "text-xs text-gray-500 mt-1",
+                                className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                 children: "Additional power buffer for future expansion and safety margin",
                             }),
                         ],
@@ -9356,10 +9416,10 @@ function POECalculator() {
                         ],
                     }),
                     _jsxs("div", {
-                        className: "mt-6 p-4 bg-purple-50 rounded-lg border border-purple-200",
+                        className: "mt-6 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800",
                         children: [
                             _jsx("label", {
-                                className: "block text-sm font-medium text-purple-800 mb-3",
+                                className: "block text-sm font-medium text-purple-800 dark:text-purple-200 mb-3",
                                 children: "Average Cable Run Length",
                             }),
                             _jsxs("div", {
@@ -9397,7 +9457,7 @@ function POECalculator() {
                                                                 setLengthUnit(newUnit);
                                                             }
                                                         },
-                                                        className: "px-3 py-2 border rounded-lg bg-white",
+                                                        className: "px-3 py-2 border rounded-lg bg-white dark:bg-gray-800",
                                                         children: [
                                                             _jsx("option", { value: "m", children: "meters" }),
                                                             _jsx("option", { value: "ft", children: "feet" }),
@@ -9417,25 +9477,25 @@ function POECalculator() {
                                                     _jsx("button", {
                                                         onClick: () => { setCableLength(lengthUnit === "m" ? 30 : 98); },
                                                         className: "px-3 py-1 text-xs rounded-full border border-purple-300 hover:bg-purple-100 transition-colors " + 
-                                                            ((lengthUnit === "m" && cableLength === 30) || (lengthUnit === "ft" && cableLength === 98) ? "bg-purple-200" : "bg-white"),
+                                                            ((lengthUnit === "m" && cableLength === 30) || (lengthUnit === "ft" && cableLength === 98) ? "bg-purple-200" : "bg-white dark:bg-gray-800"),
                                                         children: "30m / 98ft",
                                                     }),
                                                     _jsx("button", {
                                                         onClick: () => { setCableLength(lengthUnit === "m" ? 50 : 164); },
                                                         className: "px-3 py-1 text-xs rounded-full border border-purple-300 hover:bg-purple-100 transition-colors " +
-                                                            ((lengthUnit === "m" && cableLength === 50) || (lengthUnit === "ft" && cableLength === 164) ? "bg-purple-200" : "bg-white"),
+                                                            ((lengthUnit === "m" && cableLength === 50) || (lengthUnit === "ft" && cableLength === 164) ? "bg-purple-200" : "bg-white dark:bg-gray-800"),
                                                         children: "50m / 164ft",
                                                     }),
                                                     _jsx("button", {
                                                         onClick: () => { setCableLength(lengthUnit === "m" ? 75 : 246); },
                                                         className: "px-3 py-1 text-xs rounded-full border border-purple-300 hover:bg-purple-100 transition-colors " +
-                                                            ((lengthUnit === "m" && cableLength === 75) || (lengthUnit === "ft" && cableLength === 246) ? "bg-purple-200" : "bg-white"),
+                                                            ((lengthUnit === "m" && cableLength === 75) || (lengthUnit === "ft" && cableLength === 246) ? "bg-purple-200" : "bg-white dark:bg-gray-800"),
                                                         children: "75m / 246ft",
                                                     }),
                                                     _jsx("button", {
                                                         onClick: () => { setCableLength(lengthUnit === "m" ? 100 : 328); },
                                                         className: "px-3 py-1 text-xs rounded-full border border-purple-300 hover:bg-purple-100 transition-colors " +
-                                                            ((lengthUnit === "m" && cableLength === 100) || (lengthUnit === "ft" && cableLength === 328) ? "bg-purple-200" : "bg-white"),
+                                                            ((lengthUnit === "m" && cableLength === 100) || (lengthUnit === "ft" && cableLength === 328) ? "bg-purple-200" : "bg-white dark:bg-gray-800"),
                                                         children: "100m / 328ft (max)",
                                                     }),
                                                 ],
@@ -9448,13 +9508,13 @@ function POECalculator() {
                                 className: "flex items-center gap-3",
                                 children: [
                                     _jsx("label", {
-                                        className: "text-sm font-medium text-purple-800",
+                                        className: "text-sm font-medium text-purple-800 dark:text-purple-200",
                                         children: "Cable Type:",
                                     }),
                                     _jsxs("select", {
                                         value: cableType,
                                         onChange: (ev) => setCableType(ev.target.value),
-                                        className: "px-3 py-2 border rounded-lg bg-white",
+                                        className: "px-3 py-2 border rounded-lg bg-white dark:bg-gray-800",
                                         children: [
                                             _jsx("option", { value: "cat5e", children: "Cat5e (24 AWG)" }),
                                             _jsx("option", { value: "cat6", children: "Cat6 (23 AWG)" }),
@@ -9481,17 +9541,17 @@ function POECalculator() {
             }),
             x &&
                 _jsxs("div", {
-                    className: "bg-white rounded-xl shadow-md p-8 border",
+                    className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 border",
                     children: [
                         _jsx("h2", { className: "text-xl font-semibold mb-6", children: "Results" }),
                         _jsxs("div", {
                             className: "grid md:grid-cols-4 gap-4 mb-6",
                             children: [
                                 _jsxs("div", {
-                                    className: "bg-blue-50 p-5 rounded-lg border-2 border-blue-200",
+                                    className: "bg-blue-50 dark:bg-blue-900/20 p-5 rounded-lg border-2 border-blue-200 dark:border-blue-800",
                                     children: [
                                         _jsx("div", {
-                                            className: "text-sm text-gray-600",
+                                            className: "text-sm text-gray-600 dark:text-gray-400",
                                             children: "PSE Power Required",
                                         }),
                                         _jsxs("div", {
@@ -9499,7 +9559,7 @@ function POECalculator() {
                                             children: [x.totalWatts, " W"],
                                         }),
                                         _jsxs("div", {
-                                            className: "text-xs text-gray-500 mt-1",
+                                            className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                             children: [
                                                 "Incl. cable loss",
                                                 x.cableLoss && x.cableLoss.totalLossWatts > 0 
@@ -9514,7 +9574,7 @@ function POECalculator() {
                                     className: "bg-orange-50 p-5 rounded-lg border-2 border-orange-200",
                                     children: [
                                         _jsx("div", {
-                                            className: "text-sm text-gray-600",
+                                            className: "text-sm text-gray-600 dark:text-gray-400",
                                             children: "Switch Base Power",
                                         }),
                                         _jsxs("div", {
@@ -9522,16 +9582,16 @@ function POECalculator() {
                                             children: [x.switchBasePower, " W"],
                                         }),
                                         _jsx("div", {
-                                            className: "text-xs text-gray-500 mt-1",
+                                            className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                             children: "Switch operating power",
                                         }),
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-purple-50 p-5 rounded-lg border-2 border-purple-200",
+                                    className: "bg-purple-50 dark:bg-purple-900/20 p-5 rounded-lg border-2 border-purple-200 dark:border-purple-800",
                                     children: [
                                         _jsx("div", {
-                                            className: "text-sm text-gray-600",
+                                            className: "text-sm text-gray-600 dark:text-gray-400",
                                             children: "Total System Power",
                                         }),
                                         _jsxs("div", {
@@ -9539,16 +9599,16 @@ function POECalculator() {
                                             children: [x.totalSystemPower, " W"],
                                         }),
                                         _jsx("div", {
-                                            className: "text-xs text-gray-500 mt-1",
+                                            className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                             children: "PSE + Switch power",
                                         }),
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-green-50 p-5 rounded-lg border-2 border-green-200",
+                                    className: "bg-green-50 dark:bg-green-900/20 p-5 rounded-lg border-2 border-green-200 dark:border-green-800",
                                     children: [
                                         _jsx("div", {
-                                            className: "text-sm text-gray-600",
+                                            className: "text-sm text-gray-600 dark:text-gray-400",
                                             children: "Minimum PoE Standard",
                                         }),
                                         _jsx("div", {
@@ -9556,7 +9616,7 @@ function POECalculator() {
                                             children: x.minStandardShort,
                                         }),
                                         _jsx("div", {
-                                            className: "text-xs text-gray-500 mt-1",
+                                            className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                             children: x.minStandardIEEE,
                                         }),
                                     ],
@@ -9564,14 +9624,14 @@ function POECalculator() {
                             ],
                         }),
                         x.cableLoss && x.cableLoss.totalLossWatts > 0 && _jsxs("div", {
-                            className: "bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-lg border-2 border-purple-200 mb-6",
+                            className: "bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-lg border-2 border-purple-200 dark:border-purple-800 mb-6",
                             children: [
                                 _jsx("h3", {
-                                    className: "text-sm font-semibold text-purple-800 mb-3",
+                                    className: "text-sm font-semibold text-purple-800 dark:text-purple-200 mb-3",
                                     children: "⚡ Cable Power Loss Analysis (IEEE 802.3)",
                                 }),
                                 _jsx("div", {
-                                    className: "bg-white/80 rounded-lg p-3 mb-3 text-xs text-center",
+                                    className: "bg-white dark:bg-gray-800/80 rounded-lg p-3 mb-3 text-xs text-center",
                                     children: _jsxs("div", {
                                         className: "flex items-center justify-center gap-2 flex-wrap",
                                         children: [
@@ -9591,7 +9651,7 @@ function POECalculator() {
                                             }),
                                             _jsx("span", { className: "text-gray-400", children: "+" }),
                                             _jsxs("span", {
-                                                className: "font-semibold text-gray-600",
+                                                className: "font-semibold text-gray-600 dark:text-gray-400",
                                                 children: [x.headroomPercent, "% Headroom"]
                                             }),
                                             _jsx("span", { className: "text-gray-400", children: "=" }),
@@ -9606,53 +9666,53 @@ function POECalculator() {
                                     className: "grid grid-cols-2 md:grid-cols-4 gap-3 text-center mb-3",
                                     children: [
                                         _jsxs("div", {
-                                            className: "bg-white p-3 rounded-lg shadow-sm",
+                                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm dark:shadow-gray-950/10",
                                             children: [
                                                 _jsxs("div", {
                                                     className: "text-xl font-bold text-purple-600",
                                                     children: [x.cableLoss.cableLengthM, "m"],
                                                 }),
                                                 _jsxs("div", {
-                                                    className: "text-xs text-gray-500",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                     children: ["Cable Length (", x.cableLoss.cableLengthFt, " ft)"],
                                                 }),
                                             ],
                                         }),
                                         _jsxs("div", {
-                                            className: "bg-white p-3 rounded-lg shadow-sm",
+                                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm dark:shadow-gray-950/10",
                                             children: [
                                                 _jsx("div", {
                                                     className: "text-xl font-bold text-orange-600",
                                                     children: x.cableLoss.cableType.toUpperCase(),
                                                 }),
                                                 _jsx("div", {
-                                                    className: "text-xs text-gray-500",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                     children: "Cable Type",
                                                 }),
                                             ],
                                         }),
                                         _jsxs("div", {
-                                            className: "bg-white p-3 rounded-lg shadow-sm",
+                                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm dark:shadow-gray-950/10",
                                             children: [
                                                 _jsxs("div", {
                                                     className: "text-xl font-bold " + (x.cableLoss.lossPercent > 15 ? "text-red-600" : x.cableLoss.lossPercent > 10 ? "text-orange-600" : "text-green-600"),
                                                     children: [x.cableLoss.totalLossWatts, "W"],
                                                 }),
                                                 _jsxs("div", {
-                                                    className: "text-xs text-gray-500",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                     children: ["Total Cable Loss (", x.cableLoss.lossPercent, "%)"],
                                                 }),
                                             ],
                                         }),
                                         _jsxs("div", {
-                                            className: "bg-white p-3 rounded-lg shadow-sm",
+                                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm dark:shadow-gray-950/10",
                                             children: [
                                                 _jsxs("div", {
                                                     className: "text-xl font-bold text-blue-600",
                                                     children: [x.cableLoss.powerAtDevices, "W"],
                                                 }),
                                                 _jsx("div", {
-                                                    className: "text-xs text-gray-500",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                     children: "Power at Devices (PD)",
                                                 }),
                                             ],
@@ -9660,10 +9720,10 @@ function POECalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-white/70 rounded-lg p-3",
+                                    className: "bg-white dark:bg-gray-800/70 rounded-lg p-3",
                                     children: [
                                         _jsx("div", {
-                                            className: "text-xs font-medium text-purple-800 mb-2",
+                                            className: "text-xs font-medium text-purple-800 dark:text-purple-200 mb-2",
                                             children: "Loss per PoE Type:",
                                         }),
                                         _jsxs("div", {
@@ -9672,28 +9732,28 @@ function POECalculator() {
                                                 _jsxs("div", {
                                                     className: "flex justify-between",
                                                     children: [
-                                                        _jsx("span", { className: "text-gray-600", children: "PoE (802.3af):" }),
+                                                        _jsx("span", { className: "text-gray-600 dark:text-gray-400", children: "PoE (802.3af):" }),
                                                         _jsxs("span", { className: "font-medium", children: [x.cableLoss.perType.poe.lossWatts, "W (", x.cableLoss.perType.poe.lossPercent, "%)"] }),
                                                     ],
                                                 }),
                                                 _jsxs("div", {
                                                     className: "flex justify-between",
                                                     children: [
-                                                        _jsx("span", { className: "text-gray-600", children: "PoE+ (802.3at):" }),
+                                                        _jsx("span", { className: "text-gray-600 dark:text-gray-400", children: "PoE+ (802.3at):" }),
                                                         _jsxs("span", { className: "font-medium", children: [x.cableLoss.perType.poePlus.lossWatts, "W (", x.cableLoss.perType.poePlus.lossPercent, "%)"] }),
                                                     ],
                                                 }),
                                                 _jsxs("div", {
                                                     className: "flex justify-between",
                                                     children: [
-                                                        _jsx("span", { className: "text-gray-600", children: "PoE++ Type 3:" }),
+                                                        _jsx("span", { className: "text-gray-600 dark:text-gray-400", children: "PoE++ Type 3:" }),
                                                         _jsxs("span", { className: "font-medium", children: [x.cableLoss.perType.poePlusPlus.lossWatts, "W (", x.cableLoss.perType.poePlusPlus.lossPercent, "%)"] }),
                                                     ],
                                                 }),
                                                 _jsxs("div", {
                                                     className: "flex justify-between",
                                                     children: [
-                                                        _jsx("span", { className: "text-gray-600", children: "PoE++ Type 4:" }),
+                                                        _jsx("span", { className: "text-gray-600 dark:text-gray-400", children: "PoE++ Type 4:" }),
                                                         _jsxs("span", { className: "font-medium", children: [x.cableLoss.perType.fourPPOE.lossWatts, "W (", x.cableLoss.perType.fourPPOE.lossPercent, "%)"] }),
                                                     ],
                                                 }),
@@ -9707,10 +9767,10 @@ function POECalculator() {
                             className: "grid md:grid-cols-2 gap-4 mb-6",
                             children: [
                                 _jsxs("div", {
-                                    className: "bg-gray-50 p-5 rounded-lg border",
+                                    className: "bg-gray-50 dark:bg-gray-900/50 p-5 rounded-lg border",
                                     children: [
                                         _jsx("div", {
-                                            className: "text-sm text-gray-600",
+                                            className: "text-sm text-gray-600 dark:text-gray-400",
                                             children: "Switch Configuration",
                                         }),
                                         _jsx("div", {
@@ -9718,7 +9778,7 @@ function POECalculator() {
                                             children: x.switchRequirement,
                                         }),
                                         _jsxs("div", {
-                                            className: "text-xs text-gray-500 mt-1",
+                                            className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                             children: [x.recommendedPorts, " total ports (", x.unusedPorts, " spare)"],
                                         }),
                                     ],
@@ -9727,63 +9787,63 @@ function POECalculator() {
                         }),
                         _jsxs("div", {
                             className:
-                                "bg-gradient-to-r from-gray-50 to-gray-100 p-4 rounded-lg border-2 border-gray-300 mb-6",
+                                "bg-gradient-to-r from-gray-50 to-gray-100 p-4 rounded-lg border-2 border-gray-300 dark:border-gray-600 mb-6",
                             children: [
                                 _jsx("h3", {
-                                    className: "text-sm font-semibold text-gray-700 mb-3",
+                                    className: "text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3",
                                     children: "🔌 Switch Requirements Summary",
                                 }),
                                 _jsxs("div", {
                                     className: "grid grid-cols-2 md:grid-cols-4 gap-3 text-center",
                                     children: [
                                         _jsxs("div", {
-                                            className: "bg-white p-3 rounded-lg shadow-sm",
+                                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm dark:shadow-gray-950/10",
                                             children: [
                                                 _jsx("div", {
                                                     className: "text-2xl font-bold text-blue-600",
                                                     children: x.numSwitches,
                                                 }),
                                                 _jsx("div", {
-                                                    className: "text-xs text-gray-500",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                     children: "Switch(es) Needed",
                                                 }),
                                             ],
                                         }),
                                         _jsxs("div", {
-                                            className: "bg-white p-3 rounded-lg shadow-sm",
+                                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm dark:shadow-gray-950/10",
                                             children: [
                                                 _jsx("div", {
                                                     className: "text-2xl font-bold text-green-600",
                                                     children: x.minStandardShort,
                                                 }),
                                                 _jsx("div", {
-                                                    className: "text-xs text-gray-500",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                     children: "PoE Standard",
                                                 }),
                                             ],
                                         }),
                                         _jsxs("div", {
-                                            className: "bg-white p-3 rounded-lg shadow-sm",
+                                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm dark:shadow-gray-950/10",
                                             children: [
                                                 _jsxs("div", {
                                                     className: "text-2xl font-bold text-purple-600",
                                                     children: [x.totalWatts, "W"],
                                                 }),
                                                 _jsx("div", {
-                                                    className: "text-xs text-gray-500",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                     children: "PSE Budget Required",
                                                 }),
                                             ],
                                         }),
                                         _jsxs("div", {
-                                            className: "bg-white p-3 rounded-lg shadow-sm",
+                                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg shadow-sm dark:shadow-gray-950/10",
                                             children: [
                                                 _jsxs("div", {
                                                     className: "text-2xl font-bold text-orange-600",
                                                     children: [x.switchSize, "-port"],
                                                 }),
                                                 _jsx("div", {
-                                                    className: "text-xs text-gray-500",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                     children: "Switch Size",
                                                 }),
                                             ],
@@ -9813,10 +9873,10 @@ function POECalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-red-50 p-4 rounded-lg border border-red-200",
+                                    className: "bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-800",
                                     children: [
                                         _jsx("div", {
-                                            className: "text-sm font-medium text-red-800 mb-1",
+                                            className: "text-sm font-medium text-red-800 dark:text-red-200 mb-1",
                                             children: "🌡️ Heat Output",
                                         }),
                                         _jsxs("div", {
@@ -9846,7 +9906,7 @@ function POECalculator() {
                             ],
                         }),
                         _jsxs("div", {
-                            className: "p-4 bg-gray-50 rounded-lg mb-4",
+                            className: "p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg mb-4",
                             children: [
                                 _jsx("h3", {
                                     className: "font-semibold mb-2",
@@ -9932,19 +9992,19 @@ function POECalculator() {
                                                     className:
                                                         "p-3 rounded-lg border " +
                                                         ("success" === e.type
-                                                            ? "bg-green-50 border-green-200"
+                                                            ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800"
                                                             : "warning" === e.type
-                                                              ? "bg-yellow-50 border-yellow-200"
-                                                              : "bg-blue-50 border-blue-200"),
+                                                              ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800"
+                                                              : "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800"),
                                                     children: [
                                                         _jsx("div", {
                                                             className:
                                                                 "font-medium text-sm " +
                                                                 ("success" === e.type
-                                                                    ? "text-green-800"
+                                                                    ? "text-green-800 dark:text-green-200"
                                                                     : "warning" === e.type
-                                                                      ? "text-yellow-800"
-                                                                      : "text-blue-800"),
+                                                                      ? "text-yellow-800 dark:text-yellow-200"
+                                                                      : "text-blue-800 dark:text-blue-200"),
                                                             children: e.title,
                                                         }),
                                                         _jsx("div", {
@@ -10001,14 +10061,14 @@ function BrightnessCalculator() {
                 className: "flex items-center justify-between mb-4 sm:mb-6",
                 children: [
                     _jsx("h1", {
-                        className: "text-2xl sm:text-3xl font-bold text-gray-900",
+                        className: "text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100",
                         children: "Display Brightness Calculator",
                     }),
                     r !== null &&
                         _jsx("button", {
                             onClick: () => n(!0),
                             className:
-                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm",
+                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm dark:shadow-gray-950/10",
                             children: "⟲ Reset Tool",
                         }),
                 ],
@@ -10021,20 +10081,20 @@ function BrightnessCalculator() {
                 onCancel: () => n(!1),
             }),
             _jsx("div", {
-                className: "bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200",
+                className: "bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6 border border-gray-200 dark:border-gray-700",
                 children: _jsxs("p", {
-                    className: "text-sm text-gray-600",
+                    className: "text-sm text-gray-600 dark:text-gray-400",
                     children: [
-                        _jsx("span", { className: "font-semibold text-gray-700", children: "What this tool does:" }),
+                        _jsx("span", { className: "font-semibold text-gray-700 dark:text-gray-300", children: "What this tool does:" }),
                         " Determines the minimum display brightness (nits) required for your environment based on ambient light levels. Uses AVIXA standards to ensure adequate contrast ratio for content visibility in different lighting conditions.",
                     ],
                 }),
             }),
             _jsxs("div", {
-                className: "bg-blue-50 rounded-xl p-4 sm:p-5 mb-6 border border-blue-200",
+                className: "bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 sm:p-5 mb-6 border border-blue-200 dark:border-blue-800",
                 children: [
                     _jsx("h2", {
-                        className: "text-base sm:text-lg font-semibold text-blue-800 mb-2 sm:mb-3",
+                        className: "text-base sm:text-lg font-semibold text-blue-800 dark:text-blue-200 mb-2 sm:mb-3",
                         children: "AVIXA Display Brightness Standards",
                     }),
                     _jsxs("p", {
@@ -10046,9 +10106,9 @@ function BrightnessCalculator() {
                         ],
                     }),
                     _jsx("div", {
-                        className: "bg-white rounded-lg p-3 border border-blue-200 mb-3",
+                        className: "bg-white dark:bg-gray-800 rounded-lg p-3 border border-blue-200 dark:border-blue-800 mb-3",
                         children: _jsxs("p", {
-                            className: "text-xs sm:text-sm font-mono text-blue-800",
+                            className: "text-xs sm:text-sm font-mono text-blue-800 dark:text-blue-200",
                             children: [
                                 _jsx("strong", { children: "Formula:" }),
                                 " Minimum Nits = (Ambient Lux ÷ π) × 3",
@@ -10059,28 +10119,28 @@ function BrightnessCalculator() {
                         className: "grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs",
                         children: [
                             _jsxs("div", {
-                                className: "bg-white p-2 rounded border border-blue-200 text-center",
+                                className: "bg-white dark:bg-gray-800 p-2 rounded border border-blue-200 dark:border-blue-800 text-center",
                                 children: [
                                     _jsx("div", { className: "font-bold text-blue-700", children: "7:1" }),
                                     _jsx("div", { className: "text-blue-600", children: "Min Contrast (Text)" }),
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-white p-2 rounded border border-blue-200 text-center",
+                                className: "bg-white dark:bg-gray-800 p-2 rounded border border-blue-200 dark:border-blue-800 text-center",
                                 children: [
                                     _jsx("div", { className: "font-bold text-blue-700", children: "20:1" }),
                                     _jsx("div", { className: "text-blue-600", children: "Good Contrast" }),
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-white p-2 rounded border border-blue-200 text-center",
+                                className: "bg-white dark:bg-gray-800 p-2 rounded border border-blue-200 dark:border-blue-800 text-center",
                                 children: [
                                     _jsx("div", { className: "font-bold text-blue-700", children: "100:1+" }),
                                     _jsx("div", { className: "text-blue-600", children: "Excellent Contrast" }),
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-white p-2 rounded border border-blue-200 text-center",
+                                className: "bg-white dark:bg-gray-800 p-2 rounded border border-blue-200 dark:border-blue-800 text-center",
                                 children: [
                                     _jsx("div", { className: "font-bold text-blue-700", children: "3-5×" }),
                                     _jsx("div", { className: "text-blue-600", children: "Brightness vs Ambient" }),
@@ -10091,7 +10151,7 @@ function BrightnessCalculator() {
                 ],
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-4 sm:p-6 mb-6 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 mb-6 border",
                 children: [
                     _jsx("h2", {
                         className: "text-lg sm:text-xl font-semibold text-gray-800 mb-4",
@@ -10101,7 +10161,7 @@ function BrightnessCalculator() {
                         className: "mb-6",
                         children: [
                             _jsxs("label", {
-                                className: "block text-sm font-medium text-gray-700 mb-2",
+                                className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                 children: [
                                     "Ambient Light: ",
                                     _jsxs("span", { className: "font-bold text-blue-600", children: [e, " lux"] }),
@@ -10131,7 +10191,7 @@ function BrightnessCalculator() {
                                 value: Math.min(e, 2e3),
                                 onChange: (e) => t("" === e.target.value ? "" : parseFloat(e.target.value)),
                                 className:
-                                    "w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600",
+                                    "w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600",
                             }),
                             _jsxs("div", {
                                 className: "flex justify-between text-xs text-gray-400 mt-1",
@@ -10147,7 +10207,7 @@ function BrightnessCalculator() {
                                 className: "mt-3",
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-xs text-gray-500 mb-2",
+                                        className: "block text-xs text-gray-500 dark:text-gray-400 mb-2",
                                         children: "Quick Select Environment:",
                                     }),
                                     _jsx("div", {
@@ -10170,7 +10230,7 @@ function BrightnessCalculator() {
                                                         "px-2 py-1 text-xs rounded border transition-colors cursor-pointer " +
                                                         (e === s.lux
                                                             ? "bg-blue-600 text-white border-blue-600"
-                                                            : "bg-white text-gray-600 border-gray-300 hover:bg-blue-50"),
+                                                            : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600 hover:bg-blue-50 dark:bg-blue-900/20"),
                                                     children: [s.icon, " ", s.label],
                                                 },
                                                 s.label
@@ -10185,7 +10245,7 @@ function BrightnessCalculator() {
                         className: "mb-6",
                         children: [
                             _jsx("label", {
-                                className: "block text-sm font-medium text-gray-700 mb-2",
+                                className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                 children: "Display Type",
                             }),
                             _jsx("div", {
@@ -10198,12 +10258,12 @@ function BrightnessCalculator() {
                                             className:
                                                 "p-3 rounded-lg border-2 text-center transition-colors " +
                                                 (s === e.value
-                                                    ? "bg-blue-50 border-blue-500 text-blue-700"
-                                                    : "bg-white border-gray-200 text-gray-600 hover:border-blue-300"),
+                                                    ? "bg-blue-50 dark:bg-blue-900/20 border-blue-500 text-blue-700"
+                                                    : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-blue-300"),
                                             children: [
                                                 _jsx("div", { className: "font-medium text-sm", children: e.label }),
                                                 _jsxs("div", {
-                                                    className: "text-xs text-gray-500",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400",
                                                     children: [e.typicalNits, " nits"],
                                                 }),
                                             ],
@@ -10323,7 +10383,7 @@ function BrightnessCalculator() {
                     className: "space-y-6",
                     children: [
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-4 sm:p-6 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border",
                             children: [
                                 _jsx("h2", {
                                     className: "text-lg sm:text-xl font-semibold text-gray-800 mb-4",
@@ -10333,7 +10393,7 @@ function BrightnessCalculator() {
                                     className: "grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6",
                                     children: [
                                         _jsxs("div", {
-                                            className: "bg-blue-50 p-4 rounded-lg border-2 border-blue-300 text-center",
+                                            className: "bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border-2 border-blue-300 text-center",
                                             children: [
                                                 _jsx("div", {
                                                     className: "text-xs text-blue-600 font-medium",
@@ -10351,7 +10411,7 @@ function BrightnessCalculator() {
                                         }),
                                         _jsxs("div", {
                                             className:
-                                                "bg-green-50 p-4 rounded-lg border-2 border-green-300 text-center",
+                                                "bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border-2 border-green-300 text-center",
                                             children: [
                                                 _jsx("div", {
                                                     className: "text-xs text-green-600 font-medium",
@@ -10369,7 +10429,7 @@ function BrightnessCalculator() {
                                         }),
                                         _jsxs("div", {
                                             className:
-                                                "bg-purple-50 p-4 rounded-lg border-2 border-purple-300 text-center",
+                                                "bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border-2 border-purple-300 text-center",
                                             children: [
                                                 _jsx("div", {
                                                     className: "text-xs text-purple-600 font-medium",
@@ -10389,12 +10449,12 @@ function BrightnessCalculator() {
                                             className:
                                                 "p-4 rounded-lg border-2 text-center " +
                                                 (r.estimatedCR >= 100
-                                                    ? "bg-green-50 border-green-300"
+                                                    ? "bg-green-50 dark:bg-green-900/20 border-green-300"
                                                     : r.estimatedCR >= 20
-                                                      ? "bg-blue-50 border-blue-300"
+                                                      ? "bg-blue-50 dark:bg-blue-900/20 border-blue-300"
                                                       : r.estimatedCR >= 7
-                                                        ? "bg-yellow-50 border-yellow-300"
-                                                        : "bg-red-50 border-red-300"),
+                                                        ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-300"
+                                                        : "bg-red-50 dark:bg-red-900/20 border-red-300"),
                                             children: [
                                                 _jsx("div", {
                                                     className:
@@ -10447,10 +10507,10 @@ function BrightnessCalculator() {
                                     className:
                                         "p-4 rounded-lg border-2 mb-4 " +
                                         (r.displaySuitable && r.displayOptimal
-                                            ? "bg-green-50 border-green-300"
+                                            ? "bg-green-50 dark:bg-green-900/20 border-green-300"
                                             : r.displaySuitable
-                                              ? "bg-yellow-50 border-yellow-300"
-                                              : "bg-red-50 border-red-300"),
+                                              ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-300"
+                                              : "bg-red-50 dark:bg-red-900/20 border-red-300"),
                                     children: [
                                         _jsxs("div", {
                                             className: "flex items-center gap-2 mb-2",
@@ -10468,10 +10528,10 @@ function BrightnessCalculator() {
                                                     className:
                                                         "font-semibold " +
                                                         (r.displaySuitable && r.displayOptimal
-                                                            ? "text-green-800"
+                                                            ? "text-green-800 dark:text-green-200"
                                                             : r.displaySuitable
-                                                              ? "text-yellow-800"
-                                                              : "text-red-800"),
+                                                              ? "text-yellow-800 dark:text-yellow-200"
+                                                              : "text-red-800 dark:text-red-200"),
                                                     children: [
                                                         r.displayType.label,
                                                         " - ",
@@ -10512,13 +10572,13 @@ function BrightnessCalculator() {
                                     ],
                                 }),
                                 _jsx("div", {
-                                    className: "p-3 bg-gray-50 rounded-lg text-sm",
+                                    className: "p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg text-sm",
                                     children: _jsxs("div", {
                                         className: "grid sm:grid-cols-3 gap-2",
                                         children: [
                                             _jsxs("div", {
                                                 children: [
-                                                    _jsx("span", { className: "text-gray-500", children: "Ambient:" }),
+                                                    _jsx("span", { className: "text-gray-500 dark:text-gray-400", children: "Ambient:" }),
                                                     " ",
                                                     _jsxs("strong", { children: [r.ambientLux, " lux"] }),
                                                 ],
@@ -10526,7 +10586,7 @@ function BrightnessCalculator() {
                                             _jsxs("div", {
                                                 children: [
                                                     _jsx("span", {
-                                                        className: "text-gray-500",
+                                                        className: "text-gray-500 dark:text-gray-400",
                                                         children: "Display Type:",
                                                     }),
                                                     " ",
@@ -10536,7 +10596,7 @@ function BrightnessCalculator() {
                                             _jsxs("div", {
                                                 children: [
                                                     _jsx("span", {
-                                                        className: "text-gray-500",
+                                                        className: "text-gray-500 dark:text-gray-400",
                                                         children: "Brightness Factor:",
                                                     }),
                                                     " ",
@@ -10550,10 +10610,10 @@ function BrightnessCalculator() {
                         }),
                         r.warnings.length > 0 &&
                             _jsxs("div", {
-                                className: "bg-red-50 rounded-xl shadow-md p-4 sm:p-6 border border-red-300",
+                                className: "bg-red-50 dark:bg-red-900/20 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border border-red-300",
                                 children: [
                                     _jsxs("h2", {
-                                        className: "text-lg font-semibold text-red-800 mb-3 flex items-center gap-2",
+                                        className: "text-lg font-semibold text-red-800 dark:text-red-200 mb-3 flex items-center gap-2",
                                         children: [_jsx("span", { children: "⚠️" }), " Warnings"],
                                     }),
                                     _jsx("div", {
@@ -10562,7 +10622,7 @@ function BrightnessCalculator() {
                                             _jsxs(
                                                 "div",
                                                 {
-                                                    className: "p-3 bg-white rounded-lg border border-red-200",
+                                                    className: "p-3 bg-white dark:bg-gray-800 rounded-lg border border-red-200 dark:border-red-800",
                                                     children: [
                                                         _jsx("h3", {
                                                             className: "font-semibold text-red-700 mb-1",
@@ -10581,7 +10641,7 @@ function BrightnessCalculator() {
                                 ],
                             }),
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-4 sm:p-6 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border",
                             children: [
                                 _jsx("h2", {
                                     className: "text-lg sm:text-xl font-semibold text-gray-800 mb-4",
@@ -10596,23 +10656,23 @@ function BrightnessCalculator() {
                                                 className:
                                                     "p-3 rounded-lg border " +
                                                     ("success" === e.type
-                                                        ? "bg-green-50 border-green-200"
+                                                        ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800"
                                                         : "warning" === e.type
-                                                          ? "bg-yellow-50 border-yellow-200"
+                                                          ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800"
                                                           : "error" === e.type
-                                                            ? "bg-red-50 border-red-200"
-                                                            : "bg-blue-50 border-blue-200"),
+                                                            ? "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800"
+                                                            : "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800"),
                                                 children: [
                                                     _jsxs("h3", {
                                                         className:
                                                             "font-semibold mb-1 " +
                                                             ("success" === e.type
-                                                                ? "text-green-800"
+                                                                ? "text-green-800 dark:text-green-200"
                                                                 : "warning" === e.type
-                                                                  ? "text-yellow-800"
+                                                                  ? "text-yellow-800 dark:text-yellow-200"
                                                                   : "error" === e.type
-                                                                    ? "text-red-800"
-                                                                    : "text-blue-800"),
+                                                                    ? "text-red-800 dark:text-red-200"
+                                                                    : "text-blue-800 dark:text-blue-200"),
                                                         children: [
                                                             "success" === e.type
                                                                 ? "✅"
@@ -10646,7 +10706,7 @@ function BrightnessCalculator() {
                             ],
                         }),
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-4 sm:p-6 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border",
                             children: [
                                 _jsx("h2", {
                                     className: "text-lg font-semibold text-gray-800 mb-4",
@@ -10659,7 +10719,7 @@ function BrightnessCalculator() {
                                         children: [
                                             _jsx("thead", {
                                                 children: _jsxs("tr", {
-                                                    className: "bg-gray-100",
+                                                    className: "bg-gray-100 dark:bg-gray-700",
                                                     children: [
                                                         _jsx("th", {
                                                             className: "px-3 py-2 text-left",
@@ -10726,7 +10786,7 @@ function BrightnessCalculator() {
                                                                 "border-b " +
                                                                 (e >= parseInt(t.lux) &&
                                                                 e < (parseInt(t.lux.split("-")[1]) || 1e4)
-                                                                    ? "bg-blue-50"
+                                                                    ? "bg-blue-50 dark:bg-blue-900/20"
                                                                     : ""),
                                                             children: [
                                                                 _jsx("td", {
@@ -10823,14 +10883,14 @@ function ViewingAngleCalculator() {
                 className: "flex items-center justify-between mb-6",
                 children: [
                     _jsx("h1", {
-                        className: "text-3xl font-bold text-gray-900",
+                        className: "text-3xl font-bold text-gray-900 dark:text-gray-100",
                         children: "Display Viewing Angle Calculator",
                     }),
                     i !== null &&
                         _jsx("button", {
                             onClick: () => d(!0),
                             className:
-                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm",
+                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm dark:shadow-gray-950/10",
                             children: "⟲ Reset Tool",
                         }),
                 ],
@@ -10843,18 +10903,18 @@ function ViewingAngleCalculator() {
                 onCancel: () => d(!1),
             }),
             _jsx("div", {
-                className: "bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200",
+                className: "bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6 border border-gray-200 dark:border-gray-700",
                 children: _jsxs("p", {
-                    className: "text-sm text-gray-600",
+                    className: "text-sm text-gray-600 dark:text-gray-400",
                     children: [
-                        _jsx("span", { className: "font-semibold text-gray-700", children: "What this tool does:" }),
+                        _jsx("span", { className: "font-semibold text-gray-700 dark:text-gray-300", children: "What this tool does:" }),
                         " Calculates the horizontal viewing angle (field of view) from viewer to display. Verifies compliance with current industry standards: THX Reference (36°), SMPTE EG-18 Cinema (30°), and THX Minimum (26°).",
                     ],
                 }),
             }),
             _jsxs("div", {
                 className:
-                    "bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-md p-6 mb-8 border border-blue-200",
+                    "bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-md dark:shadow-gray-950/20 p-6 mb-8 border border-blue-200 dark:border-blue-800",
                 children: [
                     _jsxs("h2", {
                         className: "text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2",
@@ -10864,19 +10924,19 @@ function ViewingAngleCalculator() {
                         ],
                     }),
                     _jsx("p", {
-                        className: "text-sm text-gray-600 mb-4",
+                        className: "text-sm text-gray-600 dark:text-gray-400 mb-4",
                         children: "Current standards from SMPTE EG-18, THX, and AVIXA DISCAS V202.01:2016:",
                     }),
                     _jsxs("div", {
                         className: "grid md:grid-cols-4 gap-3",
                         children: [
                             _jsxs("div", {
-                                className: "bg-white p-3 rounded-lg border border-green-200",
+                                className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-green-200 dark:border-green-800",
                                 children: [
                                     _jsxs("div", {
                                         className: "flex items-center gap-2 mb-1",
                                         children: [
-                                            _jsx("span", { className: "w-3 h-3 rounded-full bg-green-500" }),
+                                            _jsx("span", { className: "w-3 h-3 rounded-full bg-green-50 dark:bg-green-900/200" }),
                                             _jsx("span", {
                                                 className: "font-semibold text-green-700",
                                                 children: "≥ 36°",
@@ -10887,16 +10947,16 @@ function ViewingAngleCalculator() {
                                         className: "text-sm font-medium text-gray-800",
                                         children: "THX Reference",
                                     }),
-                                    _jsx("div", { className: "text-xs text-gray-500", children: "Cinema, immersive" }),
+                                    _jsx("div", { className: "text-xs text-gray-500 dark:text-gray-400", children: "Cinema, immersive" }),
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-white p-3 rounded-lg border border-blue-200",
+                                className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-blue-200 dark:border-blue-800",
                                 children: [
                                     _jsxs("div", {
                                         className: "flex items-center gap-2 mb-1",
                                         children: [
-                                            _jsx("span", { className: "w-3 h-3 rounded-full bg-blue-500" }),
+                                            _jsx("span", { className: "w-3 h-3 rounded-full bg-blue-50 dark:bg-blue-900/200" }),
                                             _jsx("span", {
                                                 className: "font-semibold text-blue-700",
                                                 children: "≥ 30°",
@@ -10908,13 +10968,13 @@ function ViewingAngleCalculator() {
                                         children: "SMPTE Standard",
                                     }),
                                     _jsx("div", {
-                                        className: "text-xs text-gray-500",
+                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                         children: "Professional, detailed",
                                     }),
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-white p-3 rounded-lg border border-teal-200",
+                                className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-teal-200",
                                 children: [
                                     _jsxs("div", {
                                         className: "flex items-center gap-2 mb-1",
@@ -10931,18 +10991,18 @@ function ViewingAngleCalculator() {
                                         children: "THX Minimum",
                                     }),
                                     _jsx("div", {
-                                        className: "text-xs text-gray-500",
+                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                         children: "General presentations",
                                     }),
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-white p-3 rounded-lg border border-yellow-200",
+                                className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-yellow-200 dark:border-yellow-800",
                                 children: [
                                     _jsxs("div", {
                                         className: "flex items-center gap-2 mb-1",
                                         children: [
-                                            _jsx("span", { className: "w-3 h-3 rounded-full bg-yellow-500" }),
+                                            _jsx("span", { className: "w-3 h-3 rounded-full bg-yellow-50 dark:bg-yellow-900/200" }),
                                             _jsx("span", {
                                                 className: "font-semibold text-yellow-700",
                                                 children: "≥ 20°",
@@ -10954,7 +11014,7 @@ function ViewingAngleCalculator() {
                                         children: "Basic Viewing",
                                     }),
                                     _jsx("div", {
-                                        className: "text-xs text-gray-500",
+                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                         children: "Video, digital signage",
                                     }),
                                 ],
@@ -10964,7 +11024,7 @@ function ViewingAngleCalculator() {
                 ],
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-8 mb-8 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 mb-8 border",
                 children: [
                     _jsxs("div", {
                         className: "grid md:grid-cols-2 gap-6",
@@ -10972,7 +11032,7 @@ function ViewingAngleCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsxs("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: ["Image Width (", r, ")"],
                                     }),
                                     _jsx("input", {
@@ -10988,7 +11048,7 @@ function ViewingAngleCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsxs("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: ["Viewing Distance (", r, ")"],
                                     }),
                                     _jsx("input", {
@@ -11005,7 +11065,7 @@ function ViewingAngleCalculator() {
                                 className: "md:col-span-2",
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Unit",
                                     }),
                                     _jsxs("select", {
@@ -11035,12 +11095,12 @@ function ViewingAngleCalculator() {
             i &&
                 c &&
                 _jsxs("div", {
-                    className: "bg-white rounded-xl shadow-md p-8 border",
+                    className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 border",
                     children: [
                         _jsxs("div", {
-                            className: "bg-blue-50 p-8 rounded-lg border-2 border-blue-200 text-center mb-6",
+                            className: "bg-blue-50 dark:bg-blue-900/20 p-8 rounded-lg border-2 border-blue-200 dark:border-blue-800 text-center mb-6",
                             children: [
-                                _jsx("div", { className: "text-sm text-gray-600", children: "Viewing Angle" }),
+                                _jsx("div", { className: "text-sm text-gray-600 dark:text-gray-400", children: "Viewing Angle" }),
                                 _jsxs("div", {
                                     className: "text-5xl font-bold text-blue-700",
                                     children: [i.angle, "°"],
@@ -11051,14 +11111,14 @@ function ViewingAngleCalculator() {
                             className:
                                 "p-6 rounded-lg border-2 " +
                                 ("green" === c.color
-                                    ? "bg-green-50 border-green-300"
+                                    ? "bg-green-50 dark:bg-green-900/20 border-green-300"
                                     : "blue" === c.color
-                                      ? "bg-blue-50 border-blue-300"
+                                      ? "bg-blue-50 dark:bg-blue-900/20 border-blue-300"
                                       : "teal" === c.color
                                         ? "bg-teal-50 border-teal-300"
                                         : "yellow" === c.color
-                                          ? "bg-yellow-50 border-yellow-300"
-                                          : "bg-red-50 border-red-300"),
+                                          ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-300"
+                                          : "bg-red-50 dark:bg-red-900/20 border-red-300"),
                             children: [
                                 _jsxs("div", {
                                     className: "flex items-start gap-4",
@@ -11084,14 +11144,14 @@ function ViewingAngleCalculator() {
                                                     className:
                                                         "text-lg font-semibold " +
                                                         ("green" === c.color
-                                                            ? "text-green-800"
+                                                            ? "text-green-800 dark:text-green-200"
                                                             : "blue" === c.color
-                                                              ? "text-blue-800"
+                                                              ? "text-blue-800 dark:text-blue-200"
                                                               : "teal" === c.color
                                                                 ? "text-teal-800"
                                                                 : "yellow" === c.color
-                                                                  ? "text-yellow-800"
-                                                                  : "text-red-800"),
+                                                                  ? "text-yellow-800 dark:text-yellow-200"
+                                                                  : "text-red-800 dark:text-red-200"),
                                                     children: c.label,
                                                 }),
                                                 _jsx("p", {
@@ -11113,14 +11173,14 @@ function ViewingAngleCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "mt-4 pt-4 border-t border-gray-200",
+                                    className: "mt-4 pt-4 border-t border-gray-200 dark:border-gray-700",
                                     children: [
                                         _jsx("div", {
-                                            className: "text-xs text-gray-500 mb-2",
+                                            className: "text-xs text-gray-500 dark:text-gray-400 mb-2",
                                             children: "SMPTE / THX Viewing Angle Scale",
                                         }),
                                         _jsxs("div", {
-                                            className: "relative h-4 bg-gray-200 rounded-full overflow-hidden",
+                                            className: "relative h-4 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden",
                                             children: [
                                                 _jsx("div", {
                                                     className: "absolute inset-y-0 left-0 bg-red-400",
@@ -11143,7 +11203,7 @@ function ViewingAngleCalculator() {
                                                     style: { width: "28%" },
                                                 }),
                                                 _jsx("div", {
-                                                    className: "absolute top-0 bottom-0 w-1 bg-gray-800 shadow-lg",
+                                                    className: "absolute top-0 bottom-0 w-1 bg-gray-800 shadow-lg dark:shadow-gray-950/30",
                                                     style: {
                                                         left: `${Math.min(100, Math.max(0, (i.angle / 50) * 100))}%`,
                                                         transform: "translateX(-50%)",
@@ -11157,7 +11217,7 @@ function ViewingAngleCalculator() {
                                             ],
                                         }),
                                         _jsxs("div", {
-                                            className: "relative text-xs text-gray-500 mt-1 h-4",
+                                            className: "relative text-xs text-gray-500 dark:text-gray-400 mt-1 h-4",
                                             children: [
                                                 _jsx("span", { className: "absolute left-0", children: "0°" }),
                                                 _jsx("span", {
@@ -11185,14 +11245,14 @@ function ViewingAngleCalculator() {
                         }),
                         "poor" === c.status &&
                             _jsxs("div", {
-                                className: "mt-6 p-4 bg-gray-50 rounded-lg",
+                                className: "mt-6 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg",
                                 children: [
                                     _jsx("h3", {
-                                        className: "font-semibold text-gray-700 mb-2",
+                                        className: "font-semibold text-gray-700 dark:text-gray-300 mb-2",
                                         children: "💡 Recommendations",
                                     }),
                                     _jsxs("ul", {
-                                        className: "text-sm text-gray-600 space-y-1",
+                                        className: "text-sm text-gray-600 dark:text-gray-400 space-y-1",
                                         children: [
                                             _jsx("li", { children: "• Increase the display/image width" }),
                                             _jsx("li", { children: "• Decrease the viewing distance" }),
@@ -11202,10 +11262,10 @@ function ViewingAngleCalculator() {
                                 ],
                             }),
                         _jsxs("div", {
-                            className: "mt-6 p-4 bg-gray-50 rounded-lg",
+                            className: "mt-6 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg",
                             children: [
                                 _jsx("h3", {
-                                    className: "font-semibold text-gray-700 mb-2",
+                                    className: "font-semibold text-gray-700 dark:text-gray-300 mb-2",
                                     children: "Calculation Summary",
                                 }),
                                 _jsxs("div", {
@@ -11213,14 +11273,14 @@ function ViewingAngleCalculator() {
                                     children: [
                                         _jsxs("div", {
                                             children: [
-                                                _jsx("span", { className: "text-gray-500", children: "Image Width:" }),
+                                                _jsx("span", { className: "text-gray-500 dark:text-gray-400", children: "Image Width:" }),
                                                 _jsxs("p", { className: "font-medium", children: [e, " ", r] }),
                                             ],
                                         }),
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("span", {
-                                                    className: "text-gray-500",
+                                                    className: "text-gray-500 dark:text-gray-400",
                                                     children: "Viewing Distance:",
                                                 }),
                                                 _jsxs("p", { className: "font-medium", children: [s, " ", r] }),
@@ -11229,10 +11289,10 @@ function ViewingAngleCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "mt-3 pt-3 border-t border-gray-200",
+                                    className: "mt-3 pt-3 border-t border-gray-200 dark:border-gray-700",
                                     children: [
                                         _jsx("p", {
-                                            className: "text-xs text-gray-500",
+                                            className: "text-xs text-gray-500 dark:text-gray-400",
                                             children: "Formula: θ = 2 × arctan(Width ÷ 2 ÷ Distance)",
                                         }),
                                         _jsx("p", {
@@ -11333,10 +11393,10 @@ function DvLEDCalculator() {
         x = (e) => {
             const t = {
                 purple: {
-                    bg: "bg-purple-50",
+                    bg: "bg-purple-50 dark:bg-purple-900/20",
                     border: "border-purple-300",
                     text: "text-purple-700",
-                    badge: "bg-purple-100 text-purple-800",
+                    badge: "bg-purple-100 text-purple-800 dark:text-purple-200",
                 },
                 indigo: {
                     bg: "bg-indigo-50",
@@ -11345,10 +11405,10 @@ function DvLEDCalculator() {
                     badge: "bg-indigo-100 text-indigo-800",
                 },
                 blue: {
-                    bg: "bg-blue-50",
+                    bg: "bg-blue-50 dark:bg-blue-900/20",
                     border: "border-blue-300",
                     text: "text-blue-700",
-                    badge: "bg-blue-100 text-blue-800",
+                    badge: "bg-blue-100 text-blue-800 dark:text-blue-200",
                 },
                 cyan: {
                     bg: "bg-cyan-50",
@@ -11357,16 +11417,16 @@ function DvLEDCalculator() {
                     badge: "bg-cyan-100 text-cyan-800",
                 },
                 green: {
-                    bg: "bg-green-50",
+                    bg: "bg-green-50 dark:bg-green-900/20",
                     border: "border-green-300",
                     text: "text-green-700",
-                    badge: "bg-green-100 text-green-800",
+                    badge: "bg-green-100 text-green-800 dark:text-green-200",
                 },
                 yellow: {
-                    bg: "bg-yellow-50",
+                    bg: "bg-yellow-50 dark:bg-yellow-900/20",
                     border: "border-yellow-300",
                     text: "text-yellow-700",
-                    badge: "bg-yellow-100 text-yellow-800",
+                    badge: "bg-yellow-100 text-yellow-800 dark:text-yellow-200",
                 },
                 orange: {
                     bg: "bg-orange-50",
@@ -11375,16 +11435,16 @@ function DvLEDCalculator() {
                     badge: "bg-orange-100 text-orange-800",
                 },
                 red: {
-                    bg: "bg-red-50",
+                    bg: "bg-red-50 dark:bg-red-900/20",
                     border: "border-red-300",
                     text: "text-red-700",
-                    badge: "bg-red-100 text-red-800",
+                    badge: "bg-red-100 text-red-800 dark:text-red-200",
                 },
                 gray: {
-                    bg: "bg-gray-50",
-                    border: "border-gray-300",
-                    text: "text-gray-700",
-                    badge: "bg-gray-100 text-gray-800",
+                    bg: "bg-gray-50 dark:bg-gray-900/50",
+                    border: "border-gray-300 dark:border-gray-600",
+                    text: "text-gray-700 dark:text-gray-300",
+                    badge: "bg-gray-100 dark:bg-gray-700 text-gray-800",
                 },
             };
             return t[e] || t.gray;
@@ -11396,14 +11456,14 @@ function DvLEDCalculator() {
                 className: "flex items-center justify-between mb-6",
                 children: [
                     _jsx("h1", {
-                        className: "text-3xl font-bold text-gray-900",
+                        className: "text-3xl font-bold text-gray-900 dark:text-gray-100",
                         children: "DvLED Pixel Pitch Calculator",
                     }),
                     r !== null &&
                         _jsx("button", {
                             onClick: () => n(!0),
                             className:
-                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm",
+                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm dark:shadow-gray-950/10",
                             children: "⟲ Reset Tool",
                         }),
                 ],
@@ -11416,18 +11476,18 @@ function DvLEDCalculator() {
                 onCancel: () => n(!1),
             }),
             _jsx("div", {
-                className: "bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200",
+                className: "bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6 border border-gray-200 dark:border-gray-700",
                 children: _jsxs("p", {
-                    className: "text-sm text-gray-600",
+                    className: "text-sm text-gray-600 dark:text-gray-400",
                     children: [
-                        _jsx("span", { className: "font-semibold text-gray-700", children: "What this tool does:" }),
+                        _jsx("span", { className: "font-semibold text-gray-700 dark:text-gray-300", children: "What this tool does:" }),
                         " Determines the optimal LED pixel pitch based on viewing distance, or calculates the minimum viewing distance for a given pixel pitch. Provides recommendations for different applications (broadcast, corporate, retail, venues).",
                     ],
                 }),
             }),
             _jsxs("div", {
                 className:
-                    "bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl shadow-md p-6 mb-8 border border-purple-200",
+                    "bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl shadow-md dark:shadow-gray-950/20 p-6 mb-8 border border-purple-200 dark:border-purple-800",
                 children: [
                     _jsxs("h2", {
                         className: "text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2",
@@ -11437,7 +11497,7 @@ function DvLEDCalculator() {
                         ],
                     }),
                     _jsx("p", {
-                        className: "text-sm text-gray-600 mb-4",
+                        className: "text-sm text-gray-600 dark:text-gray-400 mb-4",
                         children:
                             "Pixel pitch determines the minimum viewing distance and suitable applications. Smaller pitch = higher resolution = closer viewing.",
                     }),
@@ -11455,7 +11515,7 @@ function DvLEDCalculator() {
                                     className: `${x(e.color).bg} p-3 rounded-lg border ${x(e.color).border}`,
                                     children: [
                                         _jsx("div", { className: `font-bold ${x(e.color).text}`, children: e.pitch }),
-                                        _jsx("div", { className: "text-xs text-gray-600", children: e.use }),
+                                        _jsx("div", { className: "text-xs text-gray-600 dark:text-gray-400", children: e.use }),
                                     ],
                                 },
                                 e.pitch
@@ -11465,7 +11525,7 @@ function DvLEDCalculator() {
                 ],
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-8 mb-8 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 mb-8 border",
                 children: [
                     _jsxs("div", {
                         className: "grid md:grid-cols-2 gap-6",
@@ -11473,7 +11533,7 @@ function DvLEDCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Closest Viewer Distance",
                                     }),
                                     _jsx("input", {
@@ -11490,7 +11550,7 @@ function DvLEDCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Unit",
                                     }),
                                     _jsxs("select", {
@@ -11518,16 +11578,16 @@ function DvLEDCalculator() {
             r &&
                 d &&
                 _jsxs("div", {
-                    className: "bg-white rounded-xl shadow-md p-8 border",
+                    className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 border",
                     children: [
                         _jsxs("div", {
                             className: "grid md:grid-cols-2 gap-6 mb-6",
                             children: [
                                 _jsxs("div", {
-                                    className: "bg-blue-50 p-6 rounded-lg border-2 border-blue-200",
+                                    className: "bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg border-2 border-blue-200 dark:border-blue-800",
                                     children: [
                                         _jsx("div", {
-                                            className: "text-sm text-gray-600",
+                                            className: "text-sm text-gray-600 dark:text-gray-400",
                                             children: "Recommended Pixel Pitch",
                                         }),
                                         _jsxs("div", {
@@ -11535,16 +11595,16 @@ function DvLEDCalculator() {
                                             children: [r.pixelPitchMm, " mm"],
                                         }),
                                         _jsx("div", {
-                                            className: "text-sm text-gray-500 mt-1",
+                                            className: "text-sm text-gray-500 dark:text-gray-400 mt-1",
                                             children: "or finer for optimal clarity",
                                         }),
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-green-50 p-6 rounded-lg border-2 border-green-200",
+                                    className: "bg-green-50 dark:bg-green-900/20 p-6 rounded-lg border-2 border-green-200 dark:border-green-800",
                                     children: [
                                         _jsx("div", {
-                                            className: "text-sm text-gray-600",
+                                            className: "text-sm text-gray-600 dark:text-gray-400",
                                             children: "Comfortable Viewing Distance",
                                         }),
                                         _jsxs("div", {
@@ -11556,7 +11616,7 @@ function DvLEDCalculator() {
                                             ],
                                         }),
                                         _jsx("div", {
-                                            className: "text-sm text-gray-500 mt-1",
+                                            className: "text-sm text-gray-500 dark:text-gray-400 mt-1",
                                             children: "viewers can be this close comfortably",
                                         }),
                                     ],
@@ -11590,7 +11650,7 @@ function DvLEDCalculator() {
                                                 ],
                                             }),
                                             _jsx("p", {
-                                                className: "text-sm text-gray-600 mb-3",
+                                                className: "text-sm text-gray-600 dark:text-gray-400 mb-3",
                                                 children: d.description,
                                             }),
                                             _jsx("div", {
@@ -11600,7 +11660,7 @@ function DvLEDCalculator() {
                                                         "span",
                                                         {
                                                             className:
-                                                                "text-xs bg-white px-2 py-1 rounded border border-gray-200",
+                                                                "text-xs bg-white dark:bg-gray-800 px-2 py-1 rounded border border-gray-200 dark:border-gray-700",
                                                             children: e,
                                                         },
                                                         t
@@ -11616,7 +11676,7 @@ function DvLEDCalculator() {
                             className: "mb-6",
                             children: [
                                 _jsxs("h3", {
-                                    className: "font-semibold text-gray-700 mb-3",
+                                    className: "font-semibold text-gray-700 dark:text-gray-300 mb-3",
                                     children: ["✓ All Suitable Applications for ", r.pixelPitchMm, "mm Pixel Pitch"],
                                 }),
                                 _jsx("div", {
@@ -11629,14 +11689,14 @@ function DvLEDCalculator() {
                                                     "p-4 rounded-lg border " +
                                                     (e === d
                                                         ? `${x(e.color).bg} ${x(e.color).border} border-2`
-                                                        : "bg-gray-50 border-gray-200"),
+                                                        : "bg-gray-50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-700"),
                                                 children: [
                                                     _jsxs("div", {
                                                         className: "flex items-center gap-2",
                                                         children: [
                                                             _jsx("span", { className: "text-xl", children: e.icon }),
                                                             _jsx("span", {
-                                                                className: `font-medium ${e === d ? x(e.color).text : "text-gray-700"}`,
+                                                                className: `font-medium ${e === d ? x(e.color).text : "text-gray-700 dark:text-gray-300"}`,
                                                                 children: e.label,
                                                             }),
                                                             e === d &&
@@ -11648,7 +11708,7 @@ function DvLEDCalculator() {
                                                         ],
                                                     }),
                                                     _jsxs("div", {
-                                                        className: "text-xs text-gray-500 mt-1 ml-7",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1 ml-7",
                                                         children: [
                                                             "Typical pitch: ≤",
                                                             e.maxPitch === 1 / 0 ? "10+" : e.maxPitch,
@@ -11664,10 +11724,10 @@ function DvLEDCalculator() {
                             ],
                         }),
                         _jsxs("div", {
-                            className: "p-4 bg-gray-50 rounded-lg mb-6",
+                            className: "p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg mb-6",
                             children: [
                                 _jsx("div", {
-                                    className: "text-sm font-medium text-gray-700 mb-3",
+                                    className: "text-sm font-medium text-gray-700 dark:text-gray-300 mb-3",
                                     children: "Pixel Pitch Scale",
                                 }),
                                 _jsxs("div", {
@@ -11677,11 +11737,11 @@ function DvLEDCalculator() {
                                         _jsx("div", {
                                             className: "absolute inset-0 flex justify-between px-2 items-center",
                                             children: [1, 2, 3, 4, 6, 10].map((e) =>
-                                                _jsx("div", { className: "w-px h-full bg-white/50" }, e)
+                                                _jsx("div", { className: "w-px h-full bg-white dark:bg-gray-800/50" }, e)
                                             ),
                                         }),
                                         _jsx("div", {
-                                            className: "absolute top-0 bottom-0 w-1 bg-gray-900 shadow-lg",
+                                            className: "absolute top-0 bottom-0 w-1 bg-gray-900 shadow-lg dark:shadow-gray-950/30",
                                             style: {
                                                 left: `${Math.min(100, Math.max(0, (r.pixelPitchMm / 12) * 100))}%`,
                                                 transform: "translateX(-50%)",
@@ -11695,7 +11755,7 @@ function DvLEDCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "flex justify-between text-xs text-gray-500 mt-1 px-1",
+                                    className: "flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1 px-1",
                                     children: [
                                         _jsx("span", { children: "0.9mm" }),
                                         _jsx("span", { children: "1.5mm" }),
@@ -11719,10 +11779,10 @@ function DvLEDCalculator() {
                             ],
                         }),
                         _jsxs("div", {
-                            className: "p-4 bg-gray-50 rounded-lg overflow-hidden",
+                            className: "p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg overflow-hidden",
                             children: [
                                 _jsx("h3", {
-                                    className: "font-semibold text-gray-700 mb-3",
+                                    className: "font-semibold text-gray-700 dark:text-gray-300 mb-3",
                                     children: "Viewing Distance Summary",
                                 }),
                                 _jsxs("div", {
@@ -11731,7 +11791,7 @@ function DvLEDCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("span", {
-                                                    className: "text-gray-500",
+                                                    className: "text-gray-500 dark:text-gray-400",
                                                     children: "Closest Viewer:",
                                                 }),
                                                 _jsxs("p", { className: "font-medium", children: [e, " ", s] }),
@@ -11739,7 +11799,7 @@ function DvLEDCalculator() {
                                         }),
                                         _jsxs("div", {
                                             children: [
-                                                _jsx("span", { className: "text-gray-500", children: "In Feet:" }),
+                                                _jsx("span", { className: "text-gray-500 dark:text-gray-400", children: "In Feet:" }),
                                                 _jsxs("p", {
                                                     className: "font-medium",
                                                     children: [r.closestViewerFt, " ft"],
@@ -11748,7 +11808,7 @@ function DvLEDCalculator() {
                                         }),
                                         _jsxs("div", {
                                             children: [
-                                                _jsx("span", { className: "text-gray-500", children: "In Meters:" }),
+                                                _jsx("span", { className: "text-gray-500 dark:text-gray-400", children: "In Meters:" }),
                                                 _jsxs("p", {
                                                     className: "font-medium",
                                                     children: [r.closestViewerM, " m"],
@@ -11758,7 +11818,7 @@ function DvLEDCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("span", {
-                                                    className: "text-gray-500",
+                                                    className: "text-gray-500 dark:text-gray-400",
                                                     children: "Comfortable Distance:",
                                                 }),
                                                 _jsxs("p", {
@@ -11775,17 +11835,17 @@ function DvLEDCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "mt-3 pt-3 border-t border-gray-200",
+                                    className: "mt-3 pt-3 border-t border-gray-200 dark:border-gray-700",
                                     children: [
                                         _jsxs("p", {
-                                            className: "text-xs text-gray-500",
+                                            className: "text-xs text-gray-500 dark:text-gray-400",
                                             children: [
                                                 _jsx("strong", { children: "Formula:" }),
                                                 " Pixel Pitch (mm) = Closest Viewing Distance (ft) ÷ 10",
                                             ],
                                         }),
                                         _jsxs("p", {
-                                            className: "text-xs text-gray-500 mt-1",
+                                            className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                             children: [
                                                 _jsx("strong", { children: "Rule of thumb:" }),
                                                 " Comfortable viewing distance is approximately 3× the closest viewing distance",
@@ -11829,14 +11889,14 @@ function VideoWallCalculator() {
                 className: "flex items-center justify-between mb-4 sm:mb-6",
                 children: [
                     _jsx("h1", {
-                        className: "text-2xl sm:text-3xl font-bold text-gray-900",
+                        className: "text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100",
                         children: "Video Wall Controller Calculator",
                     }),
                     h !== null &&
                         _jsx("button", {
                             onClick: () => b(!0),
                             className:
-                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm",
+                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm dark:shadow-gray-950/10",
                             children: "⟲ Reset Tool",
                         }),
                 ],
@@ -11849,20 +11909,20 @@ function VideoWallCalculator() {
                 onCancel: () => b(!1),
             }),
             _jsx("div", {
-                className: "bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200",
+                className: "bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6 border border-gray-200 dark:border-gray-700",
                 children: _jsxs("p", {
-                    className: "text-sm text-gray-600",
+                    className: "text-sm text-gray-600 dark:text-gray-400",
                     children: [
-                        _jsx("span", { className: "font-semibold text-gray-700", children: "What this tool does:" }),
+                        _jsx("span", { className: "font-semibold text-gray-700 dark:text-gray-300", children: "What this tool does:" }),
                         " Calculates how many LED cabinets can be connected per output port based on controller capacity and cabinet resolution. Helps plan daisy-chain configurations and determine if your LED video wall fits within controller limits.",
                     ],
                 }),
             }),
             _jsxs("div", {
-                className: "bg-blue-50 rounded-xl p-4 sm:p-5 mb-6 border border-blue-200",
+                className: "bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 sm:p-5 mb-6 border border-blue-200 dark:border-blue-800",
                 children: [
                     _jsx("h2", {
-                        className: "text-base sm:text-lg font-semibold text-blue-800 mb-2 sm:mb-3",
+                        className: "text-base sm:text-lg font-semibold text-blue-800 dark:text-blue-200 mb-2 sm:mb-3",
                         children: "LED Video Wall Data Distribution",
                     }),
                     _jsx("p", {
@@ -11874,28 +11934,28 @@ function VideoWallCalculator() {
                         className: "grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs",
                         children: [
                             _jsxs("div", {
-                                className: "bg-white p-2 rounded border border-blue-200 text-center",
+                                className: "bg-white dark:bg-gray-800 p-2 rounded border border-blue-200 dark:border-blue-800 text-center",
                                 children: [
                                     _jsx("div", { className: "font-bold text-blue-700", children: "Loading" }),
                                     _jsx("div", { className: "text-blue-600", children: "Pixels per port" }),
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-white p-2 rounded border border-blue-200 text-center",
+                                className: "bg-white dark:bg-gray-800 p-2 rounded border border-blue-200 dark:border-blue-800 text-center",
                                 children: [
                                     _jsx("div", { className: "font-bold text-blue-700", children: "Cat5e/Cat6" }),
                                     _jsx("div", { className: "text-blue-600", children: "Max 100m runs" }),
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-white p-2 rounded border border-blue-200 text-center",
+                                className: "bg-white dark:bg-gray-800 p-2 rounded border border-blue-200 dark:border-blue-800 text-center",
                                 children: [
                                     _jsx("div", { className: "font-bold text-blue-700", children: "Daisy Chain" }),
                                     _jsx("div", { className: "text-blue-600", children: "Cabinet to cabinet" }),
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-white p-2 rounded border border-blue-200 text-center",
+                                className: "bg-white dark:bg-gray-800 p-2 rounded border border-blue-200 dark:border-blue-800 text-center",
                                 children: [
                                     _jsx("div", { className: "font-bold text-blue-700", children: "Redundancy" }),
                                     _jsx("div", { className: "text-blue-600", children: "Backup data paths" }),
@@ -11906,7 +11966,7 @@ function VideoWallCalculator() {
                 ],
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-4 sm:p-6 mb-6 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 mb-6 border",
                 children: [
                     _jsx("h2", {
                         className: "text-lg sm:text-xl font-semibold text-gray-800 mb-4",
@@ -11916,14 +11976,14 @@ function VideoWallCalculator() {
                         className: "mb-6",
                         children: [
                             _jsx("label", {
-                                className: "block text-sm font-medium text-gray-700 mb-3",
+                                className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3",
                                 children: "Quick Select Controller",
                             }),
                             _jsxs("div", {
                                 className: "mb-3",
                                 children: [
                                     _jsx("span", {
-                                        className: "text-xs text-gray-500 font-medium mr-2",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 font-medium mr-2",
                                         children: "LG:",
                                     }),
                                     _jsx("div", {
@@ -11941,7 +12001,7 @@ function VideoWallCalculator() {
                                                             "px-3 py-1.5 text-xs rounded border transition-colors cursor-pointer " +
                                                             (e === r.capacity && s === r.ports
                                                                 ? "bg-red-600 text-white border-red-600"
-                                                                : "bg-white text-gray-600 border-gray-300 hover:bg-red-50"),
+                                                                : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600 hover:bg-red-50 dark:bg-red-900/20"),
                                                         children: r.label,
                                                     },
                                                     r.label
@@ -11954,7 +12014,7 @@ function VideoWallCalculator() {
                                 className: "mb-3",
                                 children: [
                                     _jsx("span", {
-                                        className: "text-xs text-gray-500 font-medium mr-2",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 font-medium mr-2",
                                         children: "Novastar:",
                                     }),
                                     _jsx("div", {
@@ -11972,7 +12032,7 @@ function VideoWallCalculator() {
                                                             "px-3 py-1.5 text-xs rounded border transition-colors cursor-pointer " +
                                                             (e === r.capacity && s === r.ports
                                                                 ? "bg-blue-600 text-white border-blue-600"
-                                                                : "bg-white text-gray-600 border-gray-300 hover:bg-blue-50"),
+                                                                : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600 hover:bg-blue-50 dark:bg-blue-900/20"),
                                                         children: r.label,
                                                     },
                                                     r.label
@@ -11985,7 +12045,7 @@ function VideoWallCalculator() {
                                 className: "mb-3",
                                 children: [
                                     _jsx("span", {
-                                        className: "text-xs text-gray-500 font-medium mr-2",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 font-medium mr-2",
                                         children: "Samsung:",
                                     }),
                                     _jsx("div", {
@@ -12003,7 +12063,7 @@ function VideoWallCalculator() {
                                                             "px-3 py-1.5 text-xs rounded border transition-colors cursor-pointer " +
                                                             (e === r.capacity && s === r.ports
                                                                 ? "bg-blue-800 text-white border-blue-800"
-                                                                : "bg-white text-gray-600 border-gray-300 hover:bg-blue-50"),
+                                                                : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600 hover:bg-blue-50 dark:bg-blue-900/20"),
                                                         children: r.label,
                                                     },
                                                     r.label
@@ -12016,7 +12076,7 @@ function VideoWallCalculator() {
                                 className: "mb-3",
                                 children: [
                                     _jsx("span", {
-                                        className: "text-xs text-gray-500 font-medium mr-2",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 font-medium mr-2",
                                         children: "Christie:",
                                     }),
                                     _jsx("div", {
@@ -12034,7 +12094,7 @@ function VideoWallCalculator() {
                                                             "px-3 py-1.5 text-xs rounded border transition-colors cursor-pointer " +
                                                             (e === r.capacity && s === r.ports
                                                                 ? "bg-purple-600 text-white border-purple-600"
-                                                                : "bg-white text-gray-600 border-gray-300 hover:bg-purple-50"),
+                                                                : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600 hover:bg-purple-50 dark:bg-purple-900/20"),
                                                         children: r.label,
                                                     },
                                                     r.label
@@ -12051,7 +12111,7 @@ function VideoWallCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Controller Max Capacity (pixels)",
                                     }),
                                     _jsx("input", {
@@ -12062,7 +12122,7 @@ function VideoWallCalculator() {
                                             "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children:
                                             "Total pixels the controller can handle (e.g., 1920×1200 = 2,304,000)",
                                     }),
@@ -12071,7 +12131,7 @@ function VideoWallCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "RJ45 Output Ports Available",
                                     }),
                                     _jsx("input", {
@@ -12082,7 +12142,7 @@ function VideoWallCalculator() {
                                             "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "Number of Ethernet output ports on the controller",
                                     }),
                                 ],
@@ -12090,7 +12150,7 @@ function VideoWallCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Cabinet Width (mm)",
                                     }),
                                     _jsx("input", {
@@ -12101,7 +12161,7 @@ function VideoWallCalculator() {
                                             "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "Physical width of each LED cabinet",
                                     }),
                                 ],
@@ -12109,7 +12169,7 @@ function VideoWallCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Cabinet Height (mm)",
                                     }),
                                     _jsx("input", {
@@ -12120,7 +12180,7 @@ function VideoWallCalculator() {
                                             "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "Physical height of each LED cabinet",
                                     }),
                                 ],
@@ -12128,7 +12188,7 @@ function VideoWallCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Pixel Pitch (mm)",
                                     }),
                                     _jsx("input", {
@@ -12140,7 +12200,7 @@ function VideoWallCalculator() {
                                             "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "Distance between pixel centers (common: 1.5, 2.5, 2.9, 3.9mm)",
                                     }),
                                 ],
@@ -12148,7 +12208,7 @@ function VideoWallCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Bit Depth",
                                     }),
                                     _jsxs("select", {
@@ -12169,7 +12229,7 @@ function VideoWallCalculator() {
                                         ],
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "10-bit reduces port capacity but improves color",
                                     }),
                                 ],
@@ -12177,7 +12237,7 @@ function VideoWallCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Refresh Rate",
                                     }),
                                     _jsxs("select", {
@@ -12193,7 +12253,7 @@ function VideoWallCalculator() {
                                         ],
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children:
                                             "Higher refresh rates reduce pixel capacity but eliminate flicker on camera",
                                     }),
@@ -12287,7 +12347,7 @@ function VideoWallCalculator() {
                     className: "space-y-6",
                     children: [
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-4 sm:p-6 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border",
                             children: [
                                 _jsx("h2", {
                                     className: "text-lg sm:text-xl font-semibold text-gray-800 mb-4",
@@ -12297,7 +12357,7 @@ function VideoWallCalculator() {
                                     className: "grid sm:grid-cols-4 gap-4 mb-6",
                                     children: [
                                         _jsxs("div", {
-                                            className: "bg-blue-50 p-4 rounded-lg border-2 border-blue-300 text-center",
+                                            className: "bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border-2 border-blue-300 text-center",
                                             children: [
                                                 _jsx("div", {
                                                     className: "text-xs text-blue-600 font-medium",
@@ -12315,7 +12375,7 @@ function VideoWallCalculator() {
                                         }),
                                         _jsxs("div", {
                                             className:
-                                                "bg-purple-50 p-4 rounded-lg border-2 border-purple-300 text-center",
+                                                "bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border-2 border-purple-300 text-center",
                                             children: [
                                                 _jsx("div", {
                                                     className: "text-xs text-purple-600 font-medium",
@@ -12351,7 +12411,7 @@ function VideoWallCalculator() {
                                         }),
                                         _jsxs("div", {
                                             className:
-                                                "bg-green-50 p-4 rounded-lg border-2 border-green-300 text-center",
+                                                "bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border-2 border-green-300 text-center",
                                             children: [
                                                 _jsx("div", {
                                                     className: "text-xs text-green-600 font-medium",
@@ -12370,10 +12430,10 @@ function VideoWallCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "p-4 bg-gray-50 rounded-lg mb-4",
+                                    className: "p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg mb-4",
                                     children: [
                                         _jsx("h3", {
-                                            className: "font-semibold text-gray-700 mb-2",
+                                            className: "font-semibold text-gray-700 dark:text-gray-300 mb-2",
                                             children: "Configuration Summary",
                                         }),
                                         _jsxs("div", {
@@ -12382,7 +12442,7 @@ function VideoWallCalculator() {
                                                 _jsxs("div", {
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-500",
+                                                            className: "text-gray-500 dark:text-gray-400",
                                                             children: "Controller Capacity:",
                                                         }),
                                                         " ",
@@ -12392,7 +12452,7 @@ function VideoWallCalculator() {
                                                 _jsxs("div", {
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-500",
+                                                            className: "text-gray-500 dark:text-gray-400",
                                                             children: "Output Ports:",
                                                         }),
                                                         " ",
@@ -12402,7 +12462,7 @@ function VideoWallCalculator() {
                                                 _jsxs("div", {
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-500",
+                                                            className: "text-gray-500 dark:text-gray-400",
                                                             children: "Cabinet Size:",
                                                         }),
                                                         " ",
@@ -12412,7 +12472,7 @@ function VideoWallCalculator() {
                                                 _jsxs("div", {
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-500",
+                                                            className: "text-gray-500 dark:text-gray-400",
                                                             children: "Pixel Pitch:",
                                                         }),
                                                         " ",
@@ -12422,7 +12482,7 @@ function VideoWallCalculator() {
                                                 _jsxs("div", {
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-500",
+                                                            className: "text-gray-500 dark:text-gray-400",
                                                             children: "Max Total Cabinets:",
                                                         }),
                                                         " ",
@@ -12434,7 +12494,7 @@ function VideoWallCalculator() {
                                                 _jsxs("div", {
                                                     children: [
                                                         _jsxs("span", {
-                                                            className: "text-gray-500",
+                                                            className: "text-gray-500 dark:text-gray-400",
                                                             children: ["With ", s, " ports:"],
                                                         }),
                                                         " ",
@@ -12448,10 +12508,10 @@ function VideoWallCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "p-4 bg-blue-50 rounded-lg border border-blue-200",
+                                    className: "p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800",
                                     children: [
                                         _jsx("h3", {
-                                            className: "font-semibold text-blue-800 mb-2",
+                                            className: "font-semibold text-blue-800 dark:text-blue-200 mb-2",
                                             children: "💡 Wiring Configuration",
                                         }),
                                         _jsxs("p", {
@@ -12473,7 +12533,7 @@ function VideoWallCalculator() {
                         h.tips &&
                             h.tips.length > 0 &&
                             _jsxs("div", {
-                                className: "bg-white rounded-xl shadow-md p-4 sm:p-6 border",
+                                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border",
                                 children: [
                                     _jsx("h2", {
                                         className: "text-lg font-semibold text-gray-800 mb-4",
@@ -12488,19 +12548,19 @@ function VideoWallCalculator() {
                                                     className:
                                                         "p-3 rounded-lg border " +
                                                         ("success" === e.type
-                                                            ? "bg-green-50 border-green-200"
+                                                            ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800"
                                                             : "warning" === e.type
-                                                              ? "bg-yellow-50 border-yellow-200"
-                                                              : "bg-blue-50 border-blue-200"),
+                                                              ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800"
+                                                              : "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800"),
                                                     children: [
                                                         _jsxs("h3", {
                                                             className:
                                                                 "font-semibold mb-1 " +
                                                                 ("success" === e.type
-                                                                    ? "text-green-800"
+                                                                    ? "text-green-800 dark:text-green-200"
                                                                     : "warning" === e.type
-                                                                      ? "text-yellow-800"
-                                                                      : "text-blue-800"),
+                                                                      ? "text-yellow-800 dark:text-yellow-200"
+                                                                      : "text-blue-800 dark:text-blue-200"),
                                                             children: [
                                                                 "success" === e.type
                                                                     ? "✅"
@@ -12530,7 +12590,7 @@ function VideoWallCalculator() {
                                 ],
                             }),
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-4 sm:p-6 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border",
                             children: [
                                 _jsx("h2", {
                                     className: "text-lg font-semibold text-gray-800 mb-4",
@@ -12543,7 +12603,7 @@ function VideoWallCalculator() {
                                         children: [
                                             _jsx("thead", {
                                                 children: _jsxs("tr", {
-                                                    className: "bg-gray-100",
+                                                    className: "bg-gray-100 dark:bg-gray-700",
                                                     children: [
                                                         _jsx("th", {
                                                             className: "px-3 py-2 text-left",
@@ -12649,14 +12709,14 @@ function CoolingCalculator() {
                 className: "flex items-center justify-between mb-4 sm:mb-6",
                 children: [
                     _jsx("h1", {
-                        className: "text-2xl sm:text-3xl font-bold text-gray-900",
+                        className: "text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100",
                         children: "Rack Cooling Calculator",
                     }),
                     g !== null &&
                         _jsx("button", {
                             onClick: () => y(!0),
                             className:
-                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm",
+                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm dark:shadow-gray-950/10",
                             children: "⟲ Reset Tool",
                         }),
                 ],
@@ -12669,20 +12729,20 @@ function CoolingCalculator() {
                 onCancel: () => y(!1),
             }),
             _jsx("div", {
-                className: "bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200",
+                className: "bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6 border border-gray-200 dark:border-gray-700",
                 children: _jsxs("p", {
-                    className: "text-sm text-gray-600",
+                    className: "text-sm text-gray-600 dark:text-gray-400",
                     children: [
-                        _jsx("span", { className: "font-semibold text-gray-700", children: "What this tool does:" }),
+                        _jsx("span", { className: "font-semibold text-gray-700 dark:text-gray-300", children: "What this tool does:" }),
                         " Calculates cooling requirements (BTU/hr and tons) based on your equipment's power consumption. Simply enter the total wattage of all equipment — the heat output equals the power consumed. Room size is only used for heat density analysis.",
                     ],
                 }),
             }),
             _jsxs("div", {
-                className: "bg-blue-50 rounded-xl p-4 sm:p-5 mb-6 border border-blue-200",
+                className: "bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 sm:p-5 mb-6 border border-blue-200 dark:border-blue-800",
                 children: [
                     _jsx("h2", {
-                        className: "text-base sm:text-lg font-semibold text-blue-800 mb-2 sm:mb-3",
+                        className: "text-base sm:text-lg font-semibold text-blue-800 dark:text-blue-200 mb-2 sm:mb-3",
                         children: "ASHRAE Thermal Guidelines",
                     }),
                     _jsx("p", {
@@ -12694,7 +12754,7 @@ function CoolingCalculator() {
                         className: "grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs",
                         children: [
                             _jsxs("div", {
-                                className: "bg-white p-2 rounded border border-blue-200 text-center",
+                                className: "bg-white dark:bg-gray-800 p-2 rounded border border-blue-200 dark:border-blue-800 text-center",
                                 children: [
                                     _jsx("div", {
                                         className: "font-bold text-blue-700",
@@ -12704,21 +12764,21 @@ function CoolingCalculator() {
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-white p-2 rounded border border-blue-200 text-center",
+                                className: "bg-white dark:bg-gray-800 p-2 rounded border border-blue-200 dark:border-blue-800 text-center",
                                 children: [
                                     _jsx("div", { className: "font-bold text-blue-700", children: "64-80°F" }),
                                     _jsx("div", { className: "text-blue-600", children: "Inlet Temp Range" }),
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-white p-2 rounded border border-blue-200 text-center",
+                                className: "bg-white dark:bg-gray-800 p-2 rounded border border-blue-200 dark:border-blue-800 text-center",
                                 children: [
                                     _jsx("div", { className: "font-bold text-blue-700", children: "40-60%" }),
                                     _jsx("div", { className: "text-blue-600", children: "Humidity Range" }),
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-white p-2 rounded border border-blue-200 text-center",
+                                className: "bg-white dark:bg-gray-800 p-2 rounded border border-blue-200 dark:border-blue-800 text-center",
                                 children: [
                                     _jsx("div", { className: "font-bold text-blue-700", children: "12,000 BTU/hr" }),
                                     _jsx("div", { className: "text-blue-600", children: "= 1 Ton Cooling" }),
@@ -12729,17 +12789,17 @@ function CoolingCalculator() {
                 ],
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-4 sm:p-6 mb-6 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 mb-6 border",
                 children: [
                     _jsx("h2", {
                         className: "text-lg sm:text-xl font-semibold text-gray-800 mb-4",
                         children: "Equipment Heat Load",
                     }),
                     _jsxs("div", {
-                        className: "bg-blue-50 rounded-lg p-4 mb-6 border border-blue-200",
+                        className: "bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 mb-6 border border-blue-200 dark:border-blue-800",
                         children: [
                             _jsx("h3", {
-                                className: "text-sm font-semibold text-blue-800 mb-2",
+                                className: "text-sm font-semibold text-blue-800 dark:text-blue-200 mb-2",
                                 children: "ASHRAE/Industry Standard Formula",
                             }),
                             _jsx("p", {
@@ -12760,7 +12820,7 @@ function CoolingCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Equipment Power (Watts)",
                                     }),
                                     _jsx("input", {
@@ -12797,7 +12857,7 @@ function CoolingCalculator() {
                                                             "px-2 py-1 text-xs rounded border transition-colors cursor-pointer " +
                                                             (o === e.watts
                                                                 ? "bg-blue-600 text-white border-blue-600"
-                                                                : "bg-white text-gray-600 border-gray-300 hover:bg-blue-50"),
+                                                                : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600 hover:bg-blue-50 dark:bg-blue-900/20"),
                                                         children: e.label,
                                                     },
                                                     e.label
@@ -12805,7 +12865,7 @@ function CoolingCalculator() {
                                             ),
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-2",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-2",
                                         children:
                                             "Sum total wattage of all equipment (servers, amps, processors, etc.)",
                                     }),
@@ -12814,7 +12874,7 @@ function CoolingCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Active People in Room",
                                     }),
                                     _jsx("input", {
@@ -12826,7 +12886,7 @@ function CoolingCalculator() {
                                             "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "ASHRAE: 400 BTU/hr per person (sedentary office work)",
                                     }),
                                 ],
@@ -12834,7 +12894,7 @@ function CoolingCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Lighting Power (Watts)",
                                     }),
                                     _jsx("input", {
@@ -12846,10 +12906,10 @@ function CoolingCalculator() {
                                             "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
                                     }),
                                     _jsxs("div", {
-                                        className: "mt-2 p-2 bg-yellow-50 rounded border border-yellow-200",
+                                        className: "mt-2 p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded border border-yellow-200 dark:border-yellow-800",
                                         children: [
                                             _jsx("p", {
-                                                className: "text-xs text-yellow-800 font-medium mb-1",
+                                                className: "text-xs text-yellow-800 dark:text-yellow-200 font-medium mb-1",
                                                 children: "💡 How to calculate lighting watts:",
                                             }),
                                             _jsx("p", {
@@ -12864,7 +12924,7 @@ function CoolingCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Safety Factor",
                                     }),
                                     _jsxs("select", {
@@ -12886,7 +12946,7 @@ function CoolingCalculator() {
                                         ],
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "HVAC consultants typically recommend 1.25-1.5× for growth",
                                     }),
                                 ],
@@ -12897,7 +12957,7 @@ function CoolingCalculator() {
                         className: "mt-6 pt-4 border-t",
                         children: [
                             _jsx("h3", {
-                                className: "text-sm font-medium text-gray-700 mb-3",
+                                className: "text-sm font-medium text-gray-700 dark:text-gray-300 mb-3",
                                 children: "Room Dimensions (for heat density calculation only)",
                             }),
                             _jsxs("div", {
@@ -12906,7 +12966,7 @@ function CoolingCalculator() {
                                     _jsxs("div", {
                                         children: [
                                             _jsx("label", {
-                                                className: "block text-xs text-gray-600 mb-1",
+                                                className: "block text-xs text-gray-600 dark:text-gray-400 mb-1",
                                                 children: "Unit",
                                             }),
                                             _jsxs("select", {
@@ -12924,7 +12984,7 @@ function CoolingCalculator() {
                                     _jsxs("div", {
                                         children: [
                                             _jsxs("label", {
-                                                className: "block text-xs text-gray-600 mb-1",
+                                                className: "block text-xs text-gray-600 dark:text-gray-400 mb-1",
                                                 children: ["Width (", i, ")"],
                                             }),
                                             _jsx("input", {
@@ -12942,7 +13002,7 @@ function CoolingCalculator() {
                                     _jsxs("div", {
                                         children: [
                                             _jsxs("label", {
-                                                className: "block text-xs text-gray-600 mb-1",
+                                                className: "block text-xs text-gray-600 dark:text-gray-400 mb-1",
                                                 children: ["Length (", i, ")"],
                                             }),
                                             _jsx("input", {
@@ -12960,7 +13020,7 @@ function CoolingCalculator() {
                                     _jsxs("div", {
                                         children: [
                                             _jsxs("label", {
-                                                className: "block text-xs text-gray-600 mb-1",
+                                                className: "block text-xs text-gray-600 dark:text-gray-400 mb-1",
                                                 children: ["Height (", i, ")"],
                                             }),
                                             _jsx("input", {
@@ -12978,13 +13038,13 @@ function CoolingCalculator() {
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "mt-3 p-3 bg-gray-50 rounded-lg border border-gray-200",
+                                className: "mt-3 p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-700",
                                 children: [
                                     _jsxs("div", {
                                         className: "flex flex-wrap gap-4 text-sm",
                                         children: [
                                             _jsxs("span", {
-                                                className: "text-gray-600",
+                                                className: "text-gray-600 dark:text-gray-400",
                                                 children: [
                                                     "Floor Area: ",
                                                     _jsx("span", {
@@ -12997,7 +13057,7 @@ function CoolingCalculator() {
                                                 ],
                                             }),
                                             _jsxs("span", {
-                                                className: "text-gray-600",
+                                                className: "text-gray-600 dark:text-gray-400",
                                                 children: [
                                                     "Volume: ",
                                                     _jsx("span", {
@@ -13014,7 +13074,7 @@ function CoolingCalculator() {
                                 ],
                             }),
                             _jsx("p", {
-                                className: "text-xs text-gray-500 mt-2",
+                                className: "text-xs text-gray-500 dark:text-gray-400 mt-2",
                                 children:
                                     "Room dimensions are used to calculate W/ft² and W/ft³ density to determine cooling system type needed — they do NOT add to the heat load.",
                             }),
@@ -13131,7 +13191,7 @@ function CoolingCalculator() {
                     className: "space-y-6",
                     children: [
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-4 sm:p-6 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border",
                             children: [
                                 _jsx("h2", {
                                     className: "text-lg sm:text-xl font-semibold text-gray-800 mb-4",
@@ -13141,7 +13201,7 @@ function CoolingCalculator() {
                                     className: "grid sm:grid-cols-3 gap-4 mb-6",
                                     children: [
                                         _jsxs("div", {
-                                            className: "bg-blue-50 p-4 rounded-lg border-2 border-blue-300 text-center",
+                                            className: "bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border-2 border-blue-300 text-center",
                                             children: [
                                                 _jsx("div", {
                                                     className: "text-xs text-blue-600 font-medium",
@@ -13156,7 +13216,7 @@ function CoolingCalculator() {
                                         }),
                                         _jsxs("div", {
                                             className:
-                                                "bg-green-50 p-4 rounded-lg border-2 border-green-300 text-center",
+                                                "bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border-2 border-green-300 text-center",
                                             children: [
                                                 _jsx("div", {
                                                     className: "text-xs text-green-600 font-medium",
@@ -13174,7 +13234,7 @@ function CoolingCalculator() {
                                         }),
                                         _jsxs("div", {
                                             className:
-                                                "bg-purple-50 p-4 rounded-lg border-2 border-purple-300 text-center",
+                                                "bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border-2 border-purple-300 text-center",
                                             children: [
                                                 _jsx("div", {
                                                     className: "text-xs text-purple-600 font-medium",
@@ -13196,16 +13256,16 @@ function CoolingCalculator() {
                                             className:
                                                 "p-4 rounded-lg border " +
                                                 (g.wattsPerSqFt < 50
-                                                    ? "bg-green-50 border-green-200"
+                                                    ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800"
                                                     : g.wattsPerSqFt < 100
-                                                      ? "bg-yellow-50 border-yellow-200"
-                                                      : "bg-red-50 border-red-200"),
+                                                      ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800"
+                                                      : "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800"),
                                             children: [
                                                 _jsxs("div", {
                                                     className: "flex justify-between items-center",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-sm font-medium text-gray-700",
+                                                            className: "text-sm font-medium text-gray-700 dark:text-gray-300",
                                                             children: "Heat Density",
                                                         }),
                                                         _jsxs("span", {
@@ -13221,7 +13281,7 @@ function CoolingCalculator() {
                                                     ],
                                                 }),
                                                 _jsx("div", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children:
                                                         g.wattsPerSqFt < 50
                                                             ? "Standard density - conventional cooling adequate"
@@ -13232,23 +13292,23 @@ function CoolingCalculator() {
                                             ],
                                         }),
                                         _jsxs("div", {
-                                            className: "p-4 rounded-lg border bg-gray-50 border-gray-200",
+                                            className: "p-4 rounded-lg border bg-gray-50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-700",
                                             children: [
                                                 _jsxs("div", {
                                                     className: "flex justify-between items-center",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-sm font-medium text-gray-700",
+                                                            className: "text-sm font-medium text-gray-700 dark:text-gray-300",
                                                             children: "Equipment Power",
                                                         }),
                                                         _jsxs("span", {
-                                                            className: "font-bold text-gray-700",
+                                                            className: "font-bold text-gray-700 dark:text-gray-300",
                                                             children: [g.equipmentWatts.toLocaleString(), " W"],
                                                         }),
                                                     ],
                                                 }),
                                                 _jsxs("div", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children: [
                                                         "= ",
                                                         g.equipmentBTU.toLocaleString(),
@@ -13260,10 +13320,10 @@ function CoolingCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "p-4 bg-gray-50 rounded-lg mb-4",
+                                    className: "p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg mb-4",
                                     children: [
                                         _jsx("h3", {
-                                            className: "font-semibold text-gray-700 mb-3",
+                                            className: "font-semibold text-gray-700 dark:text-gray-300 mb-3",
                                             children: "Heat Load Breakdown",
                                         }),
                                         _jsxs("div", {
@@ -13273,7 +13333,7 @@ function CoolingCalculator() {
                                                     className: "flex justify-between text-sm",
                                                     children: [
                                                         _jsxs("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: ["Equipment (", g.equipmentWatts, "W × 3.412):"],
                                                         }),
                                                         _jsxs("span", {
@@ -13286,7 +13346,7 @@ function CoolingCalculator() {
                                                     className: "flex justify-between text-sm",
                                                     children: [
                                                         _jsxs("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: ["People (", c, " × 400 BTU):"],
                                                         }),
                                                         _jsxs("span", {
@@ -13299,7 +13359,7 @@ function CoolingCalculator() {
                                                     className: "flex justify-between text-sm",
                                                     children: [
                                                         _jsxs("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: ["Lighting (", x, "W × 3.412):"],
                                                         }),
                                                         _jsxs("span", {
@@ -13312,7 +13372,7 @@ function CoolingCalculator() {
                                                     className: "flex justify-between text-sm border-t pt-2",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-700",
+                                                            className: "text-gray-700 dark:text-gray-300",
                                                             children: "Subtotal:",
                                                         }),
                                                         _jsxs("span", {
@@ -13325,7 +13385,7 @@ function CoolingCalculator() {
                                                     className: "flex justify-between text-sm",
                                                     children: [
                                                         _jsxs("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: ["Safety Factor (×", g.safetyFactor, "):"],
                                                         }),
                                                         _jsxs("span", {
@@ -13359,14 +13419,14 @@ function CoolingCalculator() {
                                     ],
                                 }),
                                 _jsx("div", {
-                                    className: "p-3 bg-gray-50 rounded-lg text-sm",
+                                    className: "p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg text-sm",
                                     children: _jsxs("div", {
                                         className: "grid sm:grid-cols-3 gap-2",
                                         children: [
                                             _jsxs("div", {
                                                 children: [
                                                     _jsx("span", {
-                                                        className: "text-gray-500",
+                                                        className: "text-gray-500 dark:text-gray-400",
                                                         children: "Room Area:",
                                                     }),
                                                     " ",
@@ -13378,7 +13438,7 @@ function CoolingCalculator() {
                                             _jsxs("div", {
                                                 children: [
                                                     _jsx("span", {
-                                                        className: "text-gray-500",
+                                                        className: "text-gray-500 dark:text-gray-400",
                                                         children: "Cooling Capacity:",
                                                     }),
                                                     " ",
@@ -13388,7 +13448,7 @@ function CoolingCalculator() {
                                             _jsxs("div", {
                                                 children: [
                                                     _jsx("span", {
-                                                        className: "text-gray-500",
+                                                        className: "text-gray-500 dark:text-gray-400",
                                                         children: "Estimated CFM:",
                                                     }),
                                                     " ",
@@ -13402,10 +13462,10 @@ function CoolingCalculator() {
                         }),
                         g.warnings.length > 0 &&
                             _jsxs("div", {
-                                className: "bg-red-50 rounded-xl shadow-md p-4 sm:p-6 border border-red-300",
+                                className: "bg-red-50 dark:bg-red-900/20 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border border-red-300",
                                 children: [
                                     _jsxs("h2", {
-                                        className: "text-lg font-semibold text-red-800 mb-3 flex items-center gap-2",
+                                        className: "text-lg font-semibold text-red-800 dark:text-red-200 mb-3 flex items-center gap-2",
                                         children: [_jsx("span", { children: "⚠️" }), " Warnings"],
                                     }),
                                     _jsx("div", {
@@ -13415,8 +13475,8 @@ function CoolingCalculator() {
                                                 "div",
                                                 {
                                                     className:
-                                                        "p-3 bg-white rounded-lg border " +
-                                                        ("error" === e.type ? "border-red-200" : "border-yellow-200"),
+                                                        "p-3 bg-white dark:bg-gray-800 rounded-lg border " +
+                                                        ("error" === e.type ? "border-red-200 dark:border-red-800" : "border-yellow-200 dark:border-yellow-800"),
                                                     children: [
                                                         _jsx("h3", {
                                                             className:
@@ -13443,7 +13503,7 @@ function CoolingCalculator() {
                                 ],
                             }),
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-4 sm:p-6 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border",
                             children: [
                                 _jsx("h2", {
                                     className: "text-lg sm:text-xl font-semibold text-gray-800 mb-4",
@@ -13458,23 +13518,23 @@ function CoolingCalculator() {
                                                 className:
                                                     "p-3 rounded-lg border " +
                                                     ("success" === e.type
-                                                        ? "bg-green-50 border-green-200"
+                                                        ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800"
                                                         : "warning" === e.type
-                                                          ? "bg-yellow-50 border-yellow-200"
+                                                          ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800"
                                                           : "error" === e.type
-                                                            ? "bg-red-50 border-red-200"
-                                                            : "bg-blue-50 border-blue-200"),
+                                                            ? "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800"
+                                                            : "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800"),
                                                 children: [
                                                     _jsxs("h3", {
                                                         className:
                                                             "font-semibold mb-1 " +
                                                             ("success" === e.type
-                                                                ? "text-green-800"
+                                                                ? "text-green-800 dark:text-green-200"
                                                                 : "warning" === e.type
-                                                                  ? "text-yellow-800"
+                                                                  ? "text-yellow-800 dark:text-yellow-200"
                                                                   : "error" === e.type
-                                                                    ? "text-red-800"
-                                                                    : "text-blue-800"),
+                                                                    ? "text-red-800 dark:text-red-200"
+                                                                    : "text-blue-800 dark:text-blue-200"),
                                                         children: [
                                                             "success" === e.type
                                                                 ? "✅"
@@ -13508,7 +13568,7 @@ function CoolingCalculator() {
                             ],
                         }),
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-4 sm:p-6 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border",
                             children: [
                                 _jsx("h2", {
                                     className: "text-lg font-semibold text-gray-800 mb-4",
@@ -13521,7 +13581,7 @@ function CoolingCalculator() {
                                         children: [
                                             _jsx("thead", {
                                                 children: _jsxs("tr", {
-                                                    className: "bg-gray-100",
+                                                    className: "bg-gray-100 dark:bg-gray-700",
                                                     children: [
                                                         _jsx("th", {
                                                             className: "px-3 py-2 text-left",
@@ -13572,7 +13632,7 @@ function CoolingCalculator() {
                                                     _jsxs(
                                                         "tr",
                                                         {
-                                                            className: "border-b " + (0 === t ? "bg-blue-50" : ""),
+                                                            className: "border-b " + (0 === t ? "bg-blue-50 dark:bg-blue-900/20" : ""),
                                                             children: [
                                                                 _jsx("td", {
                                                                     className: "px-3 py-2 font-medium",
@@ -13600,7 +13660,7 @@ function CoolingCalculator() {
                                     }),
                                 }),
                                 _jsx("p", {
-                                    className: "text-xs text-gray-500 mt-3",
+                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-3",
                                     children:
                                         "Source: ASHRAE TC 9.9 - Thermal Guidelines for Data Processing Environments",
                                 }),
@@ -13661,7 +13721,7 @@ function SpeakerCalculator() {
                 className: "mb-4",
                 children: _jsxs("span", {
                     className:
-                        "inline-flex items-center gap-2 px-3 py-1.5 bg-purple-100 text-purple-800 text-sm font-semibold rounded-full border border-purple-200",
+                        "inline-flex items-center gap-2 px-3 py-1.5 bg-purple-100 text-purple-800 dark:text-purple-200 text-sm font-semibold rounded-full border border-purple-200 dark:border-purple-800",
                     children: [_jsx("span", { className: "text-purple-600", children: "⚡" }), " Advanced Tool"],
                 }),
             }),
@@ -13669,14 +13729,14 @@ function SpeakerCalculator() {
                 className: "flex items-center justify-between mb-2",
                 children: [
                     _jsx("h1", {
-                        className: "text-3xl font-bold text-gray-900",
+                        className: "text-3xl font-bold text-gray-900 dark:text-gray-100",
                         children: "Speaker Design Calculator",
                     }),
                     S !== null &&
                         _jsx("button", {
                             onClick: () => A(!0),
                             className:
-                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm",
+                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm dark:shadow-gray-950/10",
                             children: "⟲ Reset Tool",
                         }),
                 ],
@@ -13704,22 +13764,22 @@ function SpeakerCalculator() {
                 onCancel: () => A(!1),
             }),
             _jsx("p", {
-                className: "text-gray-600 mb-4",
+                className: "text-gray-600 dark:text-gray-400 mb-4",
                 children:
                     "Professional speaker system design tool based on AVIXA CTS-D standards and industry practices",
             }),
             _jsx("div", {
-                className: "bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200",
+                className: "bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6 border border-gray-200 dark:border-gray-700",
                 children: _jsxs("p", {
-                    className: "text-sm text-gray-600",
+                    className: "text-sm text-gray-600 dark:text-gray-400",
                     children: [
-                        _jsx("span", { className: "font-semibold text-gray-700", children: "What this tool does:" }),
+                        _jsx("span", { className: "font-semibold text-gray-700 dark:text-gray-300", children: "What this tool does:" }),
                         " Calculates electrical power required (EPR) per speaker using the AVIXA formula, determines amplifier sizing, and designs ceiling speaker layouts with proper coverage spacing based on mounting height and coverage angle.",
                     ],
                 }),
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-8 mb-8 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 mb-8 border",
                 children: [
                     _jsxs("h2", {
                         className: "text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2",
@@ -13729,15 +13789,15 @@ function SpeakerCalculator() {
                         ],
                     }),
                     _jsx("p", {
-                        className: "text-sm text-gray-600 mb-4",
+                        className: "text-sm text-gray-600 dark:text-gray-400 mb-4",
                         children:
                             "Calculate the electrical power required per speaker using the AVIXA standard formula.",
                     }),
                     _jsxs("div", {
-                        className: "mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200",
+                        className: "mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800",
                         children: [
                             _jsxs("p", {
-                                className: "text-sm text-blue-800 font-mono",
+                                className: "text-sm text-blue-800 dark:text-blue-200 font-mono",
                                 children: [
                                     _jsx("strong", { children: "AVIXA Formula:" }),
                                     " EPR = 10",
@@ -13758,7 +13818,7 @@ function SpeakerCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Distance Unit",
                                     }),
                                     _jsxs("select", {
@@ -13779,7 +13839,7 @@ function SpeakerCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsxs("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: ["Distance to Listener (", o, ")"],
                                     }),
                                     _jsx("input", {
@@ -13792,7 +13852,7 @@ function SpeakerCalculator() {
                                             "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "D₂ in AVIXA formula",
                                     }),
                                 ],
@@ -13800,7 +13860,7 @@ function SpeakerCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Target SPL at Listener (dB)",
                                     }),
                                     _jsx("input", {
@@ -13811,7 +13871,7 @@ function SpeakerCalculator() {
                                             "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "Lp in AVIXA formula - desired sound level at listener position",
                                     }),
                                     _jsx("div", {
@@ -13833,7 +13893,7 @@ function SpeakerCalculator() {
                                                         "px-3 py-1 text-xs rounded transition-colors " +
                                                         (e === s.spl
                                                             ? "bg-blue-600 text-white"
-                                                            : "bg-gray-100 text-gray-700 hover:bg-blue-50"),
+                                                            : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:bg-blue-900/20"),
                                                     children: s.label,
                                                 },
                                                 s.spl
@@ -13845,7 +13905,7 @@ function SpeakerCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Headroom (dB)",
                                     }),
                                     _jsxs("select", {
@@ -13863,7 +13923,7 @@ function SpeakerCalculator() {
                                         ],
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "H in AVIXA formula - headroom for peaks",
                                     }),
                                 ],
@@ -13872,7 +13932,7 @@ function SpeakerCalculator() {
                                 className: "md:col-span-2",
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Speaker Sensitivity (dB @ 1W/1m)",
                                     }),
                                     _jsx("input", {
@@ -13883,7 +13943,7 @@ function SpeakerCalculator() {
                                             "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children:
                                             "Ls in AVIXA formula - from speaker specifications (typical: 84-97 dB)",
                                     }),
@@ -13893,14 +13953,14 @@ function SpeakerCalculator() {
                     }),
                     _jsxs("div", {
                         className:
-                            "mt-6 p-4 bg-gradient-to-r from-blue-50 to-green-50 rounded-lg border border-blue-200",
+                            "mt-6 p-4 bg-gradient-to-r from-blue-50 to-green-50 rounded-lg border border-blue-200 dark:border-blue-800",
                         children: [
                             _jsx("h3", {
                                 className: "text-sm font-semibold text-gray-800 mb-3",
                                 children: "📊 Target SPL Reference Guide (AVIXA/Industry Standards)",
                             }),
                             _jsx("p", {
-                                className: "text-xs text-gray-600 mb-4",
+                                className: "text-xs text-gray-600 dark:text-gray-400 mb-4",
                                 children:
                                     "Target SPL is the desired sound pressure level at the listener position. Choose based on ambient noise level (system should be 10-25 dB above ambient for intelligibility) and application requirements.",
                             }),
@@ -13908,7 +13968,7 @@ function SpeakerCalculator() {
                                 className: "grid md:grid-cols-2 gap-4",
                                 children: [
                                     _jsxs("div", {
-                                        className: "bg-white p-3 rounded-lg border border-green-200",
+                                        className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-green-200 dark:border-green-800",
                                         children: [
                                             _jsxs("h4", {
                                                 className:
@@ -13916,7 +13976,7 @@ function SpeakerCalculator() {
                                                 children: [_jsx("span", { children: "🟢" }), " Low Level (60-70 dB)"],
                                             }),
                                             _jsxs("ul", {
-                                                className: "text-xs text-gray-600 space-y-1",
+                                                className: "text-xs text-gray-600 dark:text-gray-400 space-y-1",
                                                 children: [
                                                     _jsxs("li", {
                                                         children: [
@@ -13939,7 +13999,7 @@ function SpeakerCalculator() {
                                         ],
                                     }),
                                     _jsxs("div", {
-                                        className: "bg-white p-3 rounded-lg border border-blue-200",
+                                        className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-blue-200 dark:border-blue-800",
                                         children: [
                                             _jsxs("h4", {
                                                 className:
@@ -13950,7 +14010,7 @@ function SpeakerCalculator() {
                                                 ],
                                             }),
                                             _jsxs("ul", {
-                                                className: "text-xs text-gray-600 space-y-1",
+                                                className: "text-xs text-gray-600 dark:text-gray-400 space-y-1",
                                                 children: [
                                                     _jsxs("li", {
                                                         children: [
@@ -13973,7 +14033,7 @@ function SpeakerCalculator() {
                                         ],
                                     }),
                                     _jsxs("div", {
-                                        className: "bg-white p-3 rounded-lg border border-yellow-200",
+                                        className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-yellow-200 dark:border-yellow-800",
                                         children: [
                                             _jsxs("h4", {
                                                 className:
@@ -13981,7 +14041,7 @@ function SpeakerCalculator() {
                                                 children: [_jsx("span", { children: "🟡" }), " High Level (80-90 dB)"],
                                             }),
                                             _jsxs("ul", {
-                                                className: "text-xs text-gray-600 space-y-1",
+                                                className: "text-xs text-gray-600 dark:text-gray-400 space-y-1",
                                                 children: [
                                                     _jsxs("li", {
                                                         children: [
@@ -14004,7 +14064,7 @@ function SpeakerCalculator() {
                                         ],
                                     }),
                                     _jsxs("div", {
-                                        className: "bg-white p-3 rounded-lg border border-red-200",
+                                        className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-red-200 dark:border-red-800",
                                         children: [
                                             _jsxs("h4", {
                                                 className:
@@ -14015,7 +14075,7 @@ function SpeakerCalculator() {
                                                 ],
                                             }),
                                             _jsxs("ul", {
-                                                className: "text-xs text-gray-600 space-y-1",
+                                                className: "text-xs text-gray-600 dark:text-gray-400 space-y-1",
                                                 children: [
                                                     _jsxs("li", {
                                                         children: [
@@ -14040,9 +14100,9 @@ function SpeakerCalculator() {
                                 ],
                             }),
                             _jsx("div", {
-                                className: "mt-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200",
+                                className: "mt-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800",
                                 children: _jsxs("p", {
-                                    className: "text-xs text-yellow-800",
+                                    className: "text-xs text-yellow-800 dark:text-yellow-200",
                                     children: [
                                         _jsx("strong", { children: "💡 AVIXA Tip:" }),
                                         " For speech intelligibility, target SPL should be at least ",
@@ -14058,7 +14118,7 @@ function SpeakerCalculator() {
                 ],
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-8 mb-8 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 mb-8 border",
                 children: [
                     _jsxs("div", {
                         className: "flex items-center justify-between mb-4",
@@ -14074,7 +14134,7 @@ function SpeakerCalculator() {
                                 className: "flex items-center gap-3 cursor-pointer",
                                 children: [
                                     _jsx("span", {
-                                        className: "text-sm text-gray-600",
+                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                         children: "Enable ceiling mount calculations",
                                     }),
                                     _jsx("input", {
@@ -14082,7 +14142,7 @@ function SpeakerCalculator() {
                                         checked: c,
                                         onChange: (e) => m(e.target.checked),
                                         className:
-                                            "w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 cursor-pointer",
+                                            "w-5 h-5 text-blue-600 bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 rounded focus:ring-blue-500 focus:ring-2 cursor-pointer",
                                     }),
                                 ],
                             }),
@@ -14092,7 +14152,7 @@ function SpeakerCalculator() {
                         _jsxs(_Fragment, {
                             children: [
                                 _jsx("p", {
-                                    className: "text-sm text-gray-600 mb-6",
+                                    className: "text-sm text-gray-600 dark:text-gray-400 mb-6",
                                     children:
                                         "Calculate speaker coverage pattern and optimal spacing for ceiling-mounted speakers.",
                                 }),
@@ -14102,7 +14162,7 @@ function SpeakerCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-2",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                     children: "Unit",
                                                 }),
                                                 _jsxs("select", {
@@ -14123,7 +14183,7 @@ function SpeakerCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsxs("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-2",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                     children: ["Ceiling Height (", j, ")"],
                                                 }),
                                                 _jsx("input", {
@@ -14141,7 +14201,7 @@ function SpeakerCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsxs("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-2",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                     children: ["Listener Ear Height (", j, ")"],
                                                 }),
                                                 _jsx("input", {
@@ -14155,7 +14215,7 @@ function SpeakerCalculator() {
                                                         "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children:
                                                         "ft" === j
                                                             ? "Typically 4ft seated, 5ft standing"
@@ -14166,7 +14226,7 @@ function SpeakerCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-2",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                     children: "Speaker Coverage Angle (°)",
                                                 }),
                                                 _jsx("input", {
@@ -14185,7 +14245,7 @@ function SpeakerCalculator() {
                                                     placeholder: "90",
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children:
                                                         "From speaker specifications (-6dB point). Common: 60°-180°",
                                                 }),
@@ -14194,7 +14254,7 @@ function SpeakerCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-2",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                     children: "Spacing Pattern",
                                                 }),
                                                 _jsxs("select", {
@@ -14218,7 +14278,7 @@ function SpeakerCalculator() {
                                                     ],
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children: "★ Recommended for most applications",
                                                 }),
                                             ],
@@ -14233,7 +14293,7 @@ function SpeakerCalculator() {
                                                 "p-4 rounded-lg border-2 cursor-pointer transition-all " +
                                                 ("edge" === f
                                                     ? "border-orange-500 bg-orange-50"
-                                                    : "border-gray-200 hover:border-gray-300"),
+                                                    : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:border-gray-600"),
                                             onClick: () => y("edge"),
                                             children: [
                                                 _jsx("div", {
@@ -14257,7 +14317,7 @@ function SpeakerCalculator() {
                                                     children: "Edge-to-Edge",
                                                 }),
                                                 _jsx("div", {
-                                                    className: "text-xs text-gray-500 text-center",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 text-center",
                                                     children: "1.0D spacing",
                                                 }),
                                                 _jsx("div", {
@@ -14270,8 +14330,8 @@ function SpeakerCalculator() {
                                             className:
                                                 "p-4 rounded-lg border-2 cursor-pointer transition-all " +
                                                 ("minimal" === f
-                                                    ? "border-green-500 bg-green-50"
-                                                    : "border-gray-200 hover:border-gray-300"),
+                                                    ? "border-green-500 bg-green-50 dark:bg-green-900/20"
+                                                    : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:border-gray-600"),
                                             onClick: () => y("minimal"),
                                             children: [
                                                 _jsx("div", {
@@ -14295,7 +14355,7 @@ function SpeakerCalculator() {
                                                     children: "Partial Overlap ★",
                                                 }),
                                                 _jsx("div", {
-                                                    className: "text-xs text-gray-500 text-center",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 text-center",
                                                     children: "0.75D spacing",
                                                 }),
                                                 _jsx("div", {
@@ -14308,8 +14368,8 @@ function SpeakerCalculator() {
                                             className:
                                                 "p-4 rounded-lg border-2 cursor-pointer transition-all " +
                                                 ("center" === f
-                                                    ? "border-blue-500 bg-blue-50"
-                                                    : "border-gray-200 hover:border-gray-300"),
+                                                    ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
+                                                    : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:border-gray-600"),
                                             onClick: () => y("center"),
                                             children: [
                                                 _jsx("div", {
@@ -14333,7 +14393,7 @@ function SpeakerCalculator() {
                                                     children: "Edge-to-Center",
                                                 }),
                                                 _jsx("div", {
-                                                    className: "text-xs text-gray-500 text-center",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 text-center",
                                                     children: "0.52D spacing",
                                                 }),
                                                 _jsx("div", {
@@ -14345,11 +14405,11 @@ function SpeakerCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "mt-6 p-4 bg-green-50 rounded-lg border border-green-200",
+                                    className: "mt-6 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800",
                                     children: [
                                         _jsxs("h3", {
                                             className:
-                                                "text-md font-semibold text-green-800 mb-3 flex items-center gap-2",
+                                                "text-md font-semibold text-green-800 dark:text-green-200 mb-3 flex items-center gap-2",
                                             children: [
                                                 _jsx("span", { children: "📐" }),
                                                 " Room Size (for Speaker Count Recommendation)",
@@ -14361,7 +14421,7 @@ function SpeakerCalculator() {
                                                 _jsxs("div", {
                                                     children: [
                                                         _jsx("label", {
-                                                            className: "block text-sm font-medium text-gray-700 mb-2",
+                                                            className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                             children: "Unit",
                                                         }),
                                                         _jsxs("select", {
@@ -14382,7 +14442,7 @@ function SpeakerCalculator() {
                                                 _jsxs("div", {
                                                     children: [
                                                         _jsxs("label", {
-                                                            className: "block text-sm font-medium text-gray-700 mb-2",
+                                                            className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                             children: ["Room Length (", M, ")"],
                                                         }),
                                                         _jsx("input", {
@@ -14404,7 +14464,7 @@ function SpeakerCalculator() {
                                                 _jsxs("div", {
                                                     children: [
                                                         _jsxs("label", {
-                                                            className: "block text-sm font-medium text-gray-700 mb-2",
+                                                            className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                             children: ["Room Width (", M, ")"],
                                                         }),
                                                         _jsx("input", {
@@ -14436,7 +14496,7 @@ function SpeakerCalculator() {
                         }),
                     !c &&
                         _jsx("p", {
-                            className: "text-sm text-gray-500 italic",
+                            className: "text-sm text-gray-500 dark:text-gray-400 italic",
                             children: "Enable the checkbox above to calculate ceiling speaker coverage and spacing.",
                         }),
                 ],
@@ -14776,7 +14836,7 @@ function SpeakerCalculator() {
                     className: "space-y-6",
                     children: [
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-8 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 border",
                             children: [
                                 _jsx("h3", {
                                     className: "text-lg font-semibold text-gray-800 mb-4",
@@ -14786,10 +14846,10 @@ function SpeakerCalculator() {
                                     className: "grid md:grid-cols-2 gap-6",
                                     children: [
                                         _jsxs("div", {
-                                            className: "bg-blue-50 p-6 rounded-lg border-2 border-blue-200",
+                                            className: "bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg border-2 border-blue-200 dark:border-blue-800",
                                             children: [
                                                 _jsx("div", {
-                                                    className: "text-sm text-gray-600",
+                                                    className: "text-sm text-gray-600 dark:text-gray-400",
                                                     children: "Required Power per Speaker (EPR)",
                                                 }),
                                                 _jsxs("div", {
@@ -14797,20 +14857,20 @@ function SpeakerCalculator() {
                                                     children: [S.requiredWatts, " W"],
                                                 }),
                                                 _jsx("div", {
-                                                    className: "text-sm text-gray-500 mt-2",
+                                                    className: "text-sm text-gray-500 dark:text-gray-400 mt-2",
                                                     children: "Electrical Power Required",
                                                 }),
                                             ],
                                         }),
                                         _jsxs("div", {
-                                            className: "bg-gray-50 p-6 rounded-lg border",
+                                            className: "bg-gray-50 dark:bg-gray-900/50 p-6 rounded-lg border",
                                             children: [
                                                 _jsx("div", {
-                                                    className: "text-sm text-gray-600 mb-3",
+                                                    className: "text-sm text-gray-600 dark:text-gray-400 mb-3",
                                                     children: "AVIXA Formula Breakdown",
                                                 }),
                                                 _jsxs("div", {
-                                                    className: "text-xs text-gray-600 space-y-2 font-mono",
+                                                    className: "text-xs text-gray-600 dark:text-gray-400 space-y-2 font-mono",
                                                     children: [
                                                         _jsxs("p", {
                                                             children: [
@@ -14907,7 +14967,7 @@ function SpeakerCalculator() {
                         }),
                         S.ceilingCalcs &&
                             _jsxs("div", {
-                                className: "bg-white rounded-xl shadow-md p-8 border",
+                                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 border",
                                 children: [
                                     _jsx("h3", {
                                         className: "text-lg font-semibold text-gray-800 mb-4",
@@ -14915,7 +14975,7 @@ function SpeakerCalculator() {
                                     }),
                                     S.ceilingCalcs.effectiveHeightWarning &&
                                         _jsxs("div", {
-                                            className: "mb-4 p-4 bg-red-50 border-2 border-red-300 rounded-lg",
+                                            className: "mb-4 p-4 bg-red-50 dark:bg-red-900/20 border-2 border-red-300 rounded-lg",
                                             children: [
                                                 _jsx("div", {
                                                     className: "font-semibold text-red-700 flex items-center gap-2",
@@ -14960,10 +15020,10 @@ function SpeakerCalculator() {
                                         className: "grid md:grid-cols-3 gap-6 mb-6",
                                         children: [
                                             _jsxs("div", {
-                                                className: "bg-purple-50 p-6 rounded-lg border-2 border-purple-200",
+                                                className: "bg-purple-50 dark:bg-purple-900/20 p-6 rounded-lg border-2 border-purple-200 dark:border-purple-800",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Coverage Diameter",
                                                     }),
                                                     _jsxs("div", {
@@ -14975,7 +15035,7 @@ function SpeakerCalculator() {
                                                         ],
                                                     }),
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-500 mt-1",
+                                                        className: "text-sm text-gray-500 dark:text-gray-400 mt-1",
                                                         children: "at ear level",
                                                     }),
                                                 ],
@@ -14984,7 +15044,7 @@ function SpeakerCalculator() {
                                                 className: "bg-indigo-50 p-6 rounded-lg border-2 border-indigo-200",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Coverage Radius (r)",
                                                     }),
                                                     _jsxs("div", {
@@ -15001,7 +15061,7 @@ function SpeakerCalculator() {
                                                 className: "bg-pink-50 p-6 rounded-lg border-2 border-pink-200",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Coverage Area",
                                                     }),
                                                     _jsxs("div", {
@@ -15013,7 +15073,7 @@ function SpeakerCalculator() {
                                                         ],
                                                     }),
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-500 mt-1",
+                                                        className: "text-sm text-gray-500 dark:text-gray-400 mt-1",
                                                         children: "per speaker",
                                                     }),
                                                 ],
@@ -15022,13 +15082,13 @@ function SpeakerCalculator() {
                                     }),
                                     _jsxs("div", {
                                         className:
-                                            "bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg border-2 border-blue-200 mb-6",
+                                            "bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-lg border-2 border-blue-200 dark:border-blue-800 mb-6",
                                         children: [
                                             _jsxs("div", {
                                                 className: "flex items-center justify-between mb-2",
                                                 children: [
                                                     _jsxs("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: [
                                                             "Speaker Spacing (",
                                                             S.ceilingCalcs.spacingLabel,
@@ -15062,16 +15122,16 @@ function SpeakerCalculator() {
                                                 children: [S.ceilingCalcs.speakerSpacing, " ", S.ceilingCalcs.unit],
                                             }),
                                             _jsx("p", {
-                                                className: "text-sm text-gray-600",
+                                                className: "text-sm text-gray-600 dark:text-gray-400",
                                                 children: S.ceilingCalcs.spacingDescription,
                                             }),
                                         ],
                                     }),
                                     _jsxs("div", {
-                                        className: "bg-gray-50 p-4 rounded-lg mb-6",
+                                        className: "bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg mb-6",
                                         children: [
                                             _jsx("h4", {
-                                                className: "font-semibold text-gray-700 mb-3",
+                                                className: "font-semibold text-gray-700 dark:text-gray-300 mb-3",
                                                 children: "AVIXA Spacing Options Comparison",
                                             }),
                                             _jsx("div", {
@@ -15081,7 +15141,7 @@ function SpeakerCalculator() {
                                                     children: [
                                                         _jsx("thead", {
                                                             children: _jsxs("tr", {
-                                                                className: "border-b border-gray-300",
+                                                                className: "border-b border-gray-300 dark:border-gray-600",
                                                                 children: [
                                                                     _jsx("th", {
                                                                         className: "text-left py-2 px-2",
@@ -15212,10 +15272,10 @@ function SpeakerCalculator() {
                                         ],
                                     }),
                                     _jsxs("div", {
-                                        className: "p-4 bg-gray-50 rounded-lg overflow-hidden",
+                                        className: "p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg overflow-hidden",
                                         children: [
                                             _jsx("h4", {
-                                                className: "font-semibold text-gray-700 mb-3",
+                                                className: "font-semibold text-gray-700 dark:text-gray-300 mb-3",
                                                 children: "Calculation Details",
                                             }),
                                             _jsxs("div", {
@@ -15224,11 +15284,11 @@ function SpeakerCalculator() {
                                                     _jsxs("div", {
                                                         children: [
                                                             _jsx("span", {
-                                                                className: "text-gray-500",
+                                                                className: "text-gray-500 dark:text-gray-400",
                                                                 children: "Effective Height (H - h):",
                                                             }),
                                                             _jsxs("p", {
-                                                                className: "font-mono text-gray-700",
+                                                                className: "font-mono text-gray-700 dark:text-gray-300",
                                                                 children: [
                                                                     x,
                                                                     " - ",
@@ -15244,11 +15304,11 @@ function SpeakerCalculator() {
                                                     _jsxs("div", {
                                                         children: [
                                                             _jsx("span", {
-                                                                className: "text-gray-500",
+                                                                className: "text-gray-500 dark:text-gray-400",
                                                                 children: "Coverage Angle (C∠):",
                                                             }),
                                                             _jsxs("p", {
-                                                                className: "font-mono text-gray-700",
+                                                                className: "font-mono text-gray-700 dark:text-gray-300",
                                                                 children: [g, "° (nominal)"],
                                                             }),
                                                         ],
@@ -15256,10 +15316,10 @@ function SpeakerCalculator() {
                                                 ],
                                             }),
                                             _jsxs("div", {
-                                                className: "mt-3 pt-3 border-t border-gray-200 space-y-2",
+                                                className: "mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 space-y-2",
                                                 children: [
                                                     _jsxs("p", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: [
                                                             _jsx("strong", {
                                                                 children: "AVIXA Coverage Diameter Formula:",
@@ -15268,7 +15328,7 @@ function SpeakerCalculator() {
                                                         ],
                                                     }),
                                                     _jsxs("p", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: [
                                                             _jsx("strong", { children: "Note:" }),
                                                             " Effective coverage angle is typically 70-80% of nominal. For critical applications, consider using 80% of the specified angle.",
@@ -15282,7 +15342,7 @@ function SpeakerCalculator() {
                             }),
                         S.roomRecommendation &&
                             _jsxs("div", {
-                                className: "bg-white rounded-xl shadow-md p-8 border",
+                                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 border",
                                 children: [
                                     _jsxs("h3", {
                                         className: "text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2",
@@ -15295,10 +15355,10 @@ function SpeakerCalculator() {
                                         className: "grid md:grid-cols-4 gap-4 mb-6",
                                         children: [
                                             _jsxs("div", {
-                                                className: "bg-gray-50 p-4 rounded-lg border",
+                                                className: "bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Room Dimensions",
                                                     }),
                                                     _jsxs("div", {
@@ -15312,7 +15372,7 @@ function SpeakerCalculator() {
                                                         ],
                                                     }),
                                                     _jsxs("div", {
-                                                        className: "text-sm text-gray-500",
+                                                        className: "text-sm text-gray-500 dark:text-gray-400",
                                                         children: [
                                                             "Area: ",
                                                             S.roomRecommendation.roomArea,
@@ -15323,7 +15383,7 @@ function SpeakerCalculator() {
                                                 ],
                                             }),
                                             _jsxs("div", {
-                                                className: "bg-green-50 p-4 rounded-lg border-2 border-green-300",
+                                                className: "bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border-2 border-green-300",
                                                 children: [
                                                     _jsx("div", {
                                                         className: "text-sm text-green-700 font-medium",
@@ -15345,10 +15405,10 @@ function SpeakerCalculator() {
                                                 ],
                                             }),
                                             _jsxs("div", {
-                                                className: "bg-blue-50 p-4 rounded-lg border",
+                                                className: "bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Actual Spacing",
                                                     }),
                                                     _jsxs("div", {
@@ -15360,16 +15420,16 @@ function SpeakerCalculator() {
                                                         ],
                                                     }),
                                                     _jsxs("div", {
-                                                        className: "text-sm text-gray-500",
+                                                        className: "text-sm text-gray-500 dark:text-gray-400",
                                                         children: ["L × W (", S.roomRecommendation.roomUnit, ")"],
                                                     }),
                                                 ],
                                             }),
                                             _jsxs("div", {
-                                                className: "bg-purple-50 p-4 rounded-lg border",
+                                                className: "bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Est. Coverage",
                                                     }),
                                                     _jsxs("div", {
@@ -15377,7 +15437,7 @@ function SpeakerCalculator() {
                                                         children: [S.roomRecommendation.coveragePercent, "%"],
                                                     }),
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-500",
+                                                        className: "text-sm text-gray-500 dark:text-gray-400",
                                                         children: "of room area",
                                                     }),
                                                 ],
@@ -15390,7 +15450,7 @@ function SpeakerCalculator() {
                                             className: "mb-6",
                                             children: [
                                                 _jsx("h4", {
-                                                    className: "font-semibold text-gray-700 mb-3",
+                                                    className: "font-semibold text-gray-700 dark:text-gray-300 mb-3",
                                                     children: "Layout Options Comparison",
                                                 }),
                                                 _jsx("div", {
@@ -15402,10 +15462,10 @@ function SpeakerCalculator() {
                                                                 className:
                                                                     "p-4 rounded-lg border-2 " +
                                                                     (e.isSelected
-                                                                        ? "bg-green-50 border-green-400"
+                                                                        ? "bg-green-50 dark:bg-green-900/20 border-green-400"
                                                                         : e.isAVIXA
-                                                                          ? "bg-blue-50 border-blue-300"
-                                                                          : "bg-gray-50 border-gray-200"),
+                                                                          ? "bg-blue-50 dark:bg-blue-900/20 border-blue-300"
+                                                                          : "bg-gray-50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-700"),
                                                                 children: [
                                                                     e.isSelected &&
                                                                         _jsx("div", {
@@ -15424,16 +15484,16 @@ function SpeakerCalculator() {
                                                                         !e.isAVIXA &&
                                                                         _jsx("div", {
                                                                             className:
-                                                                                "text-xs font-medium text-gray-500 mb-1",
+                                                                                "text-xs font-medium text-gray-500 dark:text-gray-400 mb-1",
                                                                             children: "ALTERNATIVE",
                                                                         }),
                                                                     _jsx("div", {
                                                                         className:
                                                                             "font-semibold " +
                                                                             (e.isSelected
-                                                                                ? "text-green-800"
+                                                                                ? "text-green-800 dark:text-green-200"
                                                                                 : e.isAVIXA
-                                                                                  ? "text-blue-800"
+                                                                                  ? "text-blue-800 dark:text-blue-200"
                                                                                   : "text-gray-800"),
                                                                         children: e.name,
                                                                     }),
@@ -15448,7 +15508,7 @@ function SpeakerCalculator() {
                                                                         children: [e.total, " speakers"],
                                                                     }),
                                                                     _jsxs("div", {
-                                                                        className: "text-sm text-gray-600 space-y-1",
+                                                                        className: "text-sm text-gray-600 dark:text-gray-400 space-y-1",
                                                                         children: [
                                                                             _jsxs("div", {
                                                                                 children: [
@@ -15484,7 +15544,7 @@ function SpeakerCalculator() {
                                                                                 ? "text-green-600"
                                                                                 : e.isAVIXA
                                                                                   ? "text-blue-600"
-                                                                                  : "text-gray-500"),
+                                                                                  : "text-gray-500 dark:text-gray-400"),
                                                                         children: e.description,
                                                                     }),
                                                                 ],
@@ -15496,15 +15556,15 @@ function SpeakerCalculator() {
                                             ],
                                         }),
                                     _jsxs("div", {
-                                        className: "p-3 sm:p-4 bg-yellow-50 rounded-lg border border-yellow-200",
+                                        className: "p-3 sm:p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800",
                                         children: [
                                             _jsxs("h4", {
                                                 className:
-                                                    "font-semibold text-yellow-800 mb-2 flex items-center gap-2 text-sm sm:text-base",
+                                                    "font-semibold text-yellow-800 dark:text-yellow-200 mb-2 flex items-center gap-2 text-sm sm:text-base",
                                                 children: ["📋 Layout - ", S.ceilingCalcs.spacingLabel],
                                             }),
                                             _jsx("div", {
-                                                className: "bg-white p-2 sm:p-4 rounded border overflow-x-auto",
+                                                className: "bg-white dark:bg-gray-800 p-2 sm:p-4 rounded border overflow-x-auto",
                                                 children: (() => {
                                                     const e = S.roomRecommendation.roomLength,
                                                         t = S.roomRecommendation.roomWidth,
@@ -15654,7 +15714,7 @@ function SpeakerCalculator() {
                                             }),
                                             _jsxs("div", {
                                                 className:
-                                                    "flex flex-wrap items-center justify-center gap-2 sm:gap-4 mt-2 sm:mt-3 text-xs text-gray-600",
+                                                    "flex flex-wrap items-center justify-center gap-2 sm:gap-4 mt-2 sm:mt-3 text-xs text-gray-600 dark:text-gray-400",
                                                 children: [
                                                     _jsxs("div", {
                                                         className: "flex items-center gap-1",
@@ -15700,7 +15760,7 @@ function SpeakerCalculator() {
                                                         ],
                                                     }),
                                                     _jsxs("div", {
-                                                        className: "flex items-center gap-1 text-gray-500",
+                                                        className: "flex items-center gap-1 text-gray-500 dark:text-gray-400",
                                                         children: [
                                                             _jsx("span", {
                                                                 className:
@@ -15729,10 +15789,10 @@ function SpeakerCalculator() {
                                         ],
                                     }),
                                     _jsxs("div", {
-                                        className: "mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200",
+                                        className: "mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800",
                                         children: [
                                             _jsx("h4", {
-                                                className: "font-semibold text-blue-800 mb-2",
+                                                className: "font-semibold text-blue-800 dark:text-blue-200 mb-2",
                                                 children: "💡 Installation Best Practices",
                                             }),
                                             _jsxs("ul", {
@@ -15766,22 +15826,22 @@ function SpeakerCalculator() {
                                         className:
                                             "mt-4 p-4 rounded-lg border-2 " +
                                             ("blue" === S.roomRecommendation.densityColor
-                                                ? "bg-blue-50 border-blue-300"
+                                                ? "bg-blue-50 dark:bg-blue-900/20 border-blue-300"
                                                 : "green" === S.roomRecommendation.densityColor
-                                                  ? "bg-green-50 border-green-300"
+                                                  ? "bg-green-50 dark:bg-green-900/20 border-green-300"
                                                   : "yellow" === S.roomRecommendation.densityColor
-                                                    ? "bg-yellow-50 border-yellow-300"
+                                                    ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-300"
                                                     : "bg-orange-50 border-orange-300"),
                                         children: [
                                             _jsxs("h4", {
                                                 className:
                                                     "font-semibold mb-3 flex items-center gap-2 " +
                                                     ("blue" === S.roomRecommendation.densityColor
-                                                        ? "text-blue-800"
+                                                        ? "text-blue-800 dark:text-blue-200"
                                                         : "green" === S.roomRecommendation.densityColor
-                                                          ? "text-green-800"
+                                                          ? "text-green-800 dark:text-green-200"
                                                           : "yellow" === S.roomRecommendation.densityColor
-                                                            ? "text-yellow-800"
+                                                            ? "text-yellow-800 dark:text-yellow-200"
                                                             : "text-orange-800"),
                                                 children: ["📋 Professional Assessment"],
                                             }),
@@ -15799,18 +15859,18 @@ function SpeakerCalculator() {
                                                                             "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium " +
                                                                             ("blue" ===
                                                                             S.roomRecommendation.densityColor
-                                                                                ? "bg-blue-200 text-blue-800"
+                                                                                ? "bg-blue-200 text-blue-800 dark:text-blue-200"
                                                                                 : "green" ===
                                                                                     S.roomRecommendation.densityColor
-                                                                                  ? "bg-green-200 text-green-800"
+                                                                                  ? "bg-green-200 text-green-800 dark:text-green-200"
                                                                                   : "yellow" ===
                                                                                       S.roomRecommendation.densityColor
-                                                                                    ? "bg-yellow-200 text-yellow-800"
+                                                                                    ? "bg-yellow-200 text-yellow-800 dark:text-yellow-200"
                                                                                     : "bg-orange-200 text-orange-800"),
                                                                         children: S.roomRecommendation.densityRating,
                                                                     }),
                                                                     _jsxs("span", {
-                                                                        className: "text-sm text-gray-600",
+                                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                                         children: [
                                                                             S.roomRecommendation.sqPerSpeaker,
                                                                             " ",
@@ -15821,7 +15881,7 @@ function SpeakerCalculator() {
                                                                 ],
                                                             }),
                                                             _jsxs("div", {
-                                                                className: "text-sm text-gray-600",
+                                                                className: "text-sm text-gray-600 dark:text-gray-400",
                                                                 children: [
                                                                     _jsx("span", {
                                                                         className: "font-medium",
@@ -15836,7 +15896,7 @@ function SpeakerCalculator() {
                                                                 ],
                                                             }),
                                                             _jsxs("div", {
-                                                                className: "text-sm text-gray-600",
+                                                                className: "text-sm text-gray-600 dark:text-gray-400",
                                                                 children: [
                                                                     _jsx("span", {
                                                                         className: "font-medium",
@@ -15850,7 +15910,7 @@ function SpeakerCalculator() {
                                                     _jsxs("div", {
                                                         children: [
                                                             _jsx("div", {
-                                                                className: "text-sm font-medium text-gray-700 mb-1",
+                                                                className: "text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                                 children: "Suitable Applications:",
                                                             }),
                                                             _jsx("div", {
@@ -15861,7 +15921,7 @@ function SpeakerCalculator() {
                                                                             "span",
                                                                             {
                                                                                 className:
-                                                                                    "inline-flex items-center px-2 py-0.5 rounded text-xs bg-white border border-gray-200 text-gray-700",
+                                                                                    "inline-flex items-center px-2 py-0.5 rounded text-xs bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300",
                                                                                 children: e,
                                                                             },
                                                                             t
@@ -15887,7 +15947,7 @@ function SpeakerCalculator() {
                                             S.roomRecommendation.patternRecommendation.consideration &&
                                                 _jsxs("p", {
                                                     className:
-                                                        "text-sm text-gray-600 mt-2 pt-2 border-t border-gray-200",
+                                                        "text-sm text-gray-600 dark:text-gray-400 mt-2 pt-2 border-t border-gray-200 dark:border-gray-700",
                                                     children: [
                                                         _jsx("span", { className: "font-medium", children: "Note: " }),
                                                         S.roomRecommendation.patternRecommendation.consideration,
@@ -15896,7 +15956,7 @@ function SpeakerCalculator() {
                                             S.roomRecommendation.patternRecommendation.alternative &&
                                                 _jsxs("p", {
                                                     className:
-                                                        "text-sm text-amber-700 mt-2 font-semibold bg-amber-50 px-3 py-2 rounded-lg border border-amber-200",
+                                                        "text-sm text-amber-700 mt-2 font-semibold bg-amber-50 dark:bg-amber-900/20 px-3 py-2 rounded-lg border border-amber-200 dark:border-amber-800",
                                                     children: [
                                                         "💡 ",
                                                         S.roomRecommendation.patternRecommendation.alternative,
@@ -15907,10 +15967,10 @@ function SpeakerCalculator() {
                                                     className:
                                                         "mt-4 p-4 rounded-lg border-2 " +
                                                         ("high" === S.roomRecommendation.splWarning.level
-                                                            ? "bg-red-50 border-red-300"
+                                                            ? "bg-red-50 dark:bg-red-900/20 border-red-300"
                                                             : "moderate" === S.roomRecommendation.splWarning.level
-                                                              ? "bg-yellow-50 border-yellow-300"
-                                                              : "bg-green-50 border-green-300"),
+                                                              ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-300"
+                                                              : "bg-green-50 dark:bg-green-900/20 border-green-300"),
                                                     children: [
                                                         _jsxs("div", {
                                                             className: "flex items-center gap-2 mb-2",
@@ -15938,7 +15998,7 @@ function SpeakerCalculator() {
                                                                     children: S.roomRecommendation.splWarning.title,
                                                                 }),
                                                                 _jsxs("span", {
-                                                                    className: "text-sm text-gray-600 ml-2",
+                                                                    className: "text-sm text-gray-600 dark:text-gray-400 ml-2",
                                                                     children: [
                                                                         "(Inverse Square Law: -",
                                                                         S.roomRecommendation.splLossFromHeight,
@@ -15960,7 +16020,7 @@ function SpeakerCalculator() {
                                                         }),
                                                         S.roomRecommendation.splWarning.recommendation &&
                                                             _jsx("p", {
-                                                                className: "text-sm text-gray-600 mt-2 font-medium",
+                                                                className: "text-sm text-gray-600 dark:text-gray-400 mt-2 font-medium",
                                                                 children:
                                                                     S.roomRecommendation.splWarning.recommendation,
                                                             }),
@@ -15972,7 +16032,7 @@ function SpeakerCalculator() {
                             }),
                         S.amplifierCalcs &&
                             _jsxs("div", {
-                                className: "bg-white rounded-xl shadow-md p-8 border",
+                                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 border",
                                 children: [
                                     _jsxs("h3", {
                                         className: "text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2",
@@ -15982,17 +16042,17 @@ function SpeakerCalculator() {
                                         ],
                                     }),
                                     _jsx("p", {
-                                        className: "text-sm text-gray-600 mb-4",
+                                        className: "text-sm text-gray-600 dark:text-gray-400 mb-4",
                                         children: "Based on the recommended speaker count and EPR calculation above.",
                                     }),
                                     _jsxs("div", {
                                         className: "grid md:grid-cols-4 gap-4 mb-4",
                                         children: [
                                             _jsxs("div", {
-                                                className: "bg-gray-50 p-4 rounded-lg border",
+                                                className: "bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Speakers",
                                                     }),
                                                     _jsx("div", {
@@ -16000,16 +16060,16 @@ function SpeakerCalculator() {
                                                         children: S.amplifierCalcs.speakerCount,
                                                     }),
                                                     _jsx("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: "from layout above",
                                                     }),
                                                 ],
                                             }),
                                             _jsxs("div", {
-                                                className: "bg-blue-50 p-4 rounded-lg border-2 border-blue-200",
+                                                className: "bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border-2 border-blue-200 dark:border-blue-800",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Total Speaker Power",
                                                     }),
                                                     _jsxs("div", {
@@ -16017,7 +16077,7 @@ function SpeakerCalculator() {
                                                         children: [S.amplifierCalcs.totalSpeakerPower, " W"],
                                                     }),
                                                     _jsxs("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: [
                                                             S.amplifierCalcs.eprPerSpeaker,
                                                             "W × ",
@@ -16027,10 +16087,10 @@ function SpeakerCalculator() {
                                                 ],
                                             }),
                                             _jsxs("div", {
-                                                className: "bg-green-50 p-4 rounded-lg border-2 border-green-200",
+                                                className: "bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border-2 border-green-200 dark:border-green-800",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Required Amp Power",
                                                     }),
                                                     _jsxs("div", {
@@ -16038,16 +16098,16 @@ function SpeakerCalculator() {
                                                         children: [S.amplifierCalcs.requiredAmpPower, " W"],
                                                     }),
                                                     _jsxs("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: [S.amplifierCalcs.totalSpeakerPower, "W × 1.5"],
                                                     }),
                                                 ],
                                             }),
                                             _jsxs("div", {
-                                                className: "bg-yellow-50 p-4 rounded-lg border-2 border-yellow-300",
+                                                className: "bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border-2 border-yellow-300",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Recommended Size",
                                                     }),
                                                     _jsxs("div", {
@@ -16061,7 +16121,7 @@ function SpeakerCalculator() {
                                                         ],
                                                     }),
                                                     _jsx("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: "next standard size",
                                                     }),
                                                 ],
@@ -16069,9 +16129,9 @@ function SpeakerCalculator() {
                                         ],
                                     }),
                                     _jsx("div", {
-                                        className: "p-3 bg-gray-50 rounded-lg",
+                                        className: "p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg",
                                         children: _jsxs("p", {
-                                            className: "text-sm text-gray-600",
+                                            className: "text-sm text-gray-600 dark:text-gray-400",
                                             children: [
                                                 _jsx("strong", { children: "Calculation:" }),
                                                 " ",
@@ -16108,14 +16168,14 @@ function DisplaySizeCalculator() {
                 className: "flex items-center justify-between mb-4 sm:mb-6",
                 children: [
                     _jsx("h1", {
-                        className: "text-2xl sm:text-3xl font-bold text-gray-900",
+                        className: "text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100",
                         children: "Display Size Calculator (AVIXA DISCAS)",
                     }),
                     h !== null &&
                         _jsx("button", {
                             onClick: () => b(!0),
                             className:
-                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm",
+                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm dark:shadow-gray-950/10",
                             children: "⟲ Reset Tool",
                         }),
                 ],
@@ -16128,24 +16188,24 @@ function DisplaySizeCalculator() {
                 onCancel: () => b(!1),
             }),
             _jsx("div", {
-                className: "bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200",
+                className: "bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6 border border-gray-200 dark:border-gray-700",
                 children: _jsxs("p", {
-                    className: "text-sm text-gray-600",
+                    className: "text-sm text-gray-600 dark:text-gray-400",
                     children: [
-                        _jsx("span", { className: "font-semibold text-gray-700", children: "What this tool does:" }),
+                        _jsx("span", { className: "font-semibold text-gray-700 dark:text-gray-300", children: "What this tool does:" }),
                         " Calculates the minimum display size needed for your farthest viewer using AVIXA's DISCAS standard. Choose between BDM (Basic Decision Making) for general content or ADM (Analytical Decision Making) for detailed content like spreadsheets.",
                     ],
                 }),
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-4 sm:p-6 mb-6 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 mb-6 border",
                 children: [
                     _jsx("h2", {
                         className: "text-base sm:text-lg font-semibold text-gray-800 mb-4",
                         children: "AVIXA DISCAS Standard Overview",
                     }),
                     _jsx("p", {
-                        className: "text-sm text-gray-600 mb-4",
+                        className: "text-sm text-gray-600 dark:text-gray-400 mb-4",
                         children:
                             "DISCAS (Display Image Size for 2D Content in Audiovisual Systems) is the AVIXA/ANSI standard for calculating optimal display sizes based on viewing distance and content type.",
                     }),
@@ -16156,8 +16216,8 @@ function DisplaySizeCalculator() {
                                 className:
                                     "p-4 rounded-lg border-2 cursor-pointer transition-all " +
                                     ("BDM" === c
-                                        ? "border-blue-500 bg-blue-50"
-                                        : "border-gray-200 hover:border-gray-300"),
+                                        ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
+                                        : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:border-gray-600"),
                                 onClick: () => m("BDM"),
                                 children: [
                                     _jsxs("div", {
@@ -16171,12 +16231,12 @@ function DisplaySizeCalculator() {
                                         ],
                                     }),
                                     _jsx("p", {
-                                        className: "text-sm text-gray-600 mb-3",
+                                        className: "text-sm text-gray-600 dark:text-gray-400 mb-3",
                                         children:
                                             "For content where viewers need to understand overall information but not every fine detail.",
                                     }),
                                     _jsxs("div", {
-                                        className: "text-xs text-gray-500 space-y-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 space-y-1",
                                         children: [
                                             _jsx("p", { children: _jsx("strong", { children: "Use Cases:" }) }),
                                             _jsxs("ul", {
@@ -16193,17 +16253,17 @@ function DisplaySizeCalculator() {
                                         ],
                                     }),
                                     _jsxs("div", {
-                                        className: "mt-3 pt-3 border-t border-gray-200",
+                                        className: "mt-3 pt-3 border-t border-gray-200 dark:border-gray-700",
                                         children: [
                                             _jsxs("p", {
-                                                className: "text-xs font-mono text-gray-500",
+                                                className: "text-xs font-mono text-gray-500 dark:text-gray-400",
                                                 children: [
                                                     _jsx("strong", { children: "Formula:" }),
                                                     " Image Height = Farthest Viewer ÷ (200 × %Element Height)",
                                                 ],
                                             }),
                                             _jsx("p", {
-                                                className: "text-xs text-gray-500 mt-1",
+                                                className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                 children: "Acuity Factor: 200",
                                             }),
                                         ],
@@ -16214,8 +16274,8 @@ function DisplaySizeCalculator() {
                                 className:
                                     "p-4 rounded-lg border-2 cursor-pointer transition-all " +
                                     ("ADM" === c
-                                        ? "border-purple-500 bg-purple-50"
-                                        : "border-gray-200 hover:border-gray-300"),
+                                        ? "border-purple-500 bg-purple-50 dark:bg-purple-900/20"
+                                        : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:border-gray-600"),
                                 onClick: () => m("ADM"),
                                 children: [
                                     _jsxs("div", {
@@ -16229,12 +16289,12 @@ function DisplaySizeCalculator() {
                                         ],
                                     }),
                                     _jsx("p", {
-                                        className: "text-sm text-gray-600 mb-3",
+                                        className: "text-sm text-gray-600 dark:text-gray-400 mb-3",
                                         children:
                                             "For specialist viewing where pixel-level detail is critical for decision making.",
                                     }),
                                     _jsxs("div", {
-                                        className: "text-xs text-gray-500 space-y-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 space-y-1",
                                         children: [
                                             _jsx("p", { children: _jsx("strong", { children: "Use Cases:" }) }),
                                             _jsxs("ul", {
@@ -16251,17 +16311,17 @@ function DisplaySizeCalculator() {
                                         ],
                                     }),
                                     _jsxs("div", {
-                                        className: "mt-3 pt-3 border-t border-gray-200",
+                                        className: "mt-3 pt-3 border-t border-gray-200 dark:border-gray-700",
                                         children: [
                                             _jsxs("p", {
-                                                className: "text-xs font-mono text-gray-500",
+                                                className: "text-xs font-mono text-gray-500 dark:text-gray-400",
                                                 children: [
                                                     _jsx("strong", { children: "Formula:" }),
                                                     " Image Height = (Farthest Viewer × Vertical Pixels) ÷ 3438",
                                                 ],
                                             }),
                                             _jsx("p", {
-                                                className: "text-xs text-gray-500 mt-1",
+                                                className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                 children: "Acuity Factor: 3438",
                                             }),
                                         ],
@@ -16271,9 +16331,9 @@ function DisplaySizeCalculator() {
                         ],
                     }),
                     _jsx("div", {
-                        className: "mt-4 p-3 bg-gray-50 rounded-lg",
+                        className: "mt-4 p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg",
                         children: _jsxs("p", {
-                            className: "text-xs text-gray-600",
+                            className: "text-xs text-gray-600 dark:text-gray-400",
                             children: [
                                 _jsx("strong", { children: "Legacy 4/6/8 Rule:" }),
                                 " Before DISCAS, designers divided farthest viewer distance by 6 (BDM) or 4 (ADM) to get image height. DISCAS provides more accurate calculations based on visual acuity standards and accounts for display resolution.",
@@ -16283,7 +16343,7 @@ function DisplaySizeCalculator() {
                 ],
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-4 sm:p-8 mb-6 sm:mb-8 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-8 mb-6 sm:mb-8 border",
                 children: [
                     _jsx("h2", {
                         className: "text-lg sm:text-xl font-semibold text-gray-800 mb-4",
@@ -16298,7 +16358,7 @@ function DisplaySizeCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Viewing Method",
                                     }),
                                     _jsxs("select", {
@@ -16319,7 +16379,7 @@ function DisplaySizeCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Distance Unit",
                                     }),
                                     _jsxs("select", {
@@ -16338,7 +16398,7 @@ function DisplaySizeCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsxs("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: ["Farthest Viewer Distance (", x, ")"],
                                     }),
                                     _jsx("input", {
@@ -16350,7 +16410,7 @@ function DisplaySizeCalculator() {
                                             "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm",
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "Horizontal distance from display to farthest viewer",
                                     }),
                                 ],
@@ -16358,7 +16418,7 @@ function DisplaySizeCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Aspect Ratio",
                                     }),
                                     _jsxs("div", {
@@ -16375,7 +16435,7 @@ function DisplaySizeCalculator() {
                                                         className:
                                                             "w-16 sm:w-20 px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm",
                                                     }),
-                                                    _jsx("span", { className: "text-gray-500", children: ":" }),
+                                                    _jsx("span", { className: "text-gray-500 dark:text-gray-400", children: ":" }),
                                                     _jsx("input", {
                                                         type: "number",
                                                         value: o,
@@ -16397,7 +16457,7 @@ function DisplaySizeCalculator() {
                                                             "px-2 py-1 text-xs rounded " +
                                                             (16 === i && 9 === o
                                                                 ? "bg-blue-600 text-white"
-                                                                : "bg-gray-100 hover:bg-gray-200"),
+                                                                : "bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:bg-gray-700"),
                                                         children: "16:9",
                                                     }),
                                                     _jsx("button", {
@@ -16408,7 +16468,7 @@ function DisplaySizeCalculator() {
                                                             "px-2 py-1 text-xs rounded " +
                                                             (16 === i && 10 === o
                                                                 ? "bg-blue-600 text-white"
-                                                                : "bg-gray-100 hover:bg-gray-200"),
+                                                                : "bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:bg-gray-700"),
                                                         children: "16:10",
                                                     }),
                                                     _jsx("button", {
@@ -16419,7 +16479,7 @@ function DisplaySizeCalculator() {
                                                             "px-2 py-1 text-xs rounded " +
                                                             (4 === i && 3 === o
                                                                 ? "bg-blue-600 text-white"
-                                                                : "bg-gray-100 hover:bg-gray-200"),
+                                                                : "bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:bg-gray-700"),
                                                         children: "4:3",
                                                     }),
                                                 ],
@@ -16433,7 +16493,7 @@ function DisplaySizeCalculator() {
                                     className: "md:col-span-2",
                                     children: [
                                         _jsx("label", {
-                                            className: "block text-sm font-medium text-gray-700 mb-2",
+                                            className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                             children: "% Element Height",
                                         }),
                                         _jsx("input", {
@@ -16445,7 +16505,7 @@ function DisplaySizeCalculator() {
                                                 "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm",
                                         }),
                                         _jsx("p", {
-                                            className: "text-xs text-gray-500 mt-1",
+                                            className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                             children:
                                                 "Ratio of smallest critical element to screen height. Typical values: 1.5% (small text) to 3% (large text/graphics). A 20pt font on 1080p content is approximately 2.5%.",
                                         }),
@@ -16458,7 +16518,7 @@ function DisplaySizeCalculator() {
                                                         "px-3 py-1 text-xs rounded " +
                                                         (1.5 === s
                                                             ? "bg-blue-600 text-white"
-                                                            : "bg-gray-100 hover:bg-gray-200"),
+                                                            : "bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:bg-gray-700"),
                                                     children: "1.5% (Fine)",
                                                 }),
                                                 _jsx("button", {
@@ -16467,7 +16527,7 @@ function DisplaySizeCalculator() {
                                                         "px-3 py-1 text-xs rounded " +
                                                         (2.5 === s
                                                             ? "bg-blue-600 text-white"
-                                                            : "bg-gray-100 hover:bg-gray-200"),
+                                                            : "bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:bg-gray-700"),
                                                     children: "2.5% (Standard)",
                                                 }),
                                                 _jsx("button", {
@@ -16476,7 +16536,7 @@ function DisplaySizeCalculator() {
                                                         "px-3 py-1 text-xs rounded " +
                                                         (3.5 === s
                                                             ? "bg-blue-600 text-white"
-                                                            : "bg-gray-100 hover:bg-gray-200"),
+                                                            : "bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:bg-gray-700"),
                                                     children: "3.5% (Large)",
                                                 }),
                                             ],
@@ -16488,7 +16548,7 @@ function DisplaySizeCalculator() {
                                     className: "md:col-span-2",
                                     children: [
                                         _jsx("label", {
-                                            className: "block text-sm font-medium text-gray-700 mb-2",
+                                            className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                             children: "Vertical Resolution (pixels)",
                                         }),
                                         _jsxs("select", {
@@ -16505,7 +16565,7 @@ function DisplaySizeCalculator() {
                                             ],
                                         }),
                                         _jsx("p", {
-                                            className: "text-xs text-gray-500 mt-1",
+                                            className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                             children:
                                                 "Higher resolution allows viewers to sit closer while resolving pixel-level detail. ADM requires every pixel to be individually distinguishable.",
                                         }),
@@ -16523,7 +16583,7 @@ function DisplaySizeCalculator() {
             }),
             h &&
                 _jsxs("div", {
-                    className: "bg-white rounded-xl shadow-md p-8 border",
+                    className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 border",
                     children: [
                         _jsxs("h3", {
                             className: "text-lg font-semibold text-gray-800 mb-4",
@@ -16535,10 +16595,10 @@ function DisplaySizeCalculator() {
                                 _jsxs("div", {
                                     className:
                                         "p-8 rounded-lg border-2 text-center " +
-                                        ("BDM" === c ? "bg-blue-50 border-blue-200" : "bg-purple-50 border-purple-200"),
+                                        ("BDM" === c ? "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800" : "bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800"),
                                     children: [
                                         _jsx("div", {
-                                            className: "text-sm text-gray-600",
+                                            className: "text-sm text-gray-600 dark:text-gray-400",
                                             children: "Recommended Display Size",
                                         }),
                                         _jsxs("div", {
@@ -16547,14 +16607,14 @@ function DisplaySizeCalculator() {
                                                 ("BDM" === c ? "text-blue-700" : "text-purple-700"),
                                             children: [h.diagonalInches, '"'],
                                         }),
-                                        _jsx("div", { className: "text-gray-600 mt-2", children: "diagonal" }),
+                                        _jsx("div", { className: "text-gray-600 dark:text-gray-400 mt-2", children: "diagonal" }),
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-gray-50 p-6 rounded-lg border",
+                                    className: "bg-gray-50 dark:bg-gray-900/50 p-6 rounded-lg border",
                                     children: [
                                         _jsx("div", {
-                                            className: "text-sm text-gray-600 mb-3",
+                                            className: "text-sm text-gray-600 dark:text-gray-400 mb-3",
                                             children: "Display Dimensions",
                                         }),
                                         _jsxs("div", {
@@ -16581,7 +16641,7 @@ function DisplaySizeCalculator() {
                                                     ],
                                                 }),
                                                 _jsxs("p", {
-                                                    className: "text-sm text-gray-500",
+                                                    className: "text-sm text-gray-500 dark:text-gray-400",
                                                     children: ["Aspect Ratio: ", i, ":", o],
                                                 }),
                                             ],
@@ -16591,14 +16651,14 @@ function DisplaySizeCalculator() {
                             ],
                         }),
                         _jsxs("div", {
-                            className: "p-4 bg-gray-50 rounded-lg overflow-hidden",
+                            className: "p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg overflow-hidden",
                             children: [
                                 _jsx("h4", {
-                                    className: "font-semibold text-gray-700 mb-3",
+                                    className: "font-semibold text-gray-700 dark:text-gray-300 mb-3",
                                     children: "AVIXA Formula Breakdown",
                                 }),
                                 _jsx("div", {
-                                    className: "text-sm text-gray-600 space-y-2 font-mono",
+                                    className: "text-sm text-gray-600 dark:text-gray-400 space-y-2 font-mono",
                                     children: _jsxs(
                                         _Fragment,
                                         "BDM" === c
@@ -16651,10 +16711,10 @@ function DisplaySizeCalculator() {
                             ],
                         }),
                         _jsxs("div", {
-                            className: "mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200",
+                            className: "mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800",
                             children: [
                                 _jsx("h4", {
-                                    className: "font-semibold text-yellow-800 mb-2",
+                                    className: "font-semibold text-yellow-800 dark:text-yellow-200 mb-2",
                                     children: "Common Display Sizes Reference",
                                 }),
                                 _jsxs("div", {
@@ -16847,14 +16907,14 @@ function CameraCalculator() {
                 className: "flex items-center justify-between mb-6",
                 children: [
                     _jsx("h1", {
-                        className: "text-3xl font-bold text-gray-900",
+                        className: "text-3xl font-bold text-gray-900 dark:text-gray-100",
                         children: "Camera Distance Calculator",
                     }),
                     c !== null &&
                         _jsx("button", {
                             onClick: () => y(!0),
                             className:
-                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm",
+                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm dark:shadow-gray-950/10",
                             children: "⟲ Reset Tool",
                         }),
                 ],
@@ -16867,20 +16927,20 @@ function CameraCalculator() {
                 onCancel: () => y(!1),
             }),
             _jsx("div", {
-                className: "bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200",
+                className: "bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6 border border-gray-200 dark:border-gray-700",
                 children: _jsxs("p", {
-                    className: "text-sm text-gray-600",
+                    className: "text-sm text-gray-600 dark:text-gray-400",
                     children: [
-                        _jsx("span", { className: "font-semibold text-gray-700", children: "What this tool does:" }),
+                        _jsx("span", { className: "font-semibold text-gray-700 dark:text-gray-300", children: "What this tool does:" }),
                         " Calculates maximum camera distances for each DORI level (Detection, Observation, Recognition, Identification) based on IEC 62676-4 standards. Enter camera resolution, lens field of view, and target coverage width to plan surveillance camera placement.",
                     ],
                 }),
             }),
             _jsxs("div", {
-                className: "bg-blue-50 rounded-xl p-5 mb-6 border border-blue-200",
+                className: "bg-blue-50 dark:bg-blue-900/20 rounded-xl p-5 mb-6 border border-blue-200 dark:border-blue-800",
                 children: [
                     _jsx("h2", {
-                        className: "text-lg font-semibold text-blue-800 mb-3",
+                        className: "text-lg font-semibold text-blue-800 dark:text-blue-200 mb-3",
                         children: "IEC 62676-4 DORI Standard",
                     }),
                     _jsxs("p", {
@@ -16892,10 +16952,10 @@ function CameraCalculator() {
                         ],
                     }),
                     _jsxs("div", {
-                        className: "bg-white rounded-lg p-3 border border-blue-200 mb-4",
+                        className: "bg-white dark:bg-gray-800 rounded-lg p-3 border border-blue-200 dark:border-blue-800 mb-4",
                         children: [
                             _jsx("p", {
-                                className: "text-sm font-mono text-blue-800 mb-2",
+                                className: "text-sm font-mono text-blue-800 dark:text-blue-200 mb-2",
                                 children: _jsx("strong", { children: "Camera Distance Formula:" }),
                             }),
                             _jsx("p", {
@@ -16908,12 +16968,12 @@ function CameraCalculator() {
                         className: "grid grid-cols-2 md:grid-cols-4 gap-3 text-xs",
                         children: [
                             _jsxs("div", {
-                                className: "bg-red-50 p-3 rounded border border-red-200 text-center",
+                                className: "bg-red-50 dark:bg-red-900/20 p-3 rounded border border-red-200 dark:border-red-800 text-center",
                                 children: [
                                     _jsx("div", { className: "text-2xl mb-1", children: "🔴" }),
                                     _jsx("div", { className: "font-bold text-red-700", children: "Detection" }),
                                     _jsx("div", { className: "text-red-600", children: "25 PPM / 8 PPF" }),
-                                    _jsx("div", { className: "text-gray-500 mt-1", children: "Presence detected" }),
+                                    _jsx("div", { className: "text-gray-500 dark:text-gray-400 mt-1", children: "Presence detected" }),
                                 ],
                             }),
                             _jsxs("div", {
@@ -16922,28 +16982,28 @@ function CameraCalculator() {
                                     _jsx("div", { className: "text-2xl mb-1", children: "🟠" }),
                                     _jsx("div", { className: "font-bold text-orange-700", children: "Observation" }),
                                     _jsx("div", { className: "text-orange-600", children: "62 PPM / 19 PPF" }),
-                                    _jsx("div", { className: "text-gray-500 mt-1", children: "Clothing details" }),
+                                    _jsx("div", { className: "text-gray-500 dark:text-gray-400 mt-1", children: "Clothing details" }),
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-yellow-50 p-3 rounded border border-yellow-200 text-center",
+                                className: "bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded border border-yellow-200 dark:border-yellow-800 text-center",
                                 children: [
                                     _jsx("div", { className: "text-2xl mb-1", children: "🟡" }),
                                     _jsx("div", { className: "font-bold text-yellow-700", children: "Recognition" }),
                                     _jsx("div", { className: "text-yellow-600", children: "125 PPM / 38 PPF" }),
                                     _jsx("div", {
-                                        className: "text-gray-500 mt-1",
+                                        className: "text-gray-500 dark:text-gray-400 mt-1",
                                         children: "Recognize if seen before",
                                     }),
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-green-50 p-3 rounded border border-green-200 text-center",
+                                className: "bg-green-50 dark:bg-green-900/20 p-3 rounded border border-green-200 dark:border-green-800 text-center",
                                 children: [
                                     _jsx("div", { className: "text-2xl mb-1", children: "🟢" }),
                                     _jsx("div", { className: "font-bold text-green-700", children: "Identification" }),
                                     _jsx("div", { className: "text-green-600", children: "250 PPM / 76 PPF" }),
-                                    _jsx("div", { className: "text-gray-500 mt-1", children: "Positive ID" }),
+                                    _jsx("div", { className: "text-gray-500 dark:text-gray-400 mt-1", children: "Positive ID" }),
                                 ],
                             }),
                         ],
@@ -16951,7 +17011,7 @@ function CameraCalculator() {
                 ],
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-8 mb-8 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 mb-8 border",
                 children: [
                     _jsx("h2", {
                         className: "text-xl font-semibold text-gray-800 mb-4",
@@ -16963,7 +17023,7 @@ function CameraCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Camera Application",
                                     }),
                                     _jsxs("select", {
@@ -17021,7 +17081,7 @@ function CameraCalculator() {
                                         ],
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "Select application type for mounting height recommendations",
                                     }),
                                 ],
@@ -17029,7 +17089,7 @@ function CameraCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Unit",
                                     }),
                                     _jsxs("select", {
@@ -17047,7 +17107,7 @@ function CameraCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Camera Max Resolution",
                                     }),
                                     _jsxs("select", {
@@ -17067,7 +17127,7 @@ function CameraCalculator() {
                                         ],
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "Select your camera's maximum resolution",
                                     }),
                                 ],
@@ -17075,7 +17135,7 @@ function CameraCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsxs("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: ["Coverage Width (", r, ")"],
                                     }),
                                     _jsx("input", {
@@ -17088,7 +17148,7 @@ function CameraCalculator() {
                                             "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm",
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 mt-1",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                         children: "The horizontal width of the area to be covered",
                                     }),
                                 ],
@@ -17097,7 +17157,7 @@ function CameraCalculator() {
                                 className: "md:col-span-2",
                                 children: [
                                     _jsxs("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: [
                                             "Horizontal Field of View (HFOV): ",
                                             _jsxs("span", { className: "font-bold text-blue-600", children: [s, "°"] }),
@@ -17111,7 +17171,7 @@ function CameraCalculator() {
                                         value: s,
                                         onChange: (e) => a("" === e.target.value ? "" : parseFloat(e.target.value)),
                                         className:
-                                            "w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600",
+                                            "w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600",
                                     }),
                                     _jsxs("div", {
                                         className: "flex justify-between text-xs text-gray-400 mt-1",
@@ -17127,7 +17187,7 @@ function CameraCalculator() {
                                 className: "md:col-span-2",
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Quick Select - Common Lens Types",
                                     }),
                                     _jsx("div", {
@@ -17151,7 +17211,7 @@ function CameraCalculator() {
                                                         "px-3 py-1.5 text-xs rounded-lg border transition-colors " +
                                                         (s === e.hfov
                                                             ? "bg-blue-600 text-white border-blue-600"
-                                                            : "bg-white text-gray-700 border-gray-300 hover:bg-blue-50"),
+                                                            : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-blue-50 dark:bg-blue-900/20"),
                                                     children: e.label,
                                                 },
                                                 e.hfov
@@ -17203,7 +17263,7 @@ function CameraCalculator() {
                                                 "px-3 py-1 text-xs rounded border cursor-pointer transition-colors " +
                                                 (o === e
                                                     ? "bg-indigo-600 text-white border-indigo-600"
-                                                    : "bg-white text-indigo-700 border-indigo-300 hover:bg-indigo-100"),
+                                                    : "bg-white dark:bg-gray-800 text-indigo-700 border-indigo-300 hover:bg-indigo-100"),
                                             children: [e, "x"],
                                         },
                                         e
@@ -17243,7 +17303,7 @@ function CameraCalculator() {
             }),
             c &&
                 _jsxs("div", {
-                    className: "bg-white rounded-xl shadow-md p-8 border",
+                    className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 border",
                     children: [
                         _jsx("h2", {
                             className: "text-xl font-semibold text-gray-800 mb-6",
@@ -17263,11 +17323,11 @@ function CameraCalculator() {
                                             className: "bg-green-100 p-3 rounded-lg mb-3 border border-green-300",
                                             children: [
                                                 _jsx("span", {
-                                                    className: "text-green-800 font-semibold",
+                                                    className: "text-green-800 dark:text-green-200 font-semibold",
                                                     children: "✅ DORI Level Improved: ",
                                                 }),
                                                 _jsx("span", {
-                                                    className: "text-gray-600",
+                                                    className: "text-gray-600 dark:text-gray-400",
                                                     children: x.baseDORI.level,
                                                 }),
                                                 _jsx("span", {
@@ -17284,10 +17344,10 @@ function CameraCalculator() {
                                         className: "grid grid-cols-2 md:grid-cols-4 gap-3",
                                         children: [
                                             _jsxs("div", {
-                                                className: "bg-white p-3 rounded-lg border text-center",
+                                                className: "bg-white dark:bg-gray-800 p-3 rounded-lg border text-center",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: "Effective PPM",
                                                     }),
                                                     _jsx("div", {
@@ -17297,10 +17357,10 @@ function CameraCalculator() {
                                                 ],
                                             }),
                                             _jsxs("div", {
-                                                className: "bg-white p-3 rounded-lg border text-center",
+                                                className: "bg-white dark:bg-gray-800 p-3 rounded-lg border text-center",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: "Effective DORI",
                                                     }),
                                                     _jsx("div", {
@@ -17314,16 +17374,16 @@ function CameraCalculator() {
                                                                     ? "text-orange-600"
                                                                     : "Detection" === x.effectiveDORI.level
                                                                       ? "text-red-600"
-                                                                      : "text-gray-500"),
+                                                                      : "text-gray-500 dark:text-gray-400"),
                                                         children: x.effectiveDORI.level,
                                                     }),
                                                 ],
                                             }),
                                             _jsxs("div", {
-                                                className: "bg-white p-3 rounded-lg border text-center",
+                                                className: "bg-white dark:bg-gray-800 p-3 rounded-lg border text-center",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: "Effective HFOV",
                                                     }),
                                                     _jsxs("div", {
@@ -17333,10 +17393,10 @@ function CameraCalculator() {
                                                 ],
                                             }),
                                             _jsxs("div", {
-                                                className: "bg-white p-3 rounded-lg border text-center",
+                                                className: "bg-white dark:bg-gray-800 p-3 rounded-lg border text-center",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: "Effective Coverage",
                                                     }),
                                                     _jsxs("div", {
@@ -17359,10 +17419,10 @@ function CameraCalculator() {
                             className: "grid md:grid-cols-3 gap-4 mb-6",
                             children: [
                                 _jsxs("div", {
-                                    className: "bg-blue-50 p-6 rounded-lg border-2 border-blue-200 text-center",
+                                    className: "bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg border-2 border-blue-200 dark:border-blue-800 text-center",
                                     children: [
                                         _jsx("div", {
-                                            className: "text-sm text-gray-600",
+                                            className: "text-sm text-gray-600 dark:text-gray-400",
                                             children: "Camera Distance",
                                         }),
                                         _jsx("div", {
@@ -17372,15 +17432,15 @@ function CameraCalculator() {
                                         _jsx("div", { className: "text-lg text-blue-600", children: c.unit }),
                                         "ft" === r &&
                                             _jsxs("div", {
-                                                className: "text-xs text-gray-500 mt-1",
+                                                className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                 children: ["(", c.distanceMeters, " m)"],
                                             }),
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-green-50 p-6 rounded-lg border-2 border-green-200 text-center",
+                                    className: "bg-green-50 dark:bg-green-900/20 p-6 rounded-lg border-2 border-green-200 dark:border-green-800 text-center",
                                     children: [
-                                        _jsx("div", { className: "text-sm text-gray-600", children: "Coverage Width" }),
+                                        _jsx("div", { className: "text-sm text-gray-600 dark:text-gray-400", children: "Coverage Width" }),
                                         _jsx("div", {
                                             className: "text-4xl font-bold text-green-700",
                                             children: c.coverageWidth,
@@ -17389,9 +17449,9 @@ function CameraCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-purple-50 p-6 rounded-lg border-2 border-purple-200 text-center",
+                                    className: "bg-purple-50 dark:bg-purple-900/20 p-6 rounded-lg border-2 border-purple-200 dark:border-purple-800 text-center",
                                     children: [
-                                        _jsx("div", { className: "text-sm text-gray-600", children: "Field of View" }),
+                                        _jsx("div", { className: "text-sm text-gray-600 dark:text-gray-400", children: "Field of View" }),
                                         _jsxs("div", {
                                             className: "text-4xl font-bold text-purple-700",
                                             children: [c.hfov, "°"],
@@ -17402,14 +17462,14 @@ function CameraCalculator() {
                             ],
                         }),
                         _jsxs("div", {
-                            className: "p-4 bg-gray-50 rounded-lg mb-6",
+                            className: "p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg mb-6",
                             children: [
                                 _jsx("h3", {
-                                    className: "font-semibold text-gray-700 mb-2",
+                                    className: "font-semibold text-gray-700 dark:text-gray-300 mb-2",
                                     children: "Calculation Breakdown",
                                 }),
                                 _jsxs("p", {
-                                    className: "text-sm text-gray-600 font-mono",
+                                    className: "text-sm text-gray-600 dark:text-gray-400 font-mono",
                                     children: [
                                         "Distance = ",
                                         c.coverageWidth,
@@ -17421,11 +17481,11 @@ function CameraCalculator() {
                                     ],
                                 }),
                                 _jsxs("p", {
-                                    className: "text-sm text-gray-600 font-mono",
+                                    className: "text-sm text-gray-600 dark:text-gray-400 font-mono",
                                     children: ["Distance = ", c.coverageWidth, " ÷ (2 × tan(", c.hfov / 2, "°))"],
                                 }),
                                 _jsxs("p", {
-                                    className: "text-sm text-gray-600 font-mono",
+                                    className: "text-sm text-gray-600 dark:text-gray-400 font-mono",
                                     children: [
                                         "Distance = ",
                                         c.coverageWidth,
@@ -17441,7 +17501,7 @@ function CameraCalculator() {
                             className: "mb-6",
                             children: [
                                 _jsx("h3", {
-                                    className: "font-semibold text-gray-700 mb-3",
+                                    className: "font-semibold text-gray-700 dark:text-gray-300 mb-3",
                                     children: "Pixel Density by Camera Resolution (IEC 62676-4)",
                                 }),
                                 _jsx("div", {
@@ -17451,7 +17511,7 @@ function CameraCalculator() {
                                         children: [
                                             _jsx("thead", {
                                                 children: _jsxs("tr", {
-                                                    className: "bg-gray-100",
+                                                    className: "bg-gray-100 dark:bg-gray-700",
                                                     children: [
                                                         _jsx("th", {
                                                             className: "border p-2 text-left",
@@ -17486,8 +17546,8 @@ function CameraCalculator() {
                                                         "tr",
                                                         {
                                                             className: s
-                                                                ? "bg-blue-50 border-blue-300"
-                                                                : "hover:bg-gray-50",
+                                                                ? "bg-blue-50 dark:bg-blue-900/20 border-blue-300"
+                                                                : "hover:bg-gray-50 dark:bg-gray-900/50",
                                                             children: [
                                                                 _jsxs("td", {
                                                                     className: "border p-2 font-medium",
@@ -17502,7 +17562,7 @@ function CameraCalculator() {
                                                                     ],
                                                                 }),
                                                                 _jsxs("td", {
-                                                                    className: "border p-2 text-center text-gray-600",
+                                                                    className: "border p-2 text-center text-gray-600 dark:text-gray-400",
                                                                     children: [e.horizontal, "×", e.vertical],
                                                                 }),
                                                                 _jsx("td", {
@@ -17510,7 +17570,7 @@ function CameraCalculator() {
                                                                     children: e.ppm,
                                                                 }),
                                                                 _jsx("td", {
-                                                                    className: "border p-2 text-center text-gray-600",
+                                                                    className: "border p-2 text-center text-gray-600 dark:text-gray-400",
                                                                     children: e.ppf,
                                                                 }),
                                                                 _jsx("td", {
@@ -17526,7 +17586,7 @@ function CameraCalculator() {
                                                                                     ? "bg-yellow-100 text-yellow-700"
                                                                                     : "green" === t.color
                                                                                       ? "bg-green-100 text-green-700"
-                                                                                      : "bg-gray-100 text-gray-700"),
+                                                                                      : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"),
                                                                         children: [t.icon, " ", t.level],
                                                                     }),
                                                                 }),
@@ -17543,20 +17603,20 @@ function CameraCalculator() {
                         }),
                         c.selectedResolution &&
                             _jsxs("div", {
-                                className: "p-4 bg-blue-50 rounded-lg border border-blue-200 mb-6",
+                                className: "p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800 mb-6",
                                 children: [
                                     _jsxs("h3", {
-                                        className: "font-semibold text-blue-800 mb-3",
+                                        className: "font-semibold text-blue-800 dark:text-blue-200 mb-3",
                                         children: ["📷 Your Selected Camera Resolution: ", c.selectedResolution.name],
                                     }),
                                     _jsxs("div", {
                                         className: "grid grid-cols-2 md:grid-cols-4 gap-3",
                                         children: [
                                             _jsxs("div", {
-                                                className: "bg-white p-3 rounded border text-center",
+                                                className: "bg-white dark:bg-gray-800 p-3 rounded border text-center",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "Resolution",
                                                     }),
                                                     _jsxs("div", {
@@ -17570,10 +17630,10 @@ function CameraCalculator() {
                                                 ],
                                             }),
                                             _jsxs("div", {
-                                                className: "bg-white p-3 rounded border text-center",
+                                                className: "bg-white dark:bg-gray-800 p-3 rounded border text-center",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "PPM",
                                                     }),
                                                     _jsx("div", {
@@ -17583,10 +17643,10 @@ function CameraCalculator() {
                                                 ],
                                             }),
                                             _jsxs("div", {
-                                                className: "bg-white p-3 rounded border text-center",
+                                                className: "bg-white dark:bg-gray-800 p-3 rounded border text-center",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "PPF",
                                                     }),
                                                     _jsx("div", {
@@ -17596,10 +17656,10 @@ function CameraCalculator() {
                                                 ],
                                             }),
                                             _jsxs("div", {
-                                                className: "bg-white p-3 rounded border text-center",
+                                                className: "bg-white dark:bg-gray-800 p-3 rounded border text-center",
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "text-sm text-gray-600",
+                                                        className: "text-sm text-gray-600 dark:text-gray-400",
                                                         children: "DORI Level",
                                                     }),
                                                     (() => {
@@ -17615,7 +17675,7 @@ function CameraCalculator() {
                                                                         ? "text-yellow-700"
                                                                         : "green" === e.color
                                                                           ? "text-green-700"
-                                                                          : "text-gray-700"),
+                                                                          : "text-gray-700 dark:text-gray-300"),
                                                             children: [e.icon, " ", e.level],
                                                         });
                                                     })(),
@@ -17626,10 +17686,10 @@ function CameraCalculator() {
                                 ],
                             }),
                         _jsxs("div", {
-                            className: "p-4 bg-yellow-50 rounded-lg border border-yellow-200 mb-6",
+                            className: "p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800 mb-6",
                             children: [
                                 _jsxs("h3", {
-                                    className: "font-semibold text-yellow-800 mb-3",
+                                    className: "font-semibold text-yellow-800 dark:text-yellow-200 mb-3",
                                     children: [
                                         "📏 Maximum Distance by DORI Level (",
                                         c.selectedResolution ? c.selectedResolution.name : "1080p",
@@ -17657,7 +17717,7 @@ function CameraCalculator() {
                                         return _jsxs(
                                             "div",
                                             {
-                                                className: "bg-white p-3 rounded border text-center",
+                                                className: "bg-white dark:bg-gray-800 p-3 rounded border text-center",
                                                 children: [
                                                     _jsx("div", {
                                                         className: "font-semibold text-gray-800 capitalize",
@@ -17668,7 +17728,7 @@ function CameraCalculator() {
                                                         children: [Math.round(10 * a) / 10, " ", r],
                                                     }),
                                                     _jsxs("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: [t.ppm, " PPM"],
                                                     }),
                                                 ],
@@ -17680,10 +17740,10 @@ function CameraCalculator() {
                             ],
                         }),
                         _jsxs("div", {
-                            className: "p-4 bg-purple-50 rounded-lg border border-purple-200",
+                            className: "p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800",
                             children: [
                                 _jsx("h3", {
-                                    className: "font-semibold text-purple-800 mb-3",
+                                    className: "font-semibold text-purple-800 dark:text-purple-200 mb-3",
                                     children: "📋 IEC 62676-4:2025 OODPCVS Standard (New)",
                                 }),
                                 _jsx("p", {
@@ -17697,7 +17757,7 @@ function CameraCalculator() {
                                         _jsxs(
                                             "div",
                                             {
-                                                className: "bg-white p-2 rounded border",
+                                                className: "bg-white dark:bg-gray-800 p-2 rounded border",
                                                 children: [
                                                     _jsx("div", {
                                                         className: "font-semibold text-purple-700 capitalize",
@@ -17708,7 +17768,7 @@ function CameraCalculator() {
                                                         children: [t.ppm, " PPM"],
                                                     }),
                                                     _jsx("div", {
-                                                        className: "text-gray-500 text-xs",
+                                                        className: "text-gray-500 dark:text-gray-400 text-xs",
                                                         children: t.description,
                                                     }),
                                                 ],
@@ -17720,20 +17780,20 @@ function CameraCalculator() {
                             ],
                         }),
                         _jsxs("div", {
-                            className: "mt-6 bg-amber-50 rounded-xl p-5 border-2 border-amber-200",
+                            className: "mt-6 bg-amber-50 dark:bg-amber-900/20 rounded-xl p-5 border-2 border-amber-200 dark:border-amber-800",
                             children: [
                                 _jsxs("div", {
                                     className: "flex items-center justify-between mb-4",
                                     children: [
                                         _jsx("h3", {
-                                            className: "font-semibold text-amber-800",
+                                            className: "font-semibold text-amber-800 dark:text-amber-200",
                                             children: "📐 Recommended Mounting Height",
                                         }),
                                         _jsx("button", {
                                             type: "button",
                                             onClick: () => b(!g),
                                             className:
-                                                "text-xs bg-amber-200 hover:bg-amber-300 text-amber-800 px-3 py-1 rounded-full transition-colors cursor-pointer",
+                                                "text-xs bg-amber-200 hover:bg-amber-300 text-amber-800 dark:text-amber-200 px-3 py-1 rounded-full transition-colors cursor-pointer",
                                             children: g ? "Hide Details" : "Show Details",
                                         }),
                                     ],
@@ -17742,10 +17802,10 @@ function CameraCalculator() {
                                     className: "grid md:grid-cols-3 gap-4 mb-4",
                                     children: [
                                         _jsxs("div", {
-                                            className: "bg-white p-4 rounded-lg border text-center",
+                                            className: "bg-white dark:bg-gray-800 p-4 rounded-lg border text-center",
                                             children: [
                                                 _jsx("div", {
-                                                    className: "text-xs text-gray-500 mb-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mb-1",
                                                     children: "Minimum Height",
                                                 }),
                                                 _jsxs("div", {
@@ -17777,10 +17837,10 @@ function CameraCalculator() {
                                             ],
                                         }),
                                         _jsxs("div", {
-                                            className: "bg-white p-4 rounded-lg border text-center",
+                                            className: "bg-white dark:bg-gray-800 p-4 rounded-lg border text-center",
                                             children: [
                                                 _jsx("div", {
-                                                    className: "text-xs text-gray-500 mb-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mb-1",
                                                     children: "Maximum Height",
                                                 }),
                                                 _jsxs("div", {
@@ -17799,36 +17859,36 @@ function CameraCalculator() {
                                     className: "flex flex-wrap gap-3 text-sm",
                                     children: [
                                         _jsxs("span", {
-                                            className: "bg-white px-3 py-1 rounded-full border",
+                                            className: "bg-white dark:bg-gray-800 px-3 py-1 rounded-full border",
                                             children: ["🎯 Application: ", _jsx("strong", { children: j[h].name })],
                                         }),
                                         _jsxs("span", {
-                                            className: "bg-white px-3 py-1 rounded-full border",
+                                            className: "bg-white dark:bg-gray-800 px-3 py-1 rounded-full border",
                                             children: ["📐 Tilt Angle: ", _jsx("strong", { children: j[h].tiltAngle })],
                                         }),
                                         _jsxs("span", {
-                                            className: "bg-white px-3 py-1 rounded-full border text-xs",
+                                            className: "bg-white dark:bg-gray-800 px-3 py-1 rounded-full border text-xs",
                                             children: ["📋 Standard: ", j[h].standards],
                                         }),
                                     ],
                                 }),
                                 g &&
                                     _jsxs("div", {
-                                        className: "mt-4 pt-4 border-t border-amber-200",
+                                        className: "mt-4 pt-4 border-t border-amber-200 dark:border-amber-800",
                                         children: [
                                             _jsx("p", {
-                                                className: "text-sm text-amber-800 mb-3",
+                                                className: "text-sm text-amber-800 dark:text-amber-200 mb-3",
                                                 children: j[h].description,
                                             }),
                                             _jsxs("div", {
-                                                className: "bg-white p-3 rounded-lg border",
+                                                className: "bg-white dark:bg-gray-800 p-3 rounded-lg border",
                                                 children: [
                                                     _jsx("h4", {
-                                                        className: "text-xs font-semibold text-gray-700 mb-2",
+                                                        className: "text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2",
                                                         children: "Installation Tips:",
                                                     }),
                                                     _jsx("ul", {
-                                                        className: "text-xs text-gray-600 space-y-1",
+                                                        className: "text-xs text-gray-600 dark:text-gray-400 space-y-1",
                                                         children: j[h].tips.map((e, t) =>
                                                             _jsxs("li", { children: ["• ", e] }, t)
                                                         ),
@@ -18010,19 +18070,19 @@ function DSPCalculator() {
                 className: "mb-4",
                 children: _jsxs("span", {
                     className:
-                        "inline-flex items-center gap-2 px-3 py-1.5 bg-purple-100 text-purple-800 text-sm font-semibold rounded-full border border-purple-200",
+                        "inline-flex items-center gap-2 px-3 py-1.5 bg-purple-100 text-purple-800 dark:text-purple-200 text-sm font-semibold rounded-full border border-purple-200 dark:border-purple-800",
                     children: [_jsx("span", { className: "text-purple-600", children: "⚡" }), " Advanced Tool"],
                 }),
             }),
             _jsxs("div", {
                 className: "flex items-center justify-between mb-2",
                 children: [
-                    _jsx("h1", { className: "text-3xl font-bold text-gray-900", children: "DSP System Calculator" }),
+                    _jsx("h1", { className: "text-3xl font-bold text-gray-900 dark:text-gray-100", children: "DSP System Calculator" }),
                     ue !== null &&
                         _jsx("button", {
                             onClick: () => fe(!0),
                             className:
-                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm",
+                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm dark:shadow-gray-950/10",
                             children: "⟲ Reset Tool",
                         }),
                 ],
@@ -18062,50 +18122,50 @@ function DSPCalculator() {
                 onCancel: () => fe(!1),
             }),
             _jsx("p", {
-                className: "text-gray-600 mb-4",
+                className: "text-gray-600 dark:text-gray-400 mb-4",
                 children: "Professional DSP design tool based on AVIXA standards, IEC 60268, and industry practices",
             }),
             _jsx("div", {
-                className: "bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200",
+                className: "bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6 border border-gray-200 dark:border-gray-700",
                 children: _jsxs("p", {
-                    className: "text-sm text-gray-600",
+                    className: "text-sm text-gray-600 dark:text-gray-400",
                     children: [
-                        _jsx("span", { className: "font-semibold text-gray-700", children: "What this tool does:" }),
+                        _jsx("span", { className: "font-semibold text-gray-700 dark:text-gray-300", children: "What this tool does:" }),
                         " Comprehensive DSP system design tool covering gain structure analysis, I/O matrix routing, AEC (acoustic echo cancellation) configuration, system latency calculation, and network audio requirements. Navigate sections using the tabs below.",
                     ],
                 }),
             }),
             _jsx("div", {
-                className: "bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 mb-6 border border-blue-200",
+                className: "bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 mb-6 border border-blue-200 dark:border-blue-800",
                 children: _jsxs("div", {
                     className: "grid md:grid-cols-4 gap-4 text-xs",
                     children: [
                         _jsxs("div", {
-                            className: "bg-white p-3 rounded-lg border",
+                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg border",
                             children: [
                                 _jsx("div", { className: "font-semibold text-blue-700", children: "AVIXA ACR" }),
-                                _jsx("div", { className: "text-gray-600", children: "Coverage ≤ 6 dB" }),
+                                _jsx("div", { className: "text-gray-600 dark:text-gray-400", children: "Coverage ≤ 6 dB" }),
                             ],
                         }),
                         _jsxs("div", {
-                            className: "bg-white p-3 rounded-lg border",
+                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg border",
                             children: [
                                 _jsx("div", { className: "font-semibold text-green-700", children: "Headroom" }),
-                                _jsx("div", { className: "text-gray-600", children: "≥ 20 dB (best practice)" }),
+                                _jsx("div", { className: "text-gray-600 dark:text-gray-400", children: "≥ 20 dB (best practice)" }),
                             ],
                         }),
                         _jsxs("div", {
-                            className: "bg-white p-3 rounded-lg border",
+                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg border",
                             children: [
                                 _jsx("div", { className: "font-semibold text-purple-700", children: "Latency" }),
-                                _jsx("div", { className: "text-gray-600", children: "< 20 ms (live sound)" }),
+                                _jsx("div", { className: "text-gray-600 dark:text-gray-400", children: "< 20 ms (live sound)" }),
                             ],
                         }),
                         _jsxs("div", {
-                            className: "bg-white p-3 rounded-lg border",
+                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg border",
                             children: [
                                 _jsx("div", { className: "font-semibold text-orange-700", children: "SNR Target" }),
-                                _jsx("div", { className: "text-gray-600", children: "≥ 25 dB (optimal)" }),
+                                _jsx("div", { className: "text-gray-600 dark:text-gray-400", children: "≥ 25 dB (optimal)" }),
                             ],
                         }),
                     ],
@@ -18128,8 +18188,8 @@ function DSPCalculator() {
                             className:
                                 "px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 " +
                                 (pe === e.id
-                                    ? "bg-blue-600 text-white shadow-md"
-                                    : "bg-white text-gray-700 border hover:bg-blue-50"),
+                                    ? "bg-blue-600 text-white shadow-md dark:shadow-gray-950/20"
+                                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border hover:bg-blue-50 dark:bg-blue-900/20"),
                             children: [_jsx("span", { children: e.icon }), e.name],
                         },
                         e.id
@@ -18137,7 +18197,7 @@ function DSPCalculator() {
                 ),
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-6 mb-6 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-6 mb-6 border",
                 children: [
                     "input" === pe &&
                         _jsxs("div", {
@@ -18152,7 +18212,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "Mic Count",
                                                 }),
                                                 _jsx("input", {
@@ -18174,7 +18234,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "Mic Level (dBV)",
                                                 }),
                                                 _jsx("input", {
@@ -18187,7 +18247,7 @@ function DSPCalculator() {
                                                         "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children: "Typical: -60 to -40 dBV",
                                                 }),
                                             ],
@@ -18195,7 +18255,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "Nominal System Level (dBu)",
                                                 }),
                                                 _jsx("input", {
@@ -18208,7 +18268,7 @@ function DSPCalculator() {
                                                         "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children: "Pro audio: +4 dBu",
                                                 }),
                                             ],
@@ -18216,7 +18276,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "Max Input Level (dBu)",
                                                 }),
                                                 _jsx("input", {
@@ -18233,7 +18293,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "Max Output Level (dBu)",
                                                 }),
                                                 _jsx("input", {
@@ -18250,7 +18310,7 @@ function DSPCalculator() {
                                     ],
                                 }),
                                 _jsx("div", {
-                                    className: "mt-4 p-3 bg-blue-50 rounded-lg",
+                                    className: "mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg",
                                     children: _jsxs("p", {
                                         className: "text-xs text-blue-700",
                                         children: [
@@ -18275,7 +18335,7 @@ function DSPCalculator() {
                                             className: "flex-1 min-w-[200px]",
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "Room Type Preset",
                                                 }),
                                                 _jsxs("select", {
@@ -18300,7 +18360,7 @@ function DSPCalculator() {
                                                                 a(e);
                                                         })(e.target.value),
                                                     className:
-                                                        "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white",
+                                                        "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800",
                                                     children: [
                                                         _jsx("option", {
                                                             value: "huddle",
@@ -18335,10 +18395,10 @@ function DSPCalculator() {
                                             ],
                                         }),
                                         _jsxs("div", {
-                                            className: "flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-lg",
+                                            className: "flex items-center gap-2 bg-gray-100 dark:bg-gray-700 px-3 py-2 rounded-lg",
                                             children: [
                                                 _jsx("span", {
-                                                    className: "text-sm font-medium text-gray-700",
+                                                    className: "text-sm font-medium text-gray-700 dark:text-gray-300",
                                                     children: "Units:",
                                                 }),
                                                 _jsx("button", {
@@ -18347,7 +18407,7 @@ function DSPCalculator() {
                                                         "px-3 py-1 rounded text-sm font-medium transition-all " +
                                                         ("metric" === e
                                                             ? "bg-blue-600 text-white"
-                                                            : "bg-white text-gray-600 hover:bg-gray-200"),
+                                                            : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:bg-gray-700"),
                                                     children: "Meters",
                                                 }),
                                                 _jsx("button", {
@@ -18356,7 +18416,7 @@ function DSPCalculator() {
                                                         "px-3 py-1 rounded text-sm font-medium transition-all " +
                                                         ("imperial" === e
                                                             ? "bg-blue-600 text-white"
-                                                            : "bg-white text-gray-600 hover:bg-gray-200"),
+                                                            : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:bg-gray-700"),
                                                     children: "Feet",
                                                 }),
                                             ],
@@ -18365,7 +18425,7 @@ function DSPCalculator() {
                                 }),
                                 "custom" !== s &&
                                     _jsx("div", {
-                                        className: "mb-4 p-3 bg-green-50 rounded-lg border border-green-200",
+                                        className: "mb-4 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800",
                                         children: _jsxs("p", {
                                             className: "text-sm text-green-700",
                                             children: [
@@ -18376,16 +18436,16 @@ function DSPCalculator() {
                                         }),
                                     }),
                                 _jsxs("h3", {
-                                    className: "text-md font-semibold text-gray-700 mb-3",
+                                    className: "text-md font-semibold text-gray-700 dark:text-gray-300 mb-3",
                                     children: ["Room Dimensions ", "imperial" === e ? "(feet)" : "(meters)"],
                                 }),
                                 _jsxs("div", {
-                                    className: "grid md:grid-cols-3 gap-4 mb-6 bg-gray-50 p-4 rounded-lg",
+                                    className: "grid md:grid-cols-3 gap-4 mb-6 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg",
                                     children: [
                                         _jsxs("div", {
                                             children: [
                                                 _jsxs("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: ["Room Length (", "imperial" === e ? "ft" : "m", ")"],
                                                 }),
                                                 _jsx("input", {
@@ -18405,7 +18465,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsxs("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: ["Room Width (", "imperial" === e ? "ft" : "m", ")"],
                                                 }),
                                                 _jsx("input", {
@@ -18425,7 +18485,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsxs("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: ["Room Height (", "imperial" === e ? "ft" : "m", ")"],
                                                 }),
                                                 _jsx("input", {
@@ -18445,7 +18505,7 @@ function DSPCalculator() {
                                     ],
                                 }),
                                 _jsx("h3", {
-                                    className: "text-md font-semibold text-gray-700 mb-3",
+                                    className: "text-md font-semibold text-gray-700 dark:text-gray-300 mb-3",
                                     children: "Acoustic Parameters",
                                 }),
                                 _jsxs("div", {
@@ -18454,7 +18514,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "RT60 (seconds)",
                                                 }),
                                                 _jsx("input", {
@@ -18471,7 +18531,7 @@ function DSPCalculator() {
                                                         "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children: "Conference: 0.4-0.6s | Worship: 1.0-2.0s",
                                                 }),
                                             ],
@@ -18479,7 +18539,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsxs("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: [
                                                         "Listener Distance (",
                                                         "imperial" === e ? "ft" : "m",
@@ -18498,7 +18558,7 @@ function DSPCalculator() {
                                                         "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children: "Speaker to farthest listener",
                                                 }),
                                             ],
@@ -18506,7 +18566,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsxs("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: [
                                                         "Mic-to-Speaker Distance (",
                                                         "imperial" === e ? "ft" : "m",
@@ -18526,7 +18586,7 @@ function DSPCalculator() {
                                                         "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children: "For ERL: Closer = worse echo",
                                                 }),
                                             ],
@@ -18534,7 +18594,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "Target SPL Application",
                                                 }),
                                                 _jsxs("select", {
@@ -18558,7 +18618,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "Room Absorption Loss (dB)",
                                                 }),
                                                 _jsx("input", {
@@ -18577,7 +18637,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "Noise Floor (dBA)",
                                                 }),
                                                 _jsx("input", {
@@ -18590,7 +18650,7 @@ function DSPCalculator() {
                                                         "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children: "NC-25: ~35 dBA | NC-35: ~45 dBA",
                                                 }),
                                             ],
@@ -18598,7 +18658,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "SPL 95th Percentile (dB)",
                                                 }),
                                                 _jsx("input", {
@@ -18615,7 +18675,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "SPL 5th Percentile (dB)",
                                                 }),
                                                 _jsx("input", {
@@ -18632,7 +18692,7 @@ function DSPCalculator() {
                                     ],
                                 }),
                                 _jsx("div", {
-                                    className: "mt-4 p-3 bg-green-50 rounded-lg",
+                                    className: "mt-4 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg",
                                     children: _jsxs("p", {
                                         className: "text-xs text-green-700",
                                         children: [
@@ -18651,9 +18711,9 @@ function DSPCalculator() {
                                     children: [_jsx("span", { children: "🔊" }), " PAG/NAG Feedback Analysis"],
                                 }),
                                 _jsx("div", {
-                                    className: "bg-blue-50 p-4 rounded-lg mb-4 border border-blue-200",
+                                    className: "bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg mb-4 border border-blue-200 dark:border-blue-800",
                                     children: _jsxs("p", {
-                                        className: "text-sm text-blue-800",
+                                        className: "text-sm text-blue-800 dark:text-blue-200",
                                         children: [
                                             _jsx("strong", { children: "Shure PAG/NAG:" }),
                                             " PAG (Potential Acoustic Gain) must exceed NAG (Needed Acoustic Gain) to avoid feedback. Formula: PAG = 20log(D1) - 20log(D2) + 20log(D0) - 20log(Ds) - 10log(NOM) - 6dB FSM",
@@ -18661,7 +18721,7 @@ function DSPCalculator() {
                                     }),
                                 }),
                                 _jsx("h3", {
-                                    className: "text-md font-semibold text-gray-700 mb-3",
+                                    className: "text-md font-semibold text-gray-700 dark:text-gray-300 mb-3",
                                     children: "Microphone Configuration",
                                 }),
                                 _jsxs("div", {
@@ -18670,7 +18730,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "Microphone Pattern",
                                                 }),
                                                 _jsxs("select", {
@@ -18698,7 +18758,7 @@ function DSPCalculator() {
                                                     ],
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children: "Directivity bonus improves PAG",
                                                 }),
                                             ],
@@ -18706,7 +18766,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsxs("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: [
                                                         "Talker to Mic Distance (",
                                                         "imperial" === e ? "ft" : "m",
@@ -18726,7 +18786,7 @@ function DSPCalculator() {
                                                         "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children: "Ds: Closer = better gain",
                                                 }),
                                             ],
@@ -18751,7 +18811,7 @@ function DSPCalculator() {
                                                 }),
                                                 _jsxs("label", {
                                                     htmlFor: "useAutomixer",
-                                                    className: "text-sm font-medium text-gray-700",
+                                                    className: "text-sm font-medium text-gray-700 dark:text-gray-300",
                                                     children: [
                                                         "Use Automixer ",
                                                         _jsx("span", {
@@ -18765,7 +18825,7 @@ function DSPCalculator() {
                                     ],
                                 }),
                                 _jsxs("h3", {
-                                    className: "text-md font-semibold text-gray-700 mb-3",
+                                    className: "text-md font-semibold text-gray-700 dark:text-gray-300 mb-3",
                                     children: ["System Distances (PAG/NAG) ", "imperial" === e ? "- feet" : "- meters"],
                                 }),
                                 _jsxs("div", {
@@ -18774,7 +18834,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsxs("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: [
                                                         "Talker to Farthest Listener (",
                                                         "imperial" === e ? "ft" : "m",
@@ -18794,7 +18854,7 @@ function DSPCalculator() {
                                                         "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children: "D0: Distance without reinforcement",
                                                 }),
                                             ],
@@ -18802,7 +18862,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsxs("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: [
                                                         "Nearest Listener to Speaker (",
                                                         "imperial" === e ? "ft" : "m",
@@ -18822,7 +18882,7 @@ function DSPCalculator() {
                                                         "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children: "D2: Speaker to audience front row",
                                                 }),
                                             ],
@@ -18914,8 +18974,8 @@ function DSPCalculator() {
                                                 className:
                                                     "p-3 rounded-lg border text-left transition-all " +
                                                     (J.includes(e.id)
-                                                        ? "bg-blue-50 border-blue-300 text-blue-800"
-                                                        : "bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100"),
+                                                        ? "bg-blue-50 dark:bg-blue-900/20 border-blue-300 text-blue-800 dark:text-blue-200"
+                                                        : "bg-gray-50 dark:bg-gray-900/50 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:bg-gray-700"),
                                                 children: [
                                                     _jsxs("div", {
                                                         className: "flex items-center justify-between",
@@ -18929,14 +18989,14 @@ function DSPCalculator() {
                                                                     "w-5 h-5 rounded flex items-center justify-center text-xs " +
                                                                     (J.includes(e.id)
                                                                         ? "bg-blue-600 text-white"
-                                                                        : "bg-gray-300 text-gray-600"),
+                                                                        : "bg-gray-300 text-gray-600 dark:text-gray-400"),
                                                                 children: J.includes(e.id) ? "✓" : "",
                                                             }),
                                                         ],
                                                     }),
                                                     _jsxs("div", {
                                                         className:
-                                                            "text-xs mt-1 " + (s ? "text-blue-500" : "text-gray-500"),
+                                                            "text-xs mt-1 " + (s ? "text-blue-500" : "text-gray-500 dark:text-gray-400"),
                                                         children: ["~", t, " MIPS", s ? "" : "/ch"],
                                                     }),
                                                 ],
@@ -18951,7 +19011,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "Sample Rate",
                                                 }),
                                                 _jsxs("select", {
@@ -18973,7 +19033,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "Bit Depth",
                                                 }),
                                                 _jsxs("select", {
@@ -19002,9 +19062,9 @@ function DSPCalculator() {
                                     children: [_jsx("span", { children: "🔀" }), " I/O Matrix Configuration"],
                                 }),
                                 _jsx("div", {
-                                    className: "bg-blue-50 p-4 rounded-lg mb-4 border border-blue-200",
+                                    className: "bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg mb-4 border border-blue-200 dark:border-blue-800",
                                     children: _jsxs("p", {
-                                        className: "text-sm text-blue-800",
+                                        className: "text-sm text-blue-800 dark:text-blue-200",
                                         children: [
                                             _jsx("strong", { children: "About I/O Matrix:" }),
                                             " Define all audio inputs and outputs for your DSP system. The matrix size (inputs × outputs) determines routing complexity and DSP resource requirements. Each input can potentially be routed to any output.",
@@ -19018,7 +19078,7 @@ function DSPCalculator() {
                                             children: [
                                                 _jsxs("h3", {
                                                     className:
-                                                        "font-semibold text-gray-700 mb-3 flex items-center gap-2",
+                                                        "font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2",
                                                     children: [
                                                         _jsx("span", { className: "text-green-600", children: "📥" }),
                                                         " Inputs",
@@ -19035,11 +19095,11 @@ function DSPCalculator() {
                                                                     children: [
                                                                         _jsx("label", {
                                                                             className:
-                                                                                "text-sm font-medium text-gray-700",
+                                                                                "text-sm font-medium text-gray-700 dark:text-gray-300",
                                                                             children: "Microphones",
                                                                         }),
                                                                         _jsx("p", {
-                                                                            className: "text-xs text-gray-500",
+                                                                            className: "text-xs text-gray-500 dark:text-gray-400",
                                                                             children:
                                                                                 "Wired mics (table, ceiling, handheld)",
                                                                         }),
@@ -19064,11 +19124,11 @@ function DSPCalculator() {
                                                                     children: [
                                                                         _jsx("label", {
                                                                             className:
-                                                                                "text-sm font-medium text-gray-700",
+                                                                                "text-sm font-medium text-gray-700 dark:text-gray-300",
                                                                             children: "Program Audio",
                                                                         }),
                                                                         _jsx("p", {
-                                                                            className: "text-xs text-gray-500",
+                                                                            className: "text-xs text-gray-500 dark:text-gray-400",
                                                                             children:
                                                                                 "Background music, paging sources",
                                                                         }),
@@ -19093,11 +19153,11 @@ function DSPCalculator() {
                                                                     children: [
                                                                         _jsx("label", {
                                                                             className:
-                                                                                "text-sm font-medium text-gray-700",
+                                                                                "text-sm font-medium text-gray-700 dark:text-gray-300",
                                                                             children: "USB/VoIP",
                                                                         }),
                                                                         _jsx("p", {
-                                                                            className: "text-xs text-gray-500",
+                                                                            className: "text-xs text-gray-500 dark:text-gray-400",
                                                                             children: "Soft codec, Teams/Zoom inputs",
                                                                         }),
                                                                     ],
@@ -19121,11 +19181,11 @@ function DSPCalculator() {
                                                                     children: [
                                                                         _jsx("label", {
                                                                             className:
-                                                                                "text-sm font-medium text-gray-700",
+                                                                                "text-sm font-medium text-gray-700 dark:text-gray-300",
                                                                             children: "Playback",
                                                                         }),
                                                                         _jsx("p", {
-                                                                            className: "text-xs text-gray-500",
+                                                                            className: "text-xs text-gray-500 dark:text-gray-400",
                                                                             children: "Media players, Blu-ray, signage",
                                                                         }),
                                                                     ],
@@ -19149,11 +19209,11 @@ function DSPCalculator() {
                                                                     children: [
                                                                         _jsx("label", {
                                                                             className:
-                                                                                "text-sm font-medium text-gray-700",
+                                                                                "text-sm font-medium text-gray-700 dark:text-gray-300",
                                                                             children: "Wireless Mics",
                                                                         }),
                                                                         _jsx("p", {
-                                                                            className: "text-xs text-gray-500",
+                                                                            className: "text-xs text-gray-500 dark:text-gray-400",
                                                                             children: "Bodypack, handheld receivers",
                                                                         }),
                                                                     ],
@@ -19177,11 +19237,11 @@ function DSPCalculator() {
                                                                     children: [
                                                                         _jsx("label", {
                                                                             className:
-                                                                                "text-sm font-medium text-gray-700",
+                                                                                "text-sm font-medium text-gray-700 dark:text-gray-300",
                                                                             children: "HDMI Audio",
                                                                         }),
                                                                         _jsx("p", {
-                                                                            className: "text-xs text-gray-500",
+                                                                            className: "text-xs text-gray-500 dark:text-gray-400",
                                                                             children: "De-embedded from video sources",
                                                                         }),
                                                                     ],
@@ -19200,7 +19260,7 @@ function DSPCalculator() {
                                                     ],
                                                 }),
                                                 _jsxs("div", {
-                                                    className: "mt-3 p-2 bg-green-50 rounded text-sm text-green-700",
+                                                    className: "mt-3 p-2 bg-green-50 dark:bg-green-900/20 rounded text-sm text-green-700",
                                                     children: [
                                                         "Total Inputs: ",
                                                         Object.values(le).reduce((e, t) => e + t, 0),
@@ -19212,7 +19272,7 @@ function DSPCalculator() {
                                             children: [
                                                 _jsxs("h3", {
                                                     className:
-                                                        "font-semibold text-gray-700 mb-3 flex items-center gap-2",
+                                                        "font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2",
                                                     children: [
                                                         _jsx("span", { className: "text-blue-600", children: "📤" }),
                                                         " Outputs",
@@ -19229,11 +19289,11 @@ function DSPCalculator() {
                                                                     children: [
                                                                         _jsx("label", {
                                                                             className:
-                                                                                "text-sm font-medium text-gray-700",
+                                                                                "text-sm font-medium text-gray-700 dark:text-gray-300",
                                                                             children: "Loudspeakers",
                                                                         }),
                                                                         _jsx("p", {
-                                                                            className: "text-xs text-gray-500",
+                                                                            className: "text-xs text-gray-500 dark:text-gray-400",
                                                                             children: "Ceiling, wall, floor monitors",
                                                                         }),
                                                                     ],
@@ -19257,11 +19317,11 @@ function DSPCalculator() {
                                                                     children: [
                                                                         _jsx("label", {
                                                                             className:
-                                                                                "text-sm font-medium text-gray-700",
+                                                                                "text-sm font-medium text-gray-700 dark:text-gray-300",
                                                                             children: "Amplifier Channels",
                                                                         }),
                                                                         _jsx("p", {
-                                                                            className: "text-xs text-gray-500",
+                                                                            className: "text-xs text-gray-500 dark:text-gray-400",
                                                                             children: "Feeds to external power amps",
                                                                         }),
                                                                     ],
@@ -19285,11 +19345,11 @@ function DSPCalculator() {
                                                                     children: [
                                                                         _jsx("label", {
                                                                             className:
-                                                                                "text-sm font-medium text-gray-700",
+                                                                                "text-sm font-medium text-gray-700 dark:text-gray-300",
                                                                             children: "UC Codec",
                                                                         }),
                                                                         _jsx("p", {
-                                                                            className: "text-xs text-gray-500",
+                                                                            className: "text-xs text-gray-500 dark:text-gray-400",
                                                                             children: "USB to Teams/Zoom/WebEx",
                                                                         }),
                                                                     ],
@@ -19313,11 +19373,11 @@ function DSPCalculator() {
                                                                     children: [
                                                                         _jsx("label", {
                                                                             className:
-                                                                                "text-sm font-medium text-gray-700",
+                                                                                "text-sm font-medium text-gray-700 dark:text-gray-300",
                                                                             children: "Overflow/Lobby",
                                                                         }),
                                                                         _jsx("p", {
-                                                                            className: "text-xs text-gray-500",
+                                                                            className: "text-xs text-gray-500 dark:text-gray-400",
                                                                             children: "Adjacent rooms, lobby feeds",
                                                                         }),
                                                                     ],
@@ -19341,11 +19401,11 @@ function DSPCalculator() {
                                                                     children: [
                                                                         _jsx("label", {
                                                                             className:
-                                                                                "text-sm font-medium text-gray-700",
+                                                                                "text-sm font-medium text-gray-700 dark:text-gray-300",
                                                                             children: "Recording",
                                                                         }),
                                                                         _jsx("p", {
-                                                                            className: "text-xs text-gray-500",
+                                                                            className: "text-xs text-gray-500 dark:text-gray-400",
                                                                             children: "Archive, broadcast, streaming",
                                                                         }),
                                                                     ],
@@ -19364,7 +19424,7 @@ function DSPCalculator() {
                                                     ],
                                                 }),
                                                 _jsxs("div", {
-                                                    className: "mt-3 p-2 bg-blue-50 rounded text-sm text-blue-700",
+                                                    className: "mt-3 p-2 bg-blue-50 dark:bg-blue-900/20 rounded text-sm text-blue-700",
                                                     children: [
                                                         "Total Outputs: ",
                                                         Object.values(ne).reduce((e, t) => e + t, 0),
@@ -19375,7 +19435,7 @@ function DSPCalculator() {
                                     ],
                                 }),
                                 _jsx("div", {
-                                    className: "mt-4 p-3 bg-purple-50 rounded-lg",
+                                    className: "mt-4 p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg",
                                     children: _jsxs("p", {
                                         className: "text-sm text-purple-700",
                                         children: [
@@ -19392,9 +19452,9 @@ function DSPCalculator() {
                                     }),
                                 }),
                                 _jsx("div", {
-                                    className: "mt-3 p-3 bg-gray-50 rounded-lg border",
+                                    className: "mt-3 p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg border",
                                     children: _jsxs("p", {
-                                        className: "text-xs text-gray-600",
+                                        className: "text-xs text-gray-600 dark:text-gray-400",
                                         children: [
                                             _jsx("strong", { children: "💡 Tip:" }),
                                             " Count stereo sources as 2 channels. Network audio (Dante/AVB) channels are configured in the Network tab. The matrix size affects DSP resource requirements - larger matrices need more powerful processors.",
@@ -19416,7 +19476,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "Network Type",
                                                 }),
                                                 _jsxs("select", {
@@ -19435,7 +19495,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "Channel Count",
                                                 }),
                                                 _jsx("input", {
@@ -19457,7 +19517,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "A/D & D/A Latency (ms)",
                                                 }),
                                                 _jsx("input", {
@@ -19471,7 +19531,7 @@ function DSPCalculator() {
                                                         "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children: "Typical: 0.6-1.4 ms",
                                                 }),
                                             ],
@@ -19479,7 +19539,7 @@ function DSPCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-1",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                     children: "Network Latency (ms)",
                                                 }),
                                                 _jsx("input", {
@@ -19493,7 +19553,7 @@ function DSPCalculator() {
                                                         "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
                                                 }),
                                                 _jsx("p", {
-                                                    className: "text-xs text-gray-500 mt-1",
+                                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                     children: "Dante/AVB: 0.25-2 ms",
                                                 }),
                                             ],
@@ -19552,7 +19612,7 @@ function DSPCalculator() {
                     );
                 },
                 className:
-                    "w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 rounded-xl transition-all shadow-lg hover:shadow-xl mb-8",
+                    "w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 rounded-xl transition-all shadow-lg dark:shadow-gray-950/30 hover:shadow-xl mb-8",
                 children: "🔬 Calculate DSP System Requirements",
             }),
             ue &&
@@ -19563,10 +19623,10 @@ function DSPCalculator() {
                             className:
                                 "rounded-xl p-6 border-2 " +
                                 (ue.summary.overallScore >= 80
-                                    ? "bg-green-50 border-green-300"
+                                    ? "bg-green-50 dark:bg-green-900/20 border-green-300"
                                     : ue.summary.overallScore >= 60
                                       ? "bg-orange-50 border-orange-300"
-                                      : "bg-red-50 border-red-300"),
+                                      : "bg-red-50 dark:bg-red-900/20 border-red-300"),
                             children: [
                                 _jsxs("div", {
                                     className: "flex items-center justify-between",
@@ -19578,7 +19638,7 @@ function DSPCalculator() {
                                                     children: ["System Score: ", ue.summary.overallScore, "%"],
                                                 }),
                                                 _jsxs("p", {
-                                                    className: "text-gray-600",
+                                                    className: "text-gray-600 dark:text-gray-400",
                                                     children: [
                                                         ue.summary.checksPass,
                                                         "/",
@@ -19606,7 +19666,7 @@ function DSPCalculator() {
                                         className: "mt-4 p-4 bg-red-100 rounded-lg border border-red-300",
                                         children: [
                                             _jsx("p", {
-                                                className: "text-sm font-semibold text-red-800 mb-3",
+                                                className: "text-sm font-semibold text-red-800 dark:text-red-200 mb-3",
                                                 children: "❌ Critical Issues - Must Resolve:",
                                             }),
                                             _jsx("div", {
@@ -19668,10 +19728,10 @@ function DSPCalculator() {
                                                     return _jsxs(
                                                         "div",
                                                         {
-                                                            className: "p-3 bg-white rounded-lg border border-red-200",
+                                                            className: "p-3 bg-white dark:bg-gray-800 rounded-lg border border-red-200 dark:border-red-800",
                                                             children: [
                                                                 _jsxs("p", {
-                                                                    className: "text-sm text-red-800 font-medium",
+                                                                    className: "text-sm text-red-800 dark:text-red-200 font-medium",
                                                                     children: ["❌ ", e],
                                                                 }),
                                                                 _jsxs("div", {
@@ -19689,7 +19749,7 @@ function DSPCalculator() {
                                                                                     "span",
                                                                                     {
                                                                                         className:
-                                                                                            "px-2 py-0.5 bg-red-50 text-red-600 text-xs rounded",
+                                                                                            "px-2 py-0.5 bg-red-50 dark:bg-red-900/20 text-red-600 text-xs rounded",
                                                                                         children: e,
                                                                                     },
                                                                                     t
@@ -19709,7 +19769,7 @@ function DSPCalculator() {
                                 ue.warnings &&
                                     ue.warnings.length > 0 &&
                                     _jsxs("div", {
-                                        className: "mt-4 p-4 bg-white rounded-lg",
+                                        className: "mt-4 p-4 bg-white dark:bg-gray-800 rounded-lg",
                                         children: [
                                             _jsx("p", {
                                                 className: "text-sm font-semibold text-orange-700 mb-3",
@@ -19805,7 +19865,7 @@ function DSPCalculator() {
                                                                         _jsxs("div", {
                                                                             children: [
                                                                                 _jsx("p", {
-                                                                                    className: "text-xs text-gray-700",
+                                                                                    className: "text-xs text-gray-700 dark:text-gray-300",
                                                                                     children: s.tip,
                                                                                 }),
                                                                                 _jsx("p", {
@@ -19831,7 +19891,7 @@ function DSPCalculator() {
                             className: "grid md:grid-cols-2 lg:grid-cols-3 gap-4",
                             children: [
                                 _jsxs("div", {
-                                    className: "bg-white rounded-xl p-5 border shadow-sm",
+                                    className: "bg-white dark:bg-gray-800 rounded-xl p-5 border shadow-sm dark:shadow-gray-950/10",
                                     children: [
                                         _jsxs("h3", {
                                             className: "font-semibold text-gray-800 mb-3 flex items-center gap-2",
@@ -19844,7 +19904,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "Input Headroom:",
                                                         }),
                                                         _jsxs("span", {
@@ -19857,7 +19917,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "Required Input Gain:",
                                                         }),
                                                         _jsxs("span", {
@@ -19870,7 +19930,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "System Headroom:",
                                                         }),
                                                         _jsxs("span", {
@@ -19900,7 +19960,7 @@ function DSPCalculator() {
                                 }),
                                 ue.nom &&
                                     _jsxs("div", {
-                                        className: "bg-white rounded-xl p-5 border shadow-sm",
+                                        className: "bg-white dark:bg-gray-800 rounded-xl p-5 border shadow-sm dark:shadow-gray-950/10",
                                         children: [
                                             _jsxs("h3", {
                                                 className: "font-semibold text-gray-800 mb-3 flex items-center gap-2",
@@ -19913,7 +19973,7 @@ function DSPCalculator() {
                                                         className: "flex justify-between min-w-0",
                                                         children: [
                                                             _jsx("span", {
-                                                                className: "text-gray-600",
+                                                                className: "text-gray-600 dark:text-gray-400",
                                                                 children: "Mic Count:",
                                                             }),
                                                             _jsx("span", {
@@ -19926,7 +19986,7 @@ function DSPCalculator() {
                                                         className: "flex justify-between min-w-0",
                                                         children: [
                                                             _jsx("span", {
-                                                                className: "text-gray-600",
+                                                                className: "text-gray-600 dark:text-gray-400",
                                                                 children: "Effective NOM:",
                                                             }),
                                                             _jsxs("span", {
@@ -19942,7 +20002,7 @@ function DSPCalculator() {
                                                         className: "flex justify-between min-w-0",
                                                         children: [
                                                             _jsx("span", {
-                                                                className: "text-gray-600",
+                                                                className: "text-gray-600 dark:text-gray-400",
                                                                 children: "NOM Penalty:",
                                                             }),
                                                             _jsxs("span", {
@@ -19955,7 +20015,7 @@ function DSPCalculator() {
                                                         className: "flex justify-between min-w-0",
                                                         children: [
                                                             _jsx("span", {
-                                                                className: "text-gray-600",
+                                                                className: "text-gray-600 dark:text-gray-400",
                                                                 children: "Mic Pattern:",
                                                             }),
                                                             _jsxs("span", {
@@ -19970,7 +20030,7 @@ function DSPCalculator() {
                                                         ],
                                                     }),
                                                     _jsx("div", {
-                                                        className: "pt-2 border-t text-xs text-gray-500",
+                                                        className: "pt-2 border-t text-xs text-gray-500 dark:text-gray-400",
                                                         children: ue.nom.recommendation,
                                                     }),
                                                 ],
@@ -19980,8 +20040,8 @@ function DSPCalculator() {
                                 ue.pagNag &&
                                     _jsxs("div", {
                                         className:
-                                            "bg-white rounded-xl p-5 border shadow-sm " +
-                                            (ue.pagNag.feedbackMarginPass ? "" : "border-red-300 bg-red-50"),
+                                            "bg-white dark:bg-gray-800 rounded-xl p-5 border shadow-sm dark:shadow-gray-950/10 " +
+                                            (ue.pagNag.feedbackMarginPass ? "" : "border-red-300 bg-red-50 dark:bg-red-900/20"),
                                         children: [
                                             _jsxs("h3", {
                                                 className: "font-semibold text-gray-800 mb-3 flex items-center gap-2",
@@ -19994,7 +20054,7 @@ function DSPCalculator() {
                                                         className: "flex justify-between min-w-0",
                                                         children: [
                                                             _jsx("span", {
-                                                                className: "text-gray-600",
+                                                                className: "text-gray-600 dark:text-gray-400",
                                                                 children: "PAG (w/directivity):",
                                                             }),
                                                             _jsxs("span", {
@@ -20007,7 +20067,7 @@ function DSPCalculator() {
                                                         className: "flex justify-between min-w-0",
                                                         children: [
                                                             _jsx("span", {
-                                                                className: "text-gray-600",
+                                                                className: "text-gray-600 dark:text-gray-400",
                                                                 children: "NAG (Needed):",
                                                             }),
                                                             _jsxs("span", {
@@ -20020,7 +20080,7 @@ function DSPCalculator() {
                                                         className: "flex justify-between min-w-0",
                                                         children: [
                                                             _jsx("span", {
-                                                                className: "text-gray-600 font-semibold",
+                                                                className: "text-gray-600 dark:text-gray-400 font-semibold",
                                                                 children: "Feedback Margin:",
                                                             }),
                                                             _jsxs("span", {
@@ -20066,7 +20126,7 @@ function DSPCalculator() {
                                     }),
                                 ue.room &&
                                     _jsxs("div", {
-                                        className: "bg-white rounded-xl p-5 border shadow-sm",
+                                        className: "bg-white dark:bg-gray-800 rounded-xl p-5 border shadow-sm dark:shadow-gray-950/10",
                                         children: [
                                             _jsxs("h3", {
                                                 className: "font-semibold text-gray-800 mb-3 flex items-center gap-2",
@@ -20079,7 +20139,7 @@ function DSPCalculator() {
                                                         className: "flex justify-between min-w-0",
                                                         children: [
                                                             _jsx("span", {
-                                                                className: "text-gray-600",
+                                                                className: "text-gray-600 dark:text-gray-400",
                                                                 children: "Volume:",
                                                             }),
                                                             _jsxs("span", {
@@ -20092,7 +20152,7 @@ function DSPCalculator() {
                                                         className: "flex justify-between min-w-0",
                                                         children: [
                                                             _jsx("span", {
-                                                                className: "text-gray-600",
+                                                                className: "text-gray-600 dark:text-gray-400",
                                                                 children: "Critical Distance:",
                                                             }),
                                                             _jsxs("span", {
@@ -20105,7 +20165,7 @@ function DSPCalculator() {
                                                         className: "flex justify-between min-w-0",
                                                         children: [
                                                             _jsx("span", {
-                                                                className: "text-gray-600",
+                                                                className: "text-gray-600 dark:text-gray-400",
                                                                 children: "Dc Rating:",
                                                             }),
                                                             _jsx("span", {
@@ -20145,7 +20205,7 @@ function DSPCalculator() {
                                         ],
                                     }),
                                 _jsxs("div", {
-                                    className: "bg-white rounded-xl p-5 border shadow-sm",
+                                    className: "bg-white dark:bg-gray-800 rounded-xl p-5 border shadow-sm dark:shadow-gray-950/10",
                                     children: [
                                         _jsxs("h3", {
                                             className: "font-semibold text-gray-800 mb-3 flex items-center gap-2",
@@ -20158,7 +20218,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "Target SPL:",
                                                         }),
                                                         _jsxs("span", {
@@ -20176,7 +20236,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "Distance Loss:",
                                                         }),
                                                         _jsxs("span", {
@@ -20189,7 +20249,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "Room Absorption:",
                                                         }),
                                                         _jsxs("span", {
@@ -20214,7 +20274,7 @@ function DSPCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-white rounded-xl p-5 border shadow-sm",
+                                    className: "bg-white dark:bg-gray-800 rounded-xl p-5 border shadow-sm dark:shadow-gray-950/10",
                                     children: [
                                         _jsxs("h3", {
                                             className: "font-semibold text-gray-800 mb-3 flex items-center gap-2",
@@ -20227,7 +20287,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "95th Percentile:",
                                                         }),
                                                         _jsxs("span", {
@@ -20240,7 +20300,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "5th Percentile:",
                                                         }),
                                                         _jsxs("span", {
@@ -20253,7 +20313,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "ACR Value:",
                                                         }),
                                                         _jsxs("span", {
@@ -20292,7 +20352,7 @@ function DSPCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-white rounded-xl p-5 border shadow-sm",
+                                    className: "bg-white dark:bg-gray-800 rounded-xl p-5 border shadow-sm dark:shadow-gray-950/10",
                                     children: [
                                         _jsxs("h3", {
                                             className: "font-semibold text-gray-800 mb-3 flex items-center gap-2",
@@ -20305,7 +20365,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "Mic-to-Speaker:",
                                                         }),
                                                         _jsxs("span", {
@@ -20317,7 +20377,7 @@ function DSPCalculator() {
                                                 _jsxs("div", {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
-                                                        _jsx("span", { className: "text-gray-600", children: "RT60:" }),
+                                                        _jsx("span", { className: "text-gray-600 dark:text-gray-400", children: "RT60:" }),
                                                         _jsxs("span", {
                                                             className:
                                                                 "font-bold truncate " +
@@ -20334,7 +20394,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "Recommended Tail:",
                                                         }),
                                                         _jsxs("span", {
@@ -20346,7 +20406,7 @@ function DSPCalculator() {
                                                 _jsxs("div", {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
-                                                        _jsx("span", { className: "text-gray-600", children: "ERL:" }),
+                                                        _jsx("span", { className: "text-gray-600 dark:text-gray-400", children: "ERL:" }),
                                                         _jsxs("span", {
                                                             className:
                                                                 "font-bold " +
@@ -20384,8 +20444,8 @@ function DSPCalculator() {
                                                     className:
                                                         "mt-2 p-2 rounded text-xs " +
                                                         (ue.aec.erlPass
-                                                            ? "bg-blue-50 text-blue-700"
-                                                            : "bg-red-50 text-red-700"),
+                                                            ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700"
+                                                            : "bg-red-50 dark:bg-red-900/20 text-red-700"),
                                                     children: ue.aec.erlPass
                                                         ? ue.aec.erlAdvice
                                                         : "💡 To improve: Increase mic-to-speaker distance, reduce RT60, or add acoustic treatment.",
@@ -20395,7 +20455,7 @@ function DSPCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-white rounded-xl p-5 border shadow-sm",
+                                    className: "bg-white dark:bg-gray-800 rounded-xl p-5 border shadow-sm dark:shadow-gray-950/10",
                                     children: [
                                         _jsxs("h3", {
                                             className: "font-semibold text-gray-800 mb-3 flex items-center gap-2",
@@ -20408,7 +20468,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "Noise Floor:",
                                                         }),
                                                         _jsxs("span", {
@@ -20426,7 +20486,7 @@ function DSPCalculator() {
                                                 _jsxs("div", {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
-                                                        _jsx("span", { className: "text-gray-600", children: "SNR:" }),
+                                                        _jsx("span", { className: "text-gray-600 dark:text-gray-400", children: "SNR:" }),
                                                         _jsxs("span", {
                                                             className:
                                                                 "font-bold text-lg truncate " +
@@ -20443,7 +20503,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "Mic Sensitivity:",
                                                         }),
                                                         _jsxs("span", {
@@ -20477,7 +20537,7 @@ function DSPCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-white rounded-xl p-5 border shadow-sm",
+                                    className: "bg-white dark:bg-gray-800 rounded-xl p-5 border shadow-sm dark:shadow-gray-950/10",
                                     children: [
                                         _jsxs("h3", {
                                             className: "font-semibold text-gray-800 mb-3 flex items-center gap-2",
@@ -20490,7 +20550,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "Total MIPS:",
                                                         }),
                                                         _jsx("span", {
@@ -20503,7 +20563,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "Load Rating:",
                                                         }),
                                                         _jsx("span", {
@@ -20524,7 +20584,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "Active Blocks:",
                                                         }),
                                                         _jsx("span", {
@@ -20536,15 +20596,15 @@ function DSPCalculator() {
                                                 _jsx("div", {
                                                     className: "pt-2 border-t",
                                                     children: _jsx("div", {
-                                                        className: "w-full bg-gray-200 rounded-full h-2",
+                                                        className: "w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2",
                                                         children: _jsx("div", {
                                                             className:
                                                                 "h-2 rounded-full " +
                                                                 (ue.dspLoad.totalMips < 100
-                                                                    ? "bg-green-500"
+                                                                    ? "bg-green-50 dark:bg-green-900/200"
                                                                     : ue.dspLoad.totalMips < 500
                                                                       ? "bg-orange-500"
-                                                                      : "bg-red-500"),
+                                                                      : "bg-red-50 dark:bg-red-900/200"),
                                                             style: {
                                                                 width: `${Math.min(100, ue.dspLoad.totalMips / 10)}%`,
                                                             },
@@ -20556,7 +20616,7 @@ function DSPCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-white rounded-xl p-5 border shadow-sm",
+                                    className: "bg-white dark:bg-gray-800 rounded-xl p-5 border shadow-sm dark:shadow-gray-950/10",
                                     children: [
                                         _jsxs("h3", {
                                             className: "font-semibold text-gray-800 mb-3 flex items-center gap-2",
@@ -20569,7 +20629,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "Inputs:",
                                                         }),
                                                         _jsx("span", {
@@ -20582,7 +20642,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "Outputs:",
                                                         }),
                                                         _jsx("span", {
@@ -20595,7 +20655,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "Matrix Size:",
                                                         }),
                                                         _jsx("span", {
@@ -20622,7 +20682,7 @@ function DSPCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-white rounded-xl p-5 border shadow-sm",
+                                    className: "bg-white dark:bg-gray-800 rounded-xl p-5 border shadow-sm dark:shadow-gray-950/10",
                                     children: [
                                         _jsxs("h3", {
                                             className: "font-semibold text-gray-800 mb-3 flex items-center gap-2",
@@ -20635,7 +20695,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "DSP Processing:",
                                                         }),
                                                         _jsxs("span", {
@@ -20648,7 +20708,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsxs("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: ["Network (", ue.latency.networkType, "):"],
                                                         }),
                                                         _jsxs("span", {
@@ -20661,7 +20721,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "A/D + D/A:",
                                                         }),
                                                         _jsxs("span", {
@@ -20714,7 +20774,7 @@ function DSPCalculator() {
                                     ],
                                 }),
                                 _jsxs("div", {
-                                    className: "bg-white rounded-xl p-5 border shadow-sm",
+                                    className: "bg-white dark:bg-gray-800 rounded-xl p-5 border shadow-sm dark:shadow-gray-950/10",
                                     children: [
                                         _jsxs("h3", {
                                             className: "font-semibold text-gray-800 mb-3 flex items-center gap-2",
@@ -20727,7 +20787,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "Channels:",
                                                         }),
                                                         _jsx("span", {
@@ -20740,7 +20800,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "Per Channel:",
                                                         }),
                                                         _jsxs("span", {
@@ -20756,7 +20816,7 @@ function DSPCalculator() {
                                                     className: "flex justify-between min-w-0",
                                                     children: [
                                                         _jsx("span", {
-                                                            className: "text-gray-600",
+                                                            className: "text-gray-600 dark:text-gray-400",
                                                             children: "Total Bandwidth:",
                                                         }),
                                                         _jsxs("span", {
@@ -20784,14 +20844,14 @@ function DSPCalculator() {
                             ],
                         }),
                         _jsxs("div", {
-                            className: "bg-gray-50 rounded-xl p-6 border",
+                            className: "bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6 border",
                             children: [
                                 _jsx("h3", {
                                     className: "font-semibold text-gray-800 mb-4",
                                     children: "📐 Formulas Used (AVIXA / IEC 60268)",
                                 }),
                                 _jsxs("div", {
-                                    className: "grid md:grid-cols-2 gap-4 text-xs font-mono text-gray-600",
+                                    className: "grid md:grid-cols-2 gap-4 text-xs font-mono text-gray-600 dark:text-gray-400",
                                     children: [
                                         _jsxs("div", {
                                             children: [
@@ -20857,7 +20917,7 @@ function DSPCalculator() {
                         ue.actionItems &&
                             ue.actionItems.length > 0 &&
                             _jsxs("div", {
-                                className: "bg-white rounded-xl p-6 border shadow-sm",
+                                className: "bg-white dark:bg-gray-800 rounded-xl p-6 border shadow-sm dark:shadow-gray-950/10",
                                 children: [
                                     _jsx("h3", {
                                         className: "text-xl font-bold text-gray-800 mb-4 flex items-center gap-2",
@@ -20872,12 +20932,12 @@ function DSPCalculator() {
                                                     className:
                                                         "p-4 rounded-lg border-l-4 " +
                                                         ("critical" === e.priority
-                                                            ? "bg-red-50 border-red-500"
+                                                            ? "bg-red-50 dark:bg-red-900/20 border-red-500"
                                                             : "high" === e.priority
                                                               ? "bg-orange-50 border-orange-500"
                                                               : "medium" === e.priority
-                                                                ? "bg-yellow-50 border-yellow-400"
-                                                                : "bg-blue-50 border-blue-400"),
+                                                                ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-400"
+                                                                : "bg-blue-50 dark:bg-blue-900/20 border-blue-400"),
                                                     children: [
                                                         _jsxs("div", {
                                                             className: "flex items-center gap-2 mb-2",
@@ -20886,26 +20946,26 @@ function DSPCalculator() {
                                                                     className:
                                                                         "px-2 py-0.5 rounded text-xs font-bold uppercase " +
                                                                         ("critical" === e.priority
-                                                                            ? "bg-red-200 text-red-800"
+                                                                            ? "bg-red-200 text-red-800 dark:text-red-200"
                                                                             : "high" === e.priority
                                                                               ? "bg-orange-200 text-orange-800"
                                                                               : "medium" === e.priority
-                                                                                ? "bg-yellow-200 text-yellow-800"
-                                                                                : "bg-blue-200 text-blue-800"),
+                                                                                ? "bg-yellow-200 text-yellow-800 dark:text-yellow-200"
+                                                                                : "bg-blue-200 text-blue-800 dark:text-blue-200"),
                                                                     children: e.priority,
                                                                 }),
                                                                 _jsx("span", {
-                                                                    className: "font-semibold text-gray-700",
+                                                                    className: "font-semibold text-gray-700 dark:text-gray-300",
                                                                     children: e.category,
                                                                 }),
                                                             ],
                                                         }),
                                                         _jsx("p", {
-                                                            className: "text-sm text-gray-700 font-medium mb-2",
+                                                            className: "text-sm text-gray-700 dark:text-gray-300 font-medium mb-2",
                                                             children: e.issue,
                                                         }),
                                                         _jsx("ul", {
-                                                            className: "text-sm text-gray-600 space-y-1 ml-4",
+                                                            className: "text-sm text-gray-600 dark:text-gray-400 space-y-1 ml-4",
                                                             children: e.actions.map((e, t) =>
                                                                 _jsxs("li", { className: "list-disc", children: e }, t)
                                                             ),
@@ -20921,10 +20981,10 @@ function DSPCalculator() {
                         ue.dspRecommendation &&
                             _jsxs("div", {
                                 className:
-                                    "bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-6 border-2 border-purple-200 shadow-sm",
+                                    "bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-6 border-2 border-purple-200 dark:border-purple-800 shadow-sm dark:shadow-gray-950/10",
                                 children: [
                                     _jsxs("h3", {
-                                        className: "text-xl font-bold text-purple-800 mb-4 flex items-center gap-2",
+                                        className: "text-xl font-bold text-purple-800 dark:text-purple-200 mb-4 flex items-center gap-2",
                                         children: [_jsx("span", { children: "🎛️" }), " DSP Selection Recommendation"],
                                     }),
                                     _jsxs("div", {
@@ -20936,7 +20996,7 @@ function DSPCalculator() {
                                                         className: "mb-4",
                                                         children: [
                                                             _jsx("p", {
-                                                                className: "text-sm text-gray-600 mb-1",
+                                                                className: "text-sm text-gray-600 dark:text-gray-400 mb-1",
                                                                 children: "Recommended DSP Tier",
                                                             }),
                                                             _jsx("p", {
@@ -20952,7 +21012,7 @@ function DSPCalculator() {
                                                                 children: ue.dspRecommendation.tier,
                                                             }),
                                                             _jsx("p", {
-                                                                className: "text-xs text-gray-500 mt-1",
+                                                                className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                                 children: ue.dspRecommendation.tierReason.join("; "),
                                                             }),
                                                         ],
@@ -20961,7 +21021,7 @@ function DSPCalculator() {
                                                         className: "mb-4",
                                                         children: [
                                                             _jsx("p", {
-                                                                className: "text-sm font-medium text-gray-700 mb-2",
+                                                                className: "text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                                 children: "Required Features:",
                                                             }),
                                                             _jsx("div", {
@@ -20972,7 +21032,7 @@ function DSPCalculator() {
                                                                             "span",
                                                                             {
                                                                                 className:
-                                                                                    "px-2 py-1 bg-white rounded border text-xs text-gray-700",
+                                                                                    "px-2 py-1 bg-white dark:bg-gray-800 rounded border text-xs text-gray-700 dark:text-gray-300",
                                                                                 children: e,
                                                                             },
                                                                             t
@@ -20982,7 +21042,7 @@ function DSPCalculator() {
                                                         ],
                                                     }),
                                                     _jsxs("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400",
                                                         children: [
                                                             _jsxs("p", {
                                                                 children: [
@@ -21014,7 +21074,7 @@ function DSPCalculator() {
                                             _jsxs("div", {
                                                 children: [
                                                     _jsx("p", {
-                                                        className: "text-sm font-medium text-gray-700 mb-2",
+                                                        className: "text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                         children: "Recommended Products:",
                                                     }),
                                                     _jsx("div", {
@@ -21024,7 +21084,7 @@ function DSPCalculator() {
                                                                 "div",
                                                                 {
                                                                     className:
-                                                                        "bg-white p-3 rounded-lg border shadow-sm",
+                                                                        "bg-white dark:bg-gray-800 p-3 rounded-lg border shadow-sm dark:shadow-gray-950/10",
                                                                     children: [
                                                                         _jsxs("div", {
                                                                             className:
@@ -21040,7 +21100,7 @@ function DSPCalculator() {
                                                                                         }),
                                                                                         _jsx("p", {
                                                                                             className:
-                                                                                                "text-xs text-gray-500",
+                                                                                                "text-xs text-gray-500 dark:text-gray-400",
                                                                                             children: e.channels,
                                                                                         }),
                                                                                     ],
@@ -21048,7 +21108,7 @@ function DSPCalculator() {
                                                                             ],
                                                                         }),
                                                                         _jsx("p", {
-                                                                            className: "text-xs text-gray-600 mt-1",
+                                                                            className: "text-xs text-gray-600 dark:text-gray-400 mt-1",
                                                                             children: e.useCase,
                                                                         }),
                                                                     ],
@@ -21062,10 +21122,10 @@ function DSPCalculator() {
                                         ],
                                     }),
                                     _jsxs("div", {
-                                        className: "mt-4 p-3 bg-white/50 rounded-lg",
+                                        className: "mt-4 p-3 bg-white dark:bg-gray-800/50 rounded-lg",
                                         children: [
                                             _jsxs("p", {
-                                                className: "text-xs text-gray-600 mb-3",
+                                                className: "text-xs text-gray-600 dark:text-gray-400 mb-3",
                                                 children: [
                                                     _jsx("strong", { children: "Note:" }),
                                                     " DSP recommendations are based on your I/O requirements, processing needs, and room characteristics. Always verify specific product capabilities against your exact requirements and consult manufacturer specifications.",
@@ -21079,7 +21139,7 @@ function DSPCalculator() {
                                                         children: "💡 DSP Selection Best Practices:",
                                                     }),
                                                     _jsxs("ul", {
-                                                        className: "text-xs text-gray-600 space-y-1 ml-4",
+                                                        className: "text-xs text-gray-600 dark:text-gray-400 space-y-1 ml-4",
                                                         children: [
                                                             _jsx("li", {
                                                                 className: "list-disc",
@@ -21163,10 +21223,10 @@ function RackBuilderCalculator() {
         ce = (useRef(null), [8, 12, 15, 18, 22, 25, 27, 32, 37, 42, 45]),
         me = 45,
         xe = [
-            { bg: "bg-blue-500", border: "border-blue-600", text: "text-white" },
+            { bg: "bg-blue-50 dark:bg-blue-900/200", border: "border-blue-600", text: "text-white" },
             { bg: "bg-emerald-500", border: "border-emerald-600", text: "text-white" },
             { bg: "bg-violet-500", border: "border-violet-600", text: "text-white" },
-            { bg: "bg-amber-500", border: "border-amber-600", text: "text-white" },
+            { bg: "bg-amber-50 dark:bg-amber-900/200", border: "border-amber-600", text: "text-white" },
             { bg: "bg-rose-500", border: "border-rose-600", text: "text-white" },
             { bg: "bg-cyan-500", border: "border-cyan-600", text: "text-white" },
             { bg: "bg-fuchsia-500", border: "border-fuchsia-600", text: "text-white" },
@@ -22990,10 +23050,10 @@ function RackBuilderCalculator() {
                         className:
                             "mb-2 p-2 rounded-lg transition-all cursor-pointer " +
                             (u
-                                ? "bg-yellow-100 border-2 border-yellow-400 shadow-md"
+                                ? "bg-yellow-100 border-2 border-yellow-400 shadow-md dark:shadow-gray-950/20"
                                 : B === t
-                                  ? "bg-blue-50 border-2 border-blue-300"
-                                  : "bg-gray-100 border-2 border-transparent hover:bg-gray-200"),
+                                  ? "bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-300"
+                                  : "bg-gray-100 dark:bg-gray-700 border-2 border-transparent hover:bg-gray-200 dark:bg-gray-700"),
                         onClick: () => {
                             T(t), e.layout && e.layout.length > 0 && b({ rackIdx: t, layoutId: e.layout[0].id });
                         },
@@ -23027,7 +23087,7 @@ function RackBuilderCalculator() {
                                                         }
                                                     },
                                                     className:
-                                                        "font-semibold text-sm bg-transparent border-none outline-none w-full placeholder-gray-700 focus:bg-white focus:ring-1 focus:ring-blue-400 focus:rounded px-1 " +
+                                                        "font-semibold text-sm bg-transparent border-none outline-none w-full placeholder-gray-700 focus:bg-white dark:bg-gray-800 focus:ring-1 focus:ring-blue-400 focus:rounded px-1 " +
                                                         (e.name && e.name.length > 15 ? "rack-name-marquee" : ""),
                                                     style: e.name && e.name.length > 15 ? { width: 'max-content', minWidth: '100%' } : {},
                                                     title: e.name ? e.name : "Click to edit rack name",
@@ -23037,14 +23097,14 @@ function RackBuilderCalculator() {
                                                 className: "flex items-center gap-1 flex-shrink-0",
                                                 children: [
                                                     _jsx("span", {
-                                                        className: "text-xs text-gray-500 whitespace-nowrap",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap",
                                                         children: `(${n}U)`,
                                                     }),
                                                     B === t &&
                                                         f &&
                                                         _jsx("span", {
                                                             className:
-                                                                "text-xs bg-blue-500 text-white px-1 py-0.5 rounded whitespace-nowrap",
+                                                                "text-xs bg-blue-50 dark:bg-blue-900/200 text-white px-1 py-0.5 rounded whitespace-nowrap",
                                                             children: "Target",
                                                         }),
                                                     _jsxs("span", {
@@ -23064,7 +23124,7 @@ function RackBuilderCalculator() {
                                                                 e.stopPropagation(), te({ index: t, hasEquipment: y }), Z(!0);
                                                             },
                                                             className:
-                                                                "text-red-500 hover:text-red-700 hover:bg-red-50 rounded p-0.5 transition-colors flex-shrink-0",
+                                                                "text-red-500 hover:text-red-700 hover:bg-red-50 dark:bg-red-900/20 rounded p-0.5 transition-colors flex-shrink-0",
                                                             title: "Delete Rack",
                                                             children: _jsx("svg", {
                                                                 className: "w-4 h-4",
@@ -23086,7 +23146,7 @@ function RackBuilderCalculator() {
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "flex items-center justify-between mt-1 text-xs text-gray-500",
+                                className: "flex items-center justify-between mt-1 text-xs text-gray-500 dark:text-gray-400",
                                 children: [
                                     _jsxs("span", { className: "whitespace-nowrap", children: [o, "U equip"] }),
                                     _jsxs("span", {
@@ -23117,7 +23177,7 @@ function RackBuilderCalculator() {
                             _jsx("div", {
                                 className:
                                     "flex-1 bg-gray-900 rounded-lg p-1 border-2 transition-all " +
-                                    (u ? "border-yellow-400 shadow-lg shadow-yellow-200/50" : "border-gray-700"),
+                                    (u ? "border-yellow-400 shadow-lg dark:shadow-gray-950/30 shadow-yellow-200/50" : "border-gray-700"),
                                 style: { minHeight: 22 * n + (n - 1) + 8 + "px" },
                                 onDragOver: (e) => lt(e, t, 1),
                                 onDrop: (e) => it(e, t, 1),
@@ -23260,7 +23320,7 @@ function RackBuilderCalculator() {
                                 className: "flex gap-3",
                                 children: [
                                     _jsxs("span", { className: "text-blue-600", children: ["⚡", o, "U"] }),
-                                    _jsxs("span", { className: "text-gray-500", children: ["▭", d, "U"] }),
+                                    _jsxs("span", { className: "text-gray-500 dark:text-gray-400", children: ["▭", d, "U"] }),
                                 ],
                             }),
                             _jsx("div", {
@@ -23280,11 +23340,11 @@ function RackBuilderCalculator() {
         className: "max-w-7xl mx-auto px-2 sm:px-4 py-4 sm:py-6",
         children: [
             _jsx("h1", {
-                className: "text-xl sm:text-2xl font-bold text-gray-900 mb-4",
+                className: "text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4",
                 children: "Professional Rack Builder",
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl p-4 mb-4 border shadow-sm",
+                className: "bg-white dark:bg-gray-800 rounded-xl p-4 mb-4 border shadow-sm dark:shadow-gray-950/10",
                 children: [
                     _jsxs("div", {
                         className: "flex flex-col sm:flex-row sm:items-center gap-4",
@@ -23314,7 +23374,7 @@ function RackBuilderCalculator() {
                                         ],
                                     }),
                                     _jsx("p", {
-                                        className: "text-xs text-gray-500 leading-relaxed",
+                                        className: "text-xs text-gray-500 dark:text-gray-400 leading-relaxed",
                                         children:
                                             "auto" === L
                                                 ? "Equipment is automatically distributed across racks based on spare capacity target."
@@ -23325,15 +23385,15 @@ function RackBuilderCalculator() {
                             _jsx("div", {
                                 className: "flex-shrink-0",
                                 children: _jsxs("div", {
-                                    className: "inline-flex rounded-lg p-1 bg-gray-100",
+                                    className: "inline-flex rounded-lg p-1 bg-gray-100 dark:bg-gray-700",
                                     children: [
                                         _jsxs("button", {
                                             onClick: () => H("auto"),
                                             className:
                                                 "flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium transition-all " +
                                                 ("auto" === L
-                                                    ? "bg-white text-blue-700 shadow-sm"
-                                                    : "text-gray-500 hover:text-gray-700"),
+                                                    ? "bg-white dark:bg-gray-800 text-blue-700 shadow-sm dark:shadow-gray-950/10"
+                                                    : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300"),
                                             children: [
                                                 _jsx("span", { children: "⚡" }),
                                                 _jsx("span", { children: "Automatic" }),
@@ -23346,8 +23406,8 @@ function RackBuilderCalculator() {
                                             className:
                                                 "flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium transition-all " +
                                                 ("manual" === L
-                                                    ? "bg-white text-indigo-700 shadow-sm"
-                                                    : "text-gray-500 hover:text-gray-700"),
+                                                    ? "bg-white dark:bg-gray-800 text-indigo-700 shadow-sm dark:shadow-gray-950/10"
+                                                    : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:text-gray-300"),
                                             children: [
                                                 _jsx("span", { children: "🔧" }),
                                                 _jsx("span", { children: "Manual" }),
@@ -23361,7 +23421,7 @@ function RackBuilderCalculator() {
                     _jsx("div", {
                         className: "mt-3 pt-3 border-t border-gray-100",
                         children: _jsxs("div", {
-                            className: "flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500",
+                            className: "flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500 dark:text-gray-400",
                             children:
                                 "auto" === L
                                     ? [
@@ -23447,7 +23507,7 @@ function RackBuilderCalculator() {
                             children: [
                                 _jsx("div", {
                                     className:
-                                        "flex-shrink-0 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center",
+                                        "flex-shrink-0 w-8 h-8 bg-white dark:bg-gray-800/20 rounded-full flex items-center justify-center",
                                     children: _jsx("span", { className: "text-lg", children: "⚠️" }),
                                 }),
                                 _jsxs("div", {
@@ -23463,32 +23523,32 @@ function RackBuilderCalculator() {
                                 _jsx("button", {
                                     onClick: () => I(null),
                                     className:
-                                        "flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white/80 hover:text-white transition-colors",
+                                        "flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-white dark:bg-gray-800/10 hover:bg-white dark:bg-gray-800/20 text-white/80 hover:text-white transition-colors",
                                     children: "×",
                                 }),
                             ],
                         }),
                         _jsx("div", {
-                            className: "mt-2 h-1 bg-white/20 rounded-full overflow-hidden",
+                            className: "mt-2 h-1 bg-white dark:bg-gray-800/20 rounded-full overflow-hidden",
                             children: _jsx("div", {
-                                className: "h-full bg-white/60 rounded-full",
+                                className: "h-full bg-white dark:bg-gray-800/60 rounded-full",
                                 style: { animation: "shrink 4s linear forwards", width: "100%" },
                             }),
                         }),
                     ],
                 }),
             _jsxs("div", {
-                className: "bg-purple-50 rounded-xl p-3 sm:p-4 mb-4 sm:mb-6 border border-purple-200",
+                className: "bg-purple-50 dark:bg-purple-900/20 rounded-xl p-3 sm:p-4 mb-4 sm:mb-6 border border-purple-200 dark:border-purple-800",
                 children: [
                     _jsx("h2", {
-                        className: "font-semibold text-purple-800 mb-2 text-sm sm:text-base",
+                        className: "font-semibold text-purple-800 dark:text-purple-200 mb-2 text-sm sm:text-base",
                         children: "AVIXA/EIA-310-E Compliant Design",
                     }),
                     _jsxs("div", {
                         className: "grid grid-cols-5 gap-1 sm:gap-2 text-xs",
                         children: [
                             _jsxs("div", {
-                                className: "bg-white p-1.5 sm:p-2 rounded border text-center",
+                                className: "bg-white dark:bg-gray-800 p-1.5 sm:p-2 rounded border text-center",
                                 children: [
                                     _jsx("div", { className: "font-bold text-purple-700", children: "1U" }),
                                     _jsx("div", {
@@ -23498,7 +23558,7 @@ function RackBuilderCalculator() {
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-white p-1.5 sm:p-2 rounded border text-center",
+                                className: "bg-white dark:bg-gray-800 p-1.5 sm:p-2 rounded border text-center",
                                 children: [
                                     _jsx("div", { className: "font-bold text-purple-700", children: '19"' }),
                                     _jsx("div", {
@@ -23508,7 +23568,7 @@ function RackBuilderCalculator() {
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-white p-1.5 sm:p-2 rounded border text-center",
+                                className: "bg-white dark:bg-gray-800 p-1.5 sm:p-2 rounded border text-center",
                                 children: [
                                     _jsx("div", { className: "font-bold text-purple-700", children: '9.5"' }),
                                     _jsx("div", {
@@ -23518,7 +23578,7 @@ function RackBuilderCalculator() {
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-white p-1.5 sm:p-2 rounded border text-center",
+                                className: "bg-white dark:bg-gray-800 p-1.5 sm:p-2 rounded border text-center",
                                 children: [
                                     _jsx("div", { className: "font-bold text-purple-700", children: "45U" }),
                                     _jsx("div", {
@@ -23528,7 +23588,7 @@ function RackBuilderCalculator() {
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-white p-1.5 sm:p-2 rounded border text-center",
+                                className: "bg-white dark:bg-gray-800 p-1.5 sm:p-2 rounded border text-center",
                                 children: [
                                     _jsx("div", { className: "font-bold text-purple-700", children: `${c}%` }),
                                     _jsx("div", {
@@ -23542,7 +23602,7 @@ function RackBuilderCalculator() {
                 ],
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-3 sm:p-4 mb-4 sm:mb-6 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-3 sm:p-4 mb-4 sm:mb-6 border",
                 children: [
                     _jsxs("div", {
                         className: "flex items-center justify-between mb-2",
@@ -23552,7 +23612,7 @@ function RackBuilderCalculator() {
                                 children: "🎨 Color Legend",
                             }),
                             _jsx("span", {
-                                className: "text-xs text-gray-500",
+                                className: "text-xs text-gray-500 dark:text-gray-400",
                                 children: "Equipment is color-coded by type, width & size",
                             }),
                         ],
@@ -23645,10 +23705,10 @@ function RackBuilderCalculator() {
                         ].map((e, t) =>
                             _jsxs("div", {
                                 key: t,
-                                className: "bg-gray-50 rounded-lg p-2",
+                                className: "bg-gray-50 dark:bg-gray-900/50 rounded-lg p-2",
                                 children: [
                                     _jsxs("div", {
-                                        className: "text-xs font-medium text-gray-700 mb-1.5 flex items-center gap-1",
+                                        className: "text-xs font-medium text-gray-700 dark:text-gray-300 mb-1.5 flex items-center gap-1",
                                         children: [
                                             _jsx("span", { children: "Rack-Mounted" === e.category ? "🔧" : "📦" }),
                                             _jsx("span", { children: e.category }),
@@ -23680,7 +23740,7 @@ function RackBuilderCalculator() {
                         className: "space-y-4",
                         children: [
                             _jsxs("div", {
-                                className: "bg-white rounded-xl shadow-md p-3 sm:p-4 border",
+                                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-3 sm:p-4 border",
                                 children: [
                                     _jsx("h2", {
                                         className: "text-base sm:text-lg font-semibold mb-3",
@@ -23692,7 +23752,7 @@ function RackBuilderCalculator() {
                                             _jsxs("div", {
                                                 children: [
                                                     _jsx("label", {
-                                                        className: "block text-xs font-medium text-gray-600 mb-1",
+                                                        className: "block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1",
                                                         children: "Equipment Name",
                                                     }),
                                                     _jsx("input", {
@@ -23712,7 +23772,7 @@ function RackBuilderCalculator() {
                                                         children: [
                                                             _jsx("label", {
                                                                 className:
-                                                                    "block text-xs font-medium text-gray-600 mb-1",
+                                                                    "block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1",
                                                                 children: "Rack Units",
                                                             }),
                                                             _jsx("input", {
@@ -23744,14 +23804,14 @@ function RackBuilderCalculator() {
                                                         children: [
                                                             _jsx("label", {
                                                                 className:
-                                                                    "block text-xs font-medium text-gray-600 mb-1",
+                                                                    "block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1",
                                                                 children: "Mount Type",
                                                             }),
                                                             _jsxs("select", {
                                                                 value: i,
                                                                 onChange: (e) => n(e.target.value),
                                                                 className:
-                                                                    "w-full px-2 py-2.5 border rounded-lg text-sm bg-white",
+                                                                    "w-full px-2 py-2.5 border rounded-lg text-sm bg-white dark:bg-gray-800",
                                                                 children: [
                                                                     _jsx("option", { value: "rack", children: "Rack" }),
                                                                     _jsx("option", {
@@ -23766,14 +23826,14 @@ function RackBuilderCalculator() {
                                                         children: [
                                                             _jsx("label", {
                                                                 className:
-                                                                    "block text-xs font-medium text-gray-600 mb-1",
+                                                                    "block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1",
                                                                 children: "Width",
                                                             }),
                                                             _jsxs("select", {
                                                                 value: o,
                                                                 onChange: (e) => d(e.target.value),
                                                                 className:
-                                                                    "w-full px-2 py-2.5 border rounded-lg text-sm bg-white",
+                                                                    "w-full px-2 py-2.5 border rounded-lg text-sm bg-white dark:bg-gray-800",
                                                                 children: [
                                                                     _jsx("option", {
                                                                         value: "full",
@@ -23793,7 +23853,7 @@ function RackBuilderCalculator() {
                                                 className: "mb-3",
                                                 children: [
                                                     _jsx("label", {
-                                                        className: "block text-xs font-medium text-gray-600 mb-1",
+                                                        className: "block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1",
                                                         children:
                                                             h.length > 1 ? "Target Rack for New Items" : "Current Rack",
                                                     }),
@@ -23808,8 +23868,8 @@ function RackBuilderCalculator() {
                                                         },
                                                         disabled: h.length <= 1,
                                                         className:
-                                                            "w-full px-2 py-2 border rounded-lg text-sm bg-white" +
-                                                            (h.length <= 1 ? " bg-gray-50 text-gray-500" : "") +
+                                                            "w-full px-2 py-2 border rounded-lg text-sm bg-white dark:bg-gray-800" +
+                                                            (h.length <= 1 ? " bg-gray-50 dark:bg-gray-900/50 text-gray-500 dark:text-gray-400" : "") +
                                                             (g?.rackIdx === B ? " ring-2 ring-purple-300" : ""),
                                                         children: h.map((e, t) => {
                                                             const {
@@ -23839,7 +23899,7 @@ function RackBuilderCalculator() {
                                                         }),
                                                     }),
                                                     _jsx("p", {
-                                                        className: "text-xs text-gray-500 mt-1",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                                         children:
                                                             (h.length,
                                                             "Choose Target rack where new equipment will be added."),
@@ -23859,7 +23919,7 @@ function RackBuilderCalculator() {
                                                         _jsx("button", {
                                                             onClick: () => pe(!0),
                                                             className:
-                                                                "flex-1 py-2 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm",
+                                                                "flex-1 py-2 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm dark:shadow-gray-950/10",
                                                             children: "⟲ Reset",
                                                         }),
                                                         _jsx("button", {
@@ -24922,7 +24982,7 @@ function RackBuilderCalculator() {
                                                                 else I("Add equipment to your rack before exporting.");
                                                             },
                                                             className:
-                                                                "flex-1 py-2 rounded-lg font-medium bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm transition-colors shadow-sm",
+                                                                "flex-1 py-2 rounded-lg font-medium bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm transition-colors shadow-sm dark:shadow-gray-950/10",
                                                             children: "📄 Export PDF",
                                                         }),
                                                     ],
@@ -24969,14 +25029,14 @@ function RackBuilderCalculator() {
                             }),
                             "manual" === L &&
                                 _jsxs("div", {
-                                    className: "bg-white rounded-xl shadow-md p-3 sm:p-4 border",
+                                    className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-3 sm:p-4 border",
                                     children: [
                                         _jsx("h2", {
                                             className: "text-base sm:text-lg font-semibold mb-2",
                                             children: "🗄️ Rack Configuration",
                                         }),
                                         _jsx("p", {
-                                            className: "text-xs text-gray-500 mb-3",
+                                            className: "text-xs text-gray-500 dark:text-gray-400 mb-3",
                                             children: "Configure your rack size and add additional racks",
                                         }),
                                         h.length > 0 &&
@@ -24984,7 +25044,7 @@ function RackBuilderCalculator() {
                                                 className: "mb-3",
                                                 children: [
                                                     _jsx("label", {
-                                                        className: "block text-sm font-medium text-gray-700 mb-1",
+                                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
                                                         children: `Rack ${B + 1} Size`,
                                                     }),
                                                     _jsxs("div", {
@@ -25098,7 +25158,7 @@ function RackBuilderCalculator() {
                                                 className: "mt-3 pt-3 border-t",
                                                 children: [
                                                     _jsx("p", {
-                                                        className: "text-xs text-gray-500 mb-2",
+                                                        className: "text-xs text-gray-500 dark:text-gray-400 mb-2",
                                                         children: "Or start with a standard size:",
                                                     }),
                                                     _jsx("div", {
@@ -25108,7 +25168,7 @@ function RackBuilderCalculator() {
                                                                 key: e,
                                                                 onClick: () => Ve(e),
                                                                 className:
-                                                                    "py-2 rounded-lg font-medium bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm transition-colors border",
+                                                                    "py-2 rounded-lg font-medium bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm transition-colors border",
                                                                 children: `${e}U`,
                                                             })
                                                         ),
@@ -25119,14 +25179,14 @@ function RackBuilderCalculator() {
                                 }),
                             "auto" === L &&
                                 _jsxs("div", {
-                                    className: "bg-white rounded-xl shadow-md p-3 sm:p-4 border",
+                                    className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-3 sm:p-4 border",
                                     children: [
                                         _jsx("h2", {
                                             className: "text-base sm:text-lg font-semibold mb-2",
                                             children: "🎯 Target Spare Capacity",
                                         }),
                                         _jsx("p", {
-                                            className: "text-xs text-gray-500 mb-2",
+                                            className: "text-xs text-gray-500 dark:text-gray-400 mb-2",
                                             children: "Spare % = Blanks ÷ Total Capacity",
                                         }),
                                         _jsx("div", {
@@ -25139,7 +25199,7 @@ function RackBuilderCalculator() {
                                                 _jsxs(
                                                     "label",
                                                     {
-                                                        className: `flex items-center p-2.5 rounded border-2 cursor-pointer text-xs sm:text-sm ${c === e.val ? "bg-purple-50 border-purple-500" : "border-gray-200 hover:border-purple-300"} transition-colors`,
+                                                        className: `flex items-center p-2.5 rounded border-2 cursor-pointer text-xs sm:text-sm ${c === e.val ? "bg-purple-50 dark:bg-purple-900/20 border-purple-500" : "border-gray-200 dark:border-gray-700 hover:border-purple-300"} transition-colors`,
                                                         children: [
                                                             _jsx("input", {
                                                                 type: "radio",
@@ -25157,7 +25217,7 @@ function RackBuilderCalculator() {
                                         Pe &&
                                             _jsxs("div", {
                                                 className:
-                                                    "mt-3 p-2 bg-amber-50 border border-amber-300 rounded-lg text-xs text-amber-700",
+                                                    "mt-3 p-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-300 rounded-lg text-xs text-amber-700",
                                                 children: [
                                                     _jsx("div", {
                                                         className: "font-medium",
@@ -25206,7 +25266,7 @@ function RackBuilderCalculator() {
                                 }),
                             e.length > 0 &&
                                 _jsxs("div", {
-                                    className: "bg-white rounded-xl shadow-md p-3 sm:p-4 border",
+                                    className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-3 sm:p-4 border",
                                     children: [
                                         _jsxs("h2", {
                                             className: "text-base sm:text-lg font-semibold mb-2",
@@ -25222,7 +25282,7 @@ function RackBuilderCalculator() {
                                                     {
                                                         className:
                                                             "flex items-center justify-between p-2 rounded border text-sm gap-2 " +
-                                                            (a ? "bg-blue-50 border-blue-300" : "bg-gray-50"),
+                                                            (a ? "bg-blue-50 dark:bg-blue-900/20 border-blue-300" : "bg-gray-50 dark:bg-gray-900/50"),
                                                         children: [
                                                             _jsxs("div", {
                                                                 className: "flex items-center gap-2 min-w-0 flex-1",
@@ -25254,7 +25314,7 @@ function RackBuilderCalculator() {
                                                                           }),
                                                                     _jsxs("span", {
                                                                         className:
-                                                                            "text-xs bg-gray-200 px-1.5 py-0.5 rounded flex-shrink-0",
+                                                                            "text-xs bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 rounded flex-shrink-0",
                                                                         children: [e.ru, "U"],
                                                                     }),
                                                                     _jsx("span", {
@@ -25280,14 +25340,14 @@ function RackBuilderCalculator() {
                                                                         _jsx("button", {
                                                                             onClick: () => et(e),
                                                                             className:
-                                                                                "w-8 h-8 flex items-center justify-center bg-blue-100 hover:bg-blue-200 text-blue-600 hover:text-blue-800 rounded-lg text-sm transition-colors",
+                                                                                "w-8 h-8 flex items-center justify-center bg-blue-100 hover:bg-blue-200 text-blue-600 hover:text-blue-800 dark:text-blue-200 rounded-lg text-sm transition-colors",
                                                                             title: "Rename item",
                                                                             children: "✏️",
                                                                         }),
                                                                     _jsx("button", {
                                                                         onClick: () => Qe(e.id),
                                                                         className:
-                                                                            "w-8 h-8 flex items-center justify-center bg-red-100 hover:bg-red-200 text-red-600 hover:text-red-800 rounded-lg font-bold text-lg transition-colors",
+                                                                            "w-8 h-8 flex items-center justify-center bg-red-100 hover:bg-red-200 text-red-600 hover:text-red-800 dark:text-red-200 rounded-lg font-bold text-lg transition-colors",
                                                                         title: "Remove item",
                                                                         children: "×",
                                                                     }),
@@ -25323,7 +25383,7 @@ function RackBuilderCalculator() {
                                 }),
                             (e.length > 0 || ("manual" === L && h.length > 0)) &&
                                 _jsxs("div", {
-                                    className: "bg-white rounded-xl shadow-md p-4 border",
+                                    className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 border",
                                     children: [
                                         _jsx("h2", {
                                             className: "text-lg font-semibold mb-3",
@@ -25385,14 +25445,14 @@ function RackBuilderCalculator() {
                                             className: "grid grid-cols-3 gap-2 text-center mb-3",
                                             children: [
                                                 _jsxs("div", {
-                                                    className: "bg-blue-50 p-2 rounded",
+                                                    className: "bg-blue-50 dark:bg-blue-900/20 p-2 rounded",
                                                     children: [
                                                         _jsx("div", {
                                                             className: "text-xs text-blue-600",
                                                             children: "Equipment",
                                                         }),
                                                         _jsxs("div", {
-                                                            className: "text-lg font-bold text-blue-800",
+                                                            className: "text-lg font-bold text-blue-800 dark:text-blue-200",
                                                             children: [
                                                                 (() => {
                                                                     let e = 0;
@@ -25483,7 +25543,7 @@ function RackBuilderCalculator() {
                                                         a = s > 0 ? Math.round((t / s) * 100) : 0;
                                                     return _jsxs("div", {
                                                         className:
-                                                            "p-2 rounded " + (a >= c ? "bg-green-50" : "bg-yellow-50"),
+                                                            "p-2 rounded " + (a >= c ? "bg-green-50 dark:bg-green-900/20" : "bg-yellow-50 dark:bg-yellow-900/20"),
                                                         children: [
                                                             _jsx("div", {
                                                                 className:
@@ -25494,7 +25554,7 @@ function RackBuilderCalculator() {
                                                             _jsxs("div", {
                                                                 className:
                                                                     "text-lg font-bold " +
-                                                                    (a >= c ? "text-green-800" : "text-yellow-800"),
+                                                                    (a >= c ? "text-green-800 dark:text-green-200" : "text-yellow-800 dark:text-yellow-200"),
                                                                 children: [a, "%"],
                                                             }),
                                                         ],
@@ -25503,7 +25563,7 @@ function RackBuilderCalculator() {
                                             ],
                                         }),
                                         _jsxs("div", {
-                                            className: "text-xs p-2 bg-gray-50 rounded mb-3",
+                                            className: "text-xs p-2 bg-gray-50 dark:bg-gray-900/50 rounded mb-3",
                                             children: [
                                                 _jsx("div", {
                                                     className: "font-medium mb-1",
@@ -25519,7 +25579,7 @@ function RackBuilderCalculator() {
                                                     const s = e + t,
                                                         a = s > 0 ? Math.round((t / s) * 100) : 0;
                                                     return _jsxs("div", {
-                                                        className: "text-gray-600",
+                                                        className: "text-gray-600 dark:text-gray-400",
                                                         children: [t, "U ÷ ", s, "U = ", a, "% spare"],
                                                     });
                                                 })(),
@@ -25534,10 +25594,10 @@ function RackBuilderCalculator() {
                                                         className:
                                                             "p-2 rounded text-xs " +
                                                             ("success" === e.type
-                                                                ? "bg-green-50 text-green-800"
+                                                                ? "bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200"
                                                                 : "warning" === e.type
-                                                                  ? "bg-yellow-50 text-yellow-800"
-                                                                  : "bg-blue-50 text-blue-800"),
+                                                                  ? "bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200"
+                                                                  : "bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200"),
                                                         children: e.text,
                                                     },
                                                     t
@@ -25547,7 +25607,7 @@ function RackBuilderCalculator() {
                                         x &&
                                             _jsx("div", {
                                                 className:
-                                                    "mt-2 p-2 bg-green-100 rounded text-xs text-green-800 text-center",
+                                                    "mt-2 p-2 bg-green-100 rounded text-xs text-green-800 dark:text-green-200 text-center",
                                                 children: "✅ Layout Optimized",
                                             }),
                                     ],
@@ -25555,7 +25615,7 @@ function RackBuilderCalculator() {
                         ],
                     }),
                     _jsxs("div", {
-                        className: "lg:col-span-2 bg-white rounded-xl shadow-md p-3 sm:p-4 border",
+                        className: "lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-3 sm:p-4 border",
                         children: [
                             _jsxs("div", {
                                 className: "flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-2",
@@ -25575,7 +25635,7 @@ function RackBuilderCalculator() {
                                                     children: "+ Add Rack",
                                                 }),
                                             _jsx("span", {
-                                                className: "text-xs text-gray-500",
+                                                className: "text-xs text-gray-500 dark:text-gray-400",
                                                 children: "Tap item to select • Use floating bar to edit",
                                             }),
                                         ],
@@ -25585,17 +25645,17 @@ function RackBuilderCalculator() {
                             "manual" === L && 0 === h.length
                                 ? _jsx("div", {
                                       className:
-                                          "flex flex-col items-center justify-center h-48 sm:h-64 bg-gray-100 rounded-lg border-2 border-dashed",
+                                          "flex flex-col items-center justify-center h-48 sm:h-64 bg-gray-100 dark:bg-gray-700 rounded-lg border-2 border-dashed",
                                       children: _jsxs("div", {
                                           className: "text-center px-4",
                                           children: [
                                               _jsx("div", { className: "text-4xl mb-3", children: "🗄️" }),
                                               _jsx("p", {
-                                                  className: "text-gray-600 font-medium mb-2",
+                                                  className: "text-gray-600 dark:text-gray-400 font-medium mb-2",
                                                   children: "No Rack Configured",
                                               }),
                                               _jsx("p", {
-                                                  className: "text-gray-500 text-sm mb-4",
+                                                  className: "text-gray-500 dark:text-gray-400 text-sm mb-4",
                                                   children:
                                                       "Add equipment to auto-create an 8U rack, or choose a rack size from the configuration panel",
                                               }),
@@ -25617,9 +25677,9 @@ function RackBuilderCalculator() {
                                 : 0 === e.length && "manual" !== L
                                   ? _jsx("div", {
                                         className:
-                                            "flex items-center justify-center h-48 sm:h-64 bg-gray-100 rounded-lg border-2 border-dashed",
+                                            "flex items-center justify-center h-48 sm:h-64 bg-gray-100 dark:bg-gray-700 rounded-lg border-2 border-dashed",
                                         children: _jsx("p", {
-                                            className: "text-gray-500 text-sm",
+                                            className: "text-gray-500 dark:text-gray-400 text-sm",
                                             children: "Add equipment to see visualization",
                                         }),
                                     })
@@ -25651,7 +25711,7 @@ function RackBuilderCalculator() {
                                                     _jsxs("div", {
                                                         className: "flex items-center gap-1",
                                                         children: [
-                                                            _jsx("div", { className: "w-4 h-4 bg-blue-500 rounded" }),
+                                                            _jsx("div", { className: "w-4 h-4 bg-blue-50 dark:bg-blue-900/200 rounded" }),
                                                             _jsx("span", { children: "Full" }),
                                                         ],
                                                     }),
@@ -25662,7 +25722,7 @@ function RackBuilderCalculator() {
                                                                 className: "flex w-4 h-4",
                                                                 children: [
                                                                     _jsx("div", {
-                                                                        className: "w-2 h-4 bg-blue-500 rounded-l",
+                                                                        className: "w-2 h-4 bg-blue-50 dark:bg-blue-900/200 rounded-l",
                                                                     }),
                                                                     _jsx("div", {
                                                                         className: "w-2 h-4 bg-emerald-500 rounded-r",
@@ -25697,7 +25757,7 @@ function RackBuilderCalculator() {
                                             !g &&
                                                 _jsx("div", {
                                                     className:
-                                                        "mt-3 p-2 bg-purple-50 rounded text-xs text-purple-700 text-center",
+                                                        "mt-3 p-2 bg-purple-50 dark:bg-purple-900/20 rounded text-xs text-purple-700 text-center",
                                                     children:
                                                         "💡 Tap any item to select it, then use the floating control bar at the bottom.",
                                                 }),
@@ -25735,7 +25795,7 @@ function RackBuilderCalculator() {
                             },
                             children: _jsxs("div", {
                                 className:
-                                    "bg-white rounded-2xl border border-gray-200 px-1.5 sm:px-2 py-1.5 sm:py-2 flex items-center gap-0.5 sm:gap-1",
+                                    "bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 px-1.5 sm:px-2 py-1.5 sm:py-2 flex items-center gap-0.5 sm:gap-1",
                                 style: {
                                     backdropFilter: "blur(8px)",
                                     backgroundColor: "rgba(255,255,255,0.97)",
@@ -25744,12 +25804,12 @@ function RackBuilderCalculator() {
                                 children: [
                                     _jsxs("div", {
                                         className:
-                                            "flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-blue-500 text-white rounded-lg sm:rounded-xl",
+                                            "flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-blue-50 dark:bg-blue-900/200 text-white rounded-lg sm:rounded-xl",
                                         children: [
                                             _jsx("div", {
                                                 className:
                                                     "w-2.5 h-2.5 sm:w-3 sm:h-3 rounded " +
-                                                    ("equipment" === ot?.type ? "bg-white/30" : "bg-white/50"),
+                                                    ("equipment" === ot?.type ? "bg-white dark:bg-gray-800/30" : "bg-white dark:bg-gray-800/50"),
                                             }),
                                             "equipment" === ot?.type && ot?.item
                                                 ? S === ot.item.id
@@ -25767,7 +25827,7 @@ function RackBuilderCalculator() {
                                                           },
                                                           autoFocus: !0,
                                                           className:
-                                                              "bg-white text-gray-800 text-xs sm:text-sm px-1.5 sm:px-2 py-0.5 rounded w-20 sm:w-28 focus:outline-none focus:ring-2 focus:ring-blue-300",
+                                                              "bg-white dark:bg-gray-800 text-gray-800 text-xs sm:text-sm px-1.5 sm:px-2 py-0.5 rounded w-20 sm:w-28 focus:outline-none focus:ring-2 focus:ring-blue-300",
                                                       })
                                                     : _jsx("span", {
                                                           className:
@@ -25784,7 +25844,7 @@ function RackBuilderCalculator() {
                                                   }),
                                         ],
                                     }),
-                                    _jsx("div", { className: "w-px h-5 sm:h-6 bg-gray-200 mx-0.5 sm:mx-1" }),
+                                    _jsx("div", { className: "w-px h-5 sm:h-6 bg-gray-200 dark:bg-gray-700 mx-0.5 sm:mx-1" }),
                                     _jsx("button", {
                                         onClick: () => {
                                             if (!g) return;
@@ -25817,10 +25877,10 @@ function RackBuilderCalculator() {
                                                     : (p(Ge(Oe(s, c, me), me)), u(!1), (De.current = !0)));
                                         },
                                         className:
-                                            "p-1.5 sm:p-2.5 hover:bg-gray-100 rounded-lg sm:rounded-xl transition-colors group",
+                                            "p-1.5 sm:p-2.5 hover:bg-gray-100 dark:bg-gray-700 rounded-lg sm:rounded-xl transition-colors group",
                                         title: "Move Up",
                                         children: _jsx("svg", {
-                                            className: "w-4 h-4 sm:w-5 sm:h-5 text-gray-600 group-hover:text-gray-900",
+                                            className: "w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:text-gray-100",
                                             fill: "none",
                                             viewBox: "0 0 24 24",
                                             stroke: "currentColor",
@@ -25863,10 +25923,10 @@ function RackBuilderCalculator() {
                                                     : (p(Ge(Oe(s, c, me), me)), u(!1), (De.current = !0)));
                                         },
                                         className:
-                                            "p-1.5 sm:p-2.5 hover:bg-gray-100 rounded-lg sm:rounded-xl transition-colors group",
+                                            "p-1.5 sm:p-2.5 hover:bg-gray-100 dark:bg-gray-700 rounded-lg sm:rounded-xl transition-colors group",
                                         title: "Move Down",
                                         children: _jsx("svg", {
-                                            className: "w-4 h-4 sm:w-5 sm:h-5 text-gray-600 group-hover:text-gray-900",
+                                            className: "w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:text-gray-100",
                                             fill: "none",
                                             viewBox: "0 0 24 24",
                                             stroke: "currentColor",
@@ -25879,7 +25939,7 @@ function RackBuilderCalculator() {
                                         }),
                                     }),
                                     "manual" !== L &&
-                                        _jsx("div", { className: "w-px h-5 sm:h-6 bg-gray-200 mx-0.5 sm:mx-1" }),
+                                        _jsx("div", { className: "w-px h-5 sm:h-6 bg-gray-200 dark:bg-gray-700 mx-0.5 sm:mx-1" }),
                                     "manual" !== L &&
                                         (() => {
                                             const e = g ? h[g.rackIdx] : null,
@@ -25888,7 +25948,7 @@ function RackBuilderCalculator() {
                                                 onClick: () => !t && Ze("above"),
                                                 className:
                                                     "p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl transition-colors group " +
-                                                    (t ? "opacity-40 cursor-not-allowed" : "hover:bg-gray-100"),
+                                                    (t ? "opacity-40 cursor-not-allowed" : "hover:bg-gray-100 dark:bg-gray-700"),
                                                 title: t ? "Rack at max size (45U)" : "Add Blank Above",
                                                 disabled: t,
                                                 children: _jsx("span", {
@@ -25896,7 +25956,7 @@ function RackBuilderCalculator() {
                                                         "text-xs sm:text-sm font-bold " +
                                                         (t
                                                             ? "text-gray-400"
-                                                            : "text-gray-600 group-hover:text-gray-900"),
+                                                            : "text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:text-gray-100"),
                                                     children: "B▲",
                                                 }),
                                             });
@@ -25909,7 +25969,7 @@ function RackBuilderCalculator() {
                                                 onClick: () => !t && Ze("below"),
                                                 className:
                                                     "p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl transition-colors group " +
-                                                    (t ? "opacity-40 cursor-not-allowed" : "hover:bg-gray-100"),
+                                                    (t ? "opacity-40 cursor-not-allowed" : "hover:bg-gray-100 dark:bg-gray-700"),
                                                 title: t ? "Rack at max size (45U)" : "Add Blank Below",
                                                 disabled: t,
                                                 children: _jsx("span", {
@@ -25917,7 +25977,7 @@ function RackBuilderCalculator() {
                                                         "text-xs sm:text-sm font-bold " +
                                                         (t
                                                             ? "text-gray-400"
-                                                            : "text-gray-600 group-hover:text-gray-900"),
+                                                            : "text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:text-gray-100"),
                                                     children: "B▼",
                                                 }),
                                             });
@@ -25935,18 +25995,18 @@ function RackBuilderCalculator() {
                                             return _jsxs(_Fragment, {
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "w-px h-5 sm:h-6 bg-gray-200 mx-0.5 sm:mx-1",
+                                                        className: "w-px h-5 sm:h-6 bg-gray-200 dark:bg-gray-700 mx-0.5 sm:mx-1",
                                                     }),
                                                     _jsx("button", {
                                                         onClick: () => Ye(s, a - 1),
                                                         disabled: a <= 1,
                                                         className:
-                                                            "p-1.5 sm:p-2.5 hover:bg-gray-100 rounded-lg sm:rounded-xl transition-colors group " +
+                                                            "p-1.5 sm:p-2.5 hover:bg-gray-100 dark:bg-gray-700 rounded-lg sm:rounded-xl transition-colors group " +
                                                             (a <= 1 ? "opacity-30 cursor-not-allowed" : ""),
                                                         title: "Decrease Size",
                                                         children: _jsx("svg", {
                                                             className:
-                                                                "w-4 h-4 sm:w-5 sm:h-5 text-gray-600 group-hover:text-gray-900",
+                                                                "w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:text-gray-100",
                                                             fill: "none",
                                                             viewBox: "0 0 24 24",
                                                             stroke: "currentColor",
@@ -25960,19 +26020,19 @@ function RackBuilderCalculator() {
                                                     }),
                                                     _jsxs("span", {
                                                         className:
-                                                            "text-xs sm:text-sm font-semibold text-gray-700 min-w-6 sm:min-w-8 text-center",
+                                                            "text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 min-w-6 sm:min-w-8 text-center",
                                                         children: [a, "U"],
                                                     }),
                                                     _jsx("button", {
                                                         onClick: () => Ye(s, a + 1),
                                                         disabled: a >= me,
                                                         className:
-                                                            "p-1.5 sm:p-2.5 hover:bg-gray-100 rounded-lg sm:rounded-xl transition-colors group " +
+                                                            "p-1.5 sm:p-2.5 hover:bg-gray-100 dark:bg-gray-700 rounded-lg sm:rounded-xl transition-colors group " +
                                                             (a >= me ? "opacity-30 cursor-not-allowed" : ""),
                                                         title: "Increase Size",
                                                         children: _jsx("svg", {
                                                             className:
-                                                                "w-4 h-4 sm:w-5 sm:h-5 text-gray-600 group-hover:text-gray-900",
+                                                                "w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:text-gray-100",
                                                             fill: "none",
                                                             viewBox: "0 0 24 24",
                                                             stroke: "currentColor",
@@ -26001,7 +26061,7 @@ function RackBuilderCalculator() {
                                             return _jsxs(_Fragment, {
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "w-px h-5 sm:h-6 bg-gray-200 mx-0.5 sm:mx-1",
+                                                        className: "w-px h-5 sm:h-6 bg-gray-200 dark:bg-gray-700 mx-0.5 sm:mx-1",
                                                     }),
                                                     _jsx("button", {
                                                         onClick: () =>
@@ -26470,7 +26530,7 @@ function RackBuilderCalculator() {
                                                                     u(!1);
                                                             })(a),
                                                         className:
-                                                            "p-1.5 sm:p-2.5 hover:bg-gray-100 rounded-lg sm:rounded-xl transition-colors group",
+                                                            "p-1.5 sm:p-2.5 hover:bg-gray-100 dark:bg-gray-700 rounded-lg sm:rounded-xl transition-colors group",
                                                         title:
                                                             "rack" === r
                                                                 ? "Change to Shelf Mount"
@@ -26779,7 +26839,7 @@ function RackBuilderCalculator() {
                                                                     u(!1);
                                                             })(a),
                                                         className:
-                                                            "p-1.5 sm:p-2.5 hover:bg-gray-100 rounded-lg sm:rounded-xl transition-colors group",
+                                                            "p-1.5 sm:p-2.5 hover:bg-gray-100 dark:bg-gray-700 rounded-lg sm:rounded-xl transition-colors group",
                                                         title:
                                                             "half" === l
                                                                 ? "Change to Full Width"
@@ -26833,7 +26893,7 @@ function RackBuilderCalculator() {
                                                 return _jsxs(_Fragment, {
                                                     children: [
                                                         _jsx("div", {
-                                                            className: "w-px h-5 sm:h-6 bg-gray-200 mx-0.5 sm:mx-1",
+                                                            className: "w-px h-5 sm:h-6 bg-gray-200 dark:bg-gray-700 mx-0.5 sm:mx-1",
                                                         }),
                                                         _jsx("span", {
                                                             className: "text-xs text-gray-400 px-2",
@@ -26845,13 +26905,13 @@ function RackBuilderCalculator() {
                                             return _jsxs(_Fragment, {
                                                 children: [
                                                     _jsx("div", {
-                                                        className: "w-px h-5 sm:h-6 bg-gray-200 mx-0.5 sm:mx-1",
+                                                        className: "w-px h-5 sm:h-6 bg-gray-200 dark:bg-gray-700 mx-0.5 sm:mx-1",
                                                     }),
                                                     _jsxs("div", {
                                                         className: "flex items-center gap-1",
                                                         children: [
                                                             _jsx("svg", {
-                                                                className: "w-4 h-4 text-gray-500",
+                                                                className: "w-4 h-4 text-gray-500 dark:text-gray-400",
                                                                 fill: "none",
                                                                 viewBox: "0 0 24 24",
                                                                 stroke: "currentColor",
@@ -26991,7 +27051,7 @@ function RackBuilderCalculator() {
                                                                 },
                                                                 defaultValue: "-1",
                                                                 className:
-                                                                    "text-xs sm:text-sm bg-transparent border border-gray-300 rounded-lg px-1 py-1 pr-6 cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-300",
+                                                                    "text-xs sm:text-sm bg-transparent border border-gray-300 dark:border-gray-600 rounded-lg px-1 py-1 pr-6 cursor-pointer hover:bg-gray-50 dark:bg-gray-900/50 focus:outline-none focus:ring-1 focus:ring-blue-300",
                                                                 title: "Transfer to another rack",
                                                                 children: [
                                                                     _jsx(
@@ -27016,7 +27076,7 @@ function RackBuilderCalculator() {
                                                 ],
                                             });
                                         })(),
-                                    _jsx("div", { className: "w-px h-5 sm:h-6 bg-gray-200 mx-0.5 sm:mx-1" }),
+                                    _jsx("div", { className: "w-px h-5 sm:h-6 bg-gray-200 dark:bg-gray-700 mx-0.5 sm:mx-1" }),
                                     _jsx("button", {
                                         onClick: () => {
                                             if (g)
@@ -27041,10 +27101,10 @@ function RackBuilderCalculator() {
                                                 } else ot?.item?.id && (Qe(ot.item.id), b(null));
                                         },
                                         className:
-                                            "p-1.5 sm:p-2.5 hover:bg-red-50 rounded-lg sm:rounded-xl transition-colors group",
+                                            "p-1.5 sm:p-2.5 hover:bg-red-50 dark:bg-red-900/20 rounded-lg sm:rounded-xl transition-colors group",
                                         title: "Remove Item",
                                         children: _jsx("svg", {
-                                            className: "w-4 h-4 sm:w-5 sm:h-5 text-gray-600 group-hover:text-red-500",
+                                            className: "w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400 group-hover:text-red-500",
                                             fill: "none",
                                             viewBox: "0 0 24 24",
                                             stroke: "currentColor",
@@ -27059,10 +27119,10 @@ function RackBuilderCalculator() {
                                     _jsx("button", {
                                         onClick: () => b(null),
                                         className:
-                                            "p-1.5 sm:p-2.5 hover:bg-gray-100 rounded-lg sm:rounded-xl transition-colors group",
+                                            "p-1.5 sm:p-2.5 hover:bg-gray-100 dark:bg-gray-700 rounded-lg sm:rounded-xl transition-colors group",
                                         title: "Deselect",
                                         children: _jsx("svg", {
-                                            className: "w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-gray-600",
+                                            className: "w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-gray-600 dark:text-gray-400",
                                             fill: "none",
                                             viewBox: "0 0 24 24",
                                             stroke: "currentColor",
@@ -27090,7 +27150,7 @@ function RackBuilderCalculator() {
                     },
                     children: _jsxs("div", {
                         className:
-                            "bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden transform transition-all",
+                            "bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden transform transition-all",
                         style: { animation: "modalFadeIn 0.2s ease-out" },
                         children: [
                             _jsxs("div", {
@@ -27104,7 +27164,7 @@ function RackBuilderCalculator() {
                                     _jsx("button", {
                                         onClick: () => J(!1),
                                         className:
-                                            "absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-colors",
+                                            "absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white dark:bg-gray-800/20 hover:bg-white dark:bg-gray-800/30 transition-colors",
                                         children: _jsx("svg", {
                                             className: "w-5 h-5 text-white",
                                             fill: "none",
@@ -27123,7 +27183,7 @@ function RackBuilderCalculator() {
                                             "absolute left-1/2 bottom-0 transform -translate-x-1/2 translate-y-1/2",
                                         children: _jsx("div", {
                                             className:
-                                                "w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center",
+                                                "w-16 h-16 bg-white dark:bg-gray-800 rounded-full shadow-lg dark:shadow-gray-950/30 flex items-center justify-center",
                                             children: _jsx("span", { className: "text-3xl", children: "🗄️" }),
                                         }),
                                     }),
@@ -27133,18 +27193,18 @@ function RackBuilderCalculator() {
                                 className: "px-6 pt-12 pb-6 text-center",
                                 children: [
                                     _jsx("h3", {
-                                        className: "text-xl font-bold text-gray-900 mb-3",
+                                        className: "text-xl font-bold text-gray-900 dark:text-gray-100 mb-3",
                                         children: "Add New Rack",
                                     }),
                                     _jsx("p", {
-                                        className: "text-gray-600 text-sm leading-relaxed mb-4",
+                                        className: "text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4",
                                         children: "Select the size for your new rack",
                                     }),
                                     _jsx("select", {
                                         value: Q,
                                         onChange: (e) => K(parseInt(e.target.value)),
                                         className:
-                                            "w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-sm focus:border-indigo-500 focus:outline-none mb-6",
+                                            "w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl text-sm focus:border-indigo-500 focus:outline-none mb-6",
                                         children: ce.map((e) =>
                                             _jsx("option", { key: e, value: e, children: `${e}U Rack` })
                                         ),
@@ -27157,13 +27217,13 @@ function RackBuilderCalculator() {
                                                     Ve(Q), J(!1);
                                                 },
                                                 className:
-                                                    "w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-colors shadow-md hover:shadow-lg",
+                                                    "w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-colors shadow-md dark:shadow-gray-950/20 hover:shadow-lg dark:shadow-gray-950/30",
                                                 children: "Add Rack",
                                             }),
                                             _jsx("button", {
                                                 onClick: () => J(!1),
                                                 className:
-                                                    "w-full py-2.5 px-4 text-gray-600 hover:text-gray-800 font-medium transition-colors",
+                                                    "w-full py-2.5 px-4 text-gray-600 dark:text-gray-400 hover:text-gray-800 font-medium transition-colors",
                                                 children: "Cancel",
                                             }),
                                         ],
@@ -27187,7 +27247,7 @@ function RackBuilderCalculator() {
                     },
                     children: _jsxs("div", {
                         className:
-                            "bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden transform transition-all",
+                            "bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden transform transition-all",
                         style: { animation: "modalFadeIn 0.2s ease-out" },
                         children: [
                             _jsxs("div", {
@@ -27202,7 +27262,7 @@ function RackBuilderCalculator() {
                                             Z(!1), te(null);
                                         },
                                         className:
-                                            "absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-colors",
+                                            "absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white dark:bg-gray-800/20 hover:bg-white dark:bg-gray-800/30 transition-colors",
                                         children: _jsx("svg", {
                                             className: "w-5 h-5 text-white",
                                             fill: "none",
@@ -27221,7 +27281,7 @@ function RackBuilderCalculator() {
                                             "absolute left-1/2 bottom-0 transform -translate-x-1/2 translate-y-1/2",
                                         children: _jsx("div", {
                                             className:
-                                                "w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center",
+                                                "w-16 h-16 bg-white dark:bg-gray-800 rounded-full shadow-lg dark:shadow-gray-950/30 flex items-center justify-center",
                                             children: _jsx("svg", {
                                                 className: "w-9 h-9 text-red-600",
                                                 fill: "none",
@@ -27242,11 +27302,11 @@ function RackBuilderCalculator() {
                                 className: "px-6 pt-12 pb-6 text-center",
                                 children: [
                                     _jsx("h3", {
-                                        className: "text-xl font-bold text-gray-900 mb-3",
+                                        className: "text-xl font-bold text-gray-900 dark:text-gray-100 mb-3",
                                         children: `Delete Rack ${ee.index + 1}?`,
                                     }),
                                     _jsx("p", {
-                                        className: "text-gray-600 text-sm leading-relaxed mb-6",
+                                        className: "text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6",
                                         children: ee.hasEquipment
                                             ? "This rack contains equipment. All equipment in this rack will be permanently removed. This action cannot be undone."
                                             : "Are you sure you want to delete this empty rack? This action cannot be undone.",
@@ -27277,7 +27337,7 @@ function RackBuilderCalculator() {
                                                         te(null);
                                                 },
                                                 className:
-                                                    "w-full py-3 px-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl transition-colors shadow-md hover:shadow-lg",
+                                                    "w-full py-3 px-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl transition-colors shadow-md dark:shadow-gray-950/20 hover:shadow-lg dark:shadow-gray-950/30",
                                                 children: "Yes, Delete Rack",
                                             }),
                                             _jsx("button", {
@@ -27285,7 +27345,7 @@ function RackBuilderCalculator() {
                                                     Z(!1), te(null);
                                                 },
                                                 className:
-                                                    "w-full py-2.5 px-4 text-gray-600 hover:text-gray-800 font-medium transition-colors",
+                                                    "w-full py-2.5 px-4 text-gray-600 dark:text-gray-400 hover:text-gray-800 font-medium transition-colors",
                                                 children: "Cancel",
                                             }),
                                         ],
@@ -27434,14 +27494,14 @@ function VideoWallBuilderCalculator() {
                 className: "flex items-center justify-between mb-4 sm:mb-6",
                 children: [
                     _jsx("h1", {
-                        className: "text-2xl sm:text-3xl font-bold text-gray-900",
+                        className: "text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100",
                         children: "Video Wall Builder",
                     }),
                     B !== null &&
                         _jsx("button", {
                             onClick: () => H(!0),
                             className:
-                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm",
+                                "px-3 py-1.5 rounded-lg font-medium bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm transition-colors shadow-sm dark:shadow-gray-950/10",
                             children: "⟲ Reset Tool",
                         }),
                 ],
@@ -27473,20 +27533,20 @@ function VideoWallBuilderCalculator() {
                 onCancel: () => H(!1),
             }),
             _jsx("div", {
-                className: "bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200",
+                className: "bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 mb-6 border border-gray-200 dark:border-gray-700",
                 children: _jsxs("p", {
-                    className: "text-sm text-gray-600",
+                    className: "text-sm text-gray-600 dark:text-gray-400",
                     children: [
-                        _jsx("span", { className: "font-semibold text-gray-700", children: "What this tool does:" }),
+                        _jsx("span", { className: "font-semibold text-gray-700 dark:text-gray-300", children: "What this tool does:" }),
                         " Design video wall configurations by entering individual display dimensions and resolution. Adjust rows and columns to achieve your target wall size or aspect ratio. Calculates total dimensions, resolution, and pixel count.",
                     ],
                 }),
             }),
             _jsxs("div", {
-                className: "bg-blue-50 rounded-xl p-4 sm:p-5 mb-6 border border-blue-200",
+                className: "bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 sm:p-5 mb-6 border border-blue-200 dark:border-blue-800",
                 children: [
                     _jsx("h2", {
-                        className: "text-base sm:text-lg font-semibold text-blue-800 mb-2 sm:mb-3",
+                        className: "text-base sm:text-lg font-semibold text-blue-800 dark:text-blue-200 mb-2 sm:mb-3",
                         children: "Video Wall Design Tool",
                     }),
                     _jsx("p", {
@@ -27497,7 +27557,7 @@ function VideoWallBuilderCalculator() {
                 ],
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-4 sm:p-6 mb-6 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 mb-6 border",
                 children: [
                     _jsx("h2", {
                         className: "text-lg sm:text-xl font-semibold text-gray-800 mb-4",
@@ -27509,7 +27569,7 @@ function VideoWallBuilderCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Display Width",
                                     }),
                                     _jsx("input", {
@@ -27526,7 +27586,7 @@ function VideoWallBuilderCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Display Height",
                                     }),
                                     _jsx("input", {
@@ -27543,14 +27603,14 @@ function VideoWallBuilderCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Dimension Unit",
                                     }),
                                     _jsxs("select", {
                                         value: r,
                                         onChange: (e) => l(e.target.value),
                                         className:
-                                            "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white",
+                                            "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800",
                                         children: [
                                             _jsx("option", { value: "in", children: "Inches (in)" }),
                                             _jsx("option", { value: "mm", children: "Millimeters (mm)" }),
@@ -27561,7 +27621,7 @@ function VideoWallBuilderCalculator() {
                             _jsxs("div", {
                                 children: [
                                     _jsx("label", {
-                                        className: "block text-sm font-medium text-gray-700 mb-2",
+                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                         children: "Resolution",
                                     }),
                                     _jsxs("select", {
@@ -27575,7 +27635,7 @@ function VideoWallBuilderCalculator() {
                                             }
                                         },
                                         className:
-                                            "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white",
+                                            "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800",
                                         children: [
                                             _jsx("option", { value: "1920x1080", children: "1920×1080 (FHD)" }),
                                             _jsx("option", { value: "2560x1440", children: "2560×1440 (QHD)" }),
@@ -27591,10 +27651,10 @@ function VideoWallBuilderCalculator() {
                     }),
                     "custom" === c &&
                         _jsxs("div", {
-                            className: "mt-4 p-4 bg-gray-50 rounded-lg border",
+                            className: "mt-4 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg border",
                             children: [
                                 _jsx("label", {
-                                    className: "block text-sm font-medium text-gray-700 mb-3",
+                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3",
                                     children: "Custom Resolution",
                                 }),
                                 _jsxs("div", {
@@ -27604,7 +27664,7 @@ function VideoWallBuilderCalculator() {
                                             className: "flex-1",
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-xs text-gray-500 mb-1",
+                                                    className: "block text-xs text-gray-500 dark:text-gray-400 mb-1",
                                                     children: "Width (px)",
                                                 }),
                                                 _jsx("input", {
@@ -27628,7 +27688,7 @@ function VideoWallBuilderCalculator() {
                                             className: "flex-1",
                                             children: [
                                                 _jsx("label", {
-                                                    className: "block text-xs text-gray-500 mb-1",
+                                                    className: "block text-xs text-gray-500 dark:text-gray-400 mb-1",
                                                     children: "Height (px)",
                                                 }),
                                                 _jsx("input", {
@@ -27650,14 +27710,14 @@ function VideoWallBuilderCalculator() {
                                         _jsx("div", {
                                             className: "pt-5",
                                             children: _jsxs("span", {
-                                                className: "text-sm text-gray-600 bg-white px-2 py-1 rounded border",
+                                                className: "text-sm text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 px-2 py-1 rounded border",
                                                 children: [((i * o) / 1e6).toFixed(2), " MP"],
                                             }),
                                         }),
                                     ],
                                 }),
                                 _jsx("p", {
-                                    className: "text-xs text-gray-500 mt-2",
+                                    className: "text-xs text-gray-500 dark:text-gray-400 mt-2",
                                     children: "Enter your display's native resolution in pixels",
                                 }),
                             ],
@@ -27666,7 +27726,7 @@ function VideoWallBuilderCalculator() {
                         className: "mt-4",
                         children: [
                             _jsx("label", {
-                                className: "block text-sm font-medium text-gray-700 mb-2",
+                                className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                 children: "Bezel-to-Bezel Gap (optional)",
                             }),
                             _jsxs("div", {
@@ -27680,7 +27740,7 @@ function VideoWallBuilderCalculator() {
                                         onChange: (e) => u("" === e.target.value ? 0 : parseFloat(e.target.value) || 0),
                                         className: "w-32 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
                                     }),
-                                    _jsx("span", { className: "text-sm text-gray-600", children: "mm" }),
+                                    _jsx("span", { className: "text-sm text-gray-600 dark:text-gray-400", children: "mm" }),
                                     _jsxs("div", {
                                         className: "flex flex-wrap gap-1",
                                         children: [
@@ -27697,7 +27757,7 @@ function VideoWallBuilderCalculator() {
                                                         "px-2 py-1 text-xs rounded border transition-colors cursor-pointer " +
                                                         (x === e.value
                                                             ? "bg-blue-600 text-white border-blue-600"
-                                                            : "bg-gray-50 hover:bg-blue-50 border-gray-300"),
+                                                            : "bg-gray-50 dark:bg-gray-900/50 hover:bg-blue-50 dark:bg-blue-900/20 border-gray-300 dark:border-gray-600"),
                                                     children: e.label,
                                                 },
                                                 e.label
@@ -27707,7 +27767,7 @@ function VideoWallBuilderCalculator() {
                                 ],
                             }),
                             _jsx("p", {
-                                className: "text-xs text-gray-500 mt-1",
+                                className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
                                 children: "Total gap between adjacent display edges. Set to 0 for LED walls.",
                             }),
                         ],
@@ -27716,7 +27776,7 @@ function VideoWallBuilderCalculator() {
                         className: "mt-4",
                         children: [
                             _jsx("label", {
-                                className: "block text-sm font-medium text-gray-700 mb-2",
+                                className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                 children: "Quick Select - Common Displays",
                             }),
                             _jsx("div", {
@@ -27735,7 +27795,7 @@ function VideoWallBuilderCalculator() {
                                                 t(e.w), a(e.h), n(e.rw), d(e.rh), l("in"), m("preset");
                                             },
                                             className:
-                                                "px-3 py-1.5 text-xs rounded-lg border bg-white text-gray-700 border-gray-300 hover:bg-blue-50 transition-colors cursor-pointer",
+                                                "px-3 py-1.5 text-xs rounded-lg border bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-blue-50 dark:bg-blue-900/20 transition-colors cursor-pointer",
                                             children: e.label,
                                         },
                                         e.label
@@ -27747,7 +27807,7 @@ function VideoWallBuilderCalculator() {
                 ],
             }),
             _jsxs("div", {
-                className: "bg-white rounded-xl shadow-md p-4 sm:p-6 mb-6 border",
+                className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 mb-6 border",
                 children: [
                     _jsx("h2", {
                         className: "text-lg sm:text-xl font-semibold text-gray-800 mb-4",
@@ -27757,7 +27817,7 @@ function VideoWallBuilderCalculator() {
                         className: "mb-4",
                         children: [
                             _jsx("label", {
-                                className: "block text-sm font-medium text-gray-700 mb-2",
+                                className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                 children: "Input Mode",
                             }),
                             _jsxs("div", {
@@ -27813,14 +27873,14 @@ function VideoWallBuilderCalculator() {
                                 _jsxs("div", {
                                     children: [
                                         _jsx("label", {
-                                            className: "block text-sm font-medium text-gray-700 mb-2",
+                                            className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                             children: "Specify",
                                         }),
                                         _jsxs("select", {
                                             value: g,
                                             onChange: (e) => b(e.target.value),
                                             className:
-                                                "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white",
+                                                "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800",
                                             children: [
                                                 _jsx("option", { value: "width", children: "Width" }),
                                                 _jsx("option", { value: "height", children: "Height" }),
@@ -27831,7 +27891,7 @@ function VideoWallBuilderCalculator() {
                                 _jsxs("div", {
                                     children: [
                                         _jsxs("label", {
-                                            className: "block text-sm font-medium text-gray-700 mb-2",
+                                            className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                             children: ["Target ", "width" === g ? "Width" : "Height"],
                                         }),
                                         _jsxs("div", {
@@ -27853,7 +27913,7 @@ function VideoWallBuilderCalculator() {
                                                         var t;
                                                     },
                                                     className:
-                                                        "px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white",
+                                                        "px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800",
                                                     children: [
                                                         _jsx("option", { value: "ft", children: "ft" }),
                                                         _jsx("option", { value: "m", children: "m" }),
@@ -27867,7 +27927,7 @@ function VideoWallBuilderCalculator() {
                                     className: "col-span-2",
                                     children: [
                                         _jsx("label", {
-                                            className: "block text-sm font-medium text-gray-700 mb-2",
+                                            className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                             children: "Target Aspect Ratio",
                                         }),
                                         _jsxs("div", {
@@ -27927,7 +27987,7 @@ function VideoWallBuilderCalculator() {
                                                                     "px-2 py-1 text-xs rounded border transition-colors cursor-pointer " +
                                                                     (v === e.w && w === e.h
                                                                         ? "bg-blue-600 text-white border-blue-600"
-                                                                        : "bg-gray-50 hover:bg-blue-50 border-gray-300"),
+                                                                        : "bg-gray-50 dark:bg-gray-900/50 hover:bg-blue-50 dark:bg-blue-900/20 border-gray-300 dark:border-gray-600"),
                                                                 children: e.label,
                                                             },
                                                             e.label
@@ -27947,7 +28007,7 @@ function VideoWallBuilderCalculator() {
                                 _jsxs("div", {
                                     children: [
                                         _jsx("label", {
-                                            className: "block text-sm font-medium text-gray-700 mb-2",
+                                            className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                             children: "Total Width",
                                         }),
                                         _jsx("input", {
@@ -27964,7 +28024,7 @@ function VideoWallBuilderCalculator() {
                                 _jsxs("div", {
                                     children: [
                                         _jsx("label", {
-                                            className: "block text-sm font-medium text-gray-700 mb-2",
+                                            className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                             children: "Total Height",
                                         }),
                                         _jsx("input", {
@@ -27981,7 +28041,7 @@ function VideoWallBuilderCalculator() {
                                 _jsxs("div", {
                                     children: [
                                         _jsx("label", {
-                                            className: "block text-sm font-medium text-gray-700 mb-2",
+                                            className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                             children: "Unit",
                                         }),
                                         _jsxs("select", {
@@ -27991,7 +28051,7 @@ function VideoWallBuilderCalculator() {
                                                 var t;
                                             },
                                             className:
-                                                "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white",
+                                                "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800",
                                             children: [
                                                 _jsx("option", { value: "ft", children: "Feet (ft)" }),
                                                 _jsx("option", { value: "m", children: "Meters (m)" }),
@@ -28003,7 +28063,7 @@ function VideoWallBuilderCalculator() {
                                 _jsx("div", {
                                     className: "col-span-2 lg:col-span-3",
                                     children: _jsxs("p", {
-                                        className: "text-sm text-gray-500",
+                                        className: "text-sm text-gray-500 dark:text-gray-400",
                                         children: [
                                             "Aspect ratio will be automatically calculated: ",
                                             _jsxs("strong", { children: [(M / S).toFixed(2), ":1"] }),
@@ -28019,7 +28079,7 @@ function VideoWallBuilderCalculator() {
                                 _jsxs("div", {
                                     children: [
                                         _jsxs("label", {
-                                            className: "block text-sm font-medium text-gray-700 mb-2",
+                                            className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                             children: ["Columns: ", E],
                                         }),
                                         _jsx("input", {
@@ -28029,14 +28089,14 @@ function VideoWallBuilderCalculator() {
                                             value: E,
                                             onChange: (e) => F(parseInt(e.target.value)),
                                             className:
-                                                "w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600",
+                                                "w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600",
                                         }),
                                     ],
                                 }),
                                 _jsxs("div", {
                                     children: [
                                         _jsxs("label", {
-                                            className: "block text-sm font-medium text-gray-700 mb-2",
+                                            className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                             children: ["Rows: ", D],
                                         }),
                                         _jsx("input", {
@@ -28046,7 +28106,7 @@ function VideoWallBuilderCalculator() {
                                             value: D,
                                             onChange: (e) => I(parseInt(e.target.value)),
                                             className:
-                                                "w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600",
+                                                "w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600",
                                         }),
                                     ],
                                 }),
@@ -28117,7 +28177,7 @@ function VideoWallBuilderCalculator() {
                     className: "space-y-6",
                     children: [
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-4 sm:p-6 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border",
                             children: [
                                 _jsx("h2", {
                                     className: "text-lg sm:text-xl font-semibold text-gray-800 mb-4",
@@ -28129,7 +28189,7 @@ function VideoWallBuilderCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsxs("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-2",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                     children: [
                                                         "Columns: ",
                                                         _jsx("span", {
@@ -28145,7 +28205,7 @@ function VideoWallBuilderCalculator() {
                                                     value: E,
                                                     onChange: (e) => W(D, parseInt(e.target.value)),
                                                     className:
-                                                        "w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600",
+                                                        "w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600",
                                                 }),
                                                 _jsxs("div", {
                                                     className: "flex justify-between text-xs text-gray-400 mt-1",
@@ -28162,7 +28222,7 @@ function VideoWallBuilderCalculator() {
                                         _jsxs("div", {
                                             children: [
                                                 _jsxs("label", {
-                                                    className: "block text-sm font-medium text-gray-700 mb-2",
+                                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2",
                                                     children: [
                                                         "Rows: ",
                                                         _jsx("span", {
@@ -28178,7 +28238,7 @@ function VideoWallBuilderCalculator() {
                                                     value: D,
                                                     onChange: (e) => W(parseInt(e.target.value), E),
                                                     className:
-                                                        "w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600",
+                                                        "w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600",
                                                 }),
                                                 _jsxs("div", {
                                                     className: "flex justify-between text-xs text-gray-400 mt-1",
@@ -28197,7 +28257,7 @@ function VideoWallBuilderCalculator() {
                             ],
                         }),
                         _jsxs("div", {
-                            className: "bg-white rounded-xl shadow-md p-4 sm:p-6 border",
+                            className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-4 sm:p-6 border",
                             children: [
                                 _jsx("h2", {
                                     className: "text-lg sm:text-xl font-semibold text-gray-800 mb-4",
@@ -28207,7 +28267,7 @@ function VideoWallBuilderCalculator() {
                                     className: "grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6",
                                     children: [
                                         _jsxs("div", {
-                                            className: "bg-blue-50 p-4 rounded-lg border-2 border-blue-300 text-center",
+                                            className: "bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border-2 border-blue-300 text-center",
                                             children: [
                                                 _jsx("div", {
                                                     className: "text-xs text-blue-600 font-medium",
@@ -28225,7 +28285,7 @@ function VideoWallBuilderCalculator() {
                                         }),
                                         _jsxs("div", {
                                             className:
-                                                "bg-green-50 p-4 rounded-lg border-2 border-green-300 text-center",
+                                                "bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border-2 border-green-300 text-center",
                                             children: [
                                                 _jsx("div", {
                                                     className: "text-xs text-green-600 font-medium",
@@ -28243,7 +28303,7 @@ function VideoWallBuilderCalculator() {
                                         }),
                                         _jsxs("div", {
                                             className:
-                                                "bg-purple-50 p-4 rounded-lg border-2 border-purple-300 text-center",
+                                                "bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border-2 border-purple-300 text-center",
                                             children: [
                                                 _jsx("div", {
                                                     className: "text-xs text-purple-600 font-medium",
@@ -28281,9 +28341,9 @@ function VideoWallBuilderCalculator() {
                                 }),
                                 "dimension" === h &&
                                     _jsx("div", {
-                                        className: "p-3 bg-yellow-50 rounded-lg border border-yellow-200 mb-6",
+                                        className: "p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800 mb-6",
                                         children: _jsxs("p", {
-                                            className: "text-sm text-yellow-800",
+                                            className: "text-sm text-yellow-800 dark:text-yellow-200",
                                             children: [
                                                 _jsx("strong", { children: "Note:" }),
                                                 " Target aspect ratio was ",
@@ -28300,10 +28360,10 @@ function VideoWallBuilderCalculator() {
                                     className: "grid sm:grid-cols-2 gap-4 mb-6",
                                     children: [
                                         _jsxs("div", {
-                                            className: "p-4 bg-gray-50 rounded-lg overflow-hidden",
+                                            className: "p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg overflow-hidden",
                                             children: [
                                                 _jsx("h3", {
-                                                    className: "font-semibold text-gray-700 mb-3",
+                                                    className: "font-semibold text-gray-700 dark:text-gray-300 mb-3",
                                                     children: "Physical Dimensions",
                                                 }),
                                                 _jsxs("div", {
@@ -28313,7 +28373,7 @@ function VideoWallBuilderCalculator() {
                                                             className: "flex justify-between min-w-0",
                                                             children: [
                                                                 _jsx("span", {
-                                                                    className: "text-gray-600",
+                                                                    className: "text-gray-600 dark:text-gray-400",
                                                                     children: "Width:",
                                                                 }),
                                                                 _jsxs("span", {
@@ -28331,7 +28391,7 @@ function VideoWallBuilderCalculator() {
                                                             className: "flex justify-between min-w-0",
                                                             children: [
                                                                 _jsx("span", {
-                                                                    className: "text-gray-600",
+                                                                    className: "text-gray-600 dark:text-gray-400",
                                                                     children: "Height:",
                                                                 }),
                                                                 _jsxs("span", {
@@ -28349,7 +28409,7 @@ function VideoWallBuilderCalculator() {
                                                             className: "flex justify-between min-w-0",
                                                             children: [
                                                                 _jsx("span", {
-                                                                    className: "text-gray-600",
+                                                                    className: "text-gray-600 dark:text-gray-400",
                                                                     children: "Diagonal:",
                                                                 }),
                                                                 _jsxs("span", {
@@ -28368,10 +28428,10 @@ function VideoWallBuilderCalculator() {
                                             ],
                                         }),
                                         _jsxs("div", {
-                                            className: "p-4 bg-gray-50 rounded-lg overflow-hidden",
+                                            className: "p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg overflow-hidden",
                                             children: [
                                                 _jsx("h3", {
-                                                    className: "font-semibold text-gray-700 mb-3",
+                                                    className: "font-semibold text-gray-700 dark:text-gray-300 mb-3",
                                                     children: "Total Resolution",
                                                 }),
                                                 _jsxs("div", {
@@ -28381,7 +28441,7 @@ function VideoWallBuilderCalculator() {
                                                             className: "flex justify-between min-w-0",
                                                             children: [
                                                                 _jsx("span", {
-                                                                    className: "text-gray-600",
+                                                                    className: "text-gray-600 dark:text-gray-400",
                                                                     children: "Resolution:",
                                                                 }),
                                                                 _jsxs("span", {
@@ -28398,7 +28458,7 @@ function VideoWallBuilderCalculator() {
                                                             className: "flex justify-between min-w-0",
                                                             children: [
                                                                 _jsx("span", {
-                                                                    className: "text-gray-600",
+                                                                    className: "text-gray-600 dark:text-gray-400",
                                                                     children: "Total Pixels:",
                                                                 }),
                                                                 _jsxs("span", {
@@ -28411,7 +28471,7 @@ function VideoWallBuilderCalculator() {
                                                             className: "flex justify-between min-w-0",
                                                             children: [
                                                                 _jsx("span", {
-                                                                    className: "text-gray-600",
+                                                                    className: "text-gray-600 dark:text-gray-400",
                                                                     children: "Aspect Ratio:",
                                                                 }),
                                                                 _jsx("span", {
@@ -28423,10 +28483,10 @@ function VideoWallBuilderCalculator() {
                                                         B.bezelGapMM > 0 &&
                                                             _jsxs("div", {
                                                                 className:
-                                                                    "flex justify-between min-w-0 pt-2 border-t border-gray-200 mt-2",
+                                                                    "flex justify-between min-w-0 pt-2 border-t border-gray-200 dark:border-gray-700 mt-2",
                                                                 children: [
                                                                     _jsx("span", {
-                                                                        className: "text-gray-600",
+                                                                        className: "text-gray-600 dark:text-gray-400",
                                                                         children: "Bezel Gaps:",
                                                                     }),
                                                                     _jsxs("span", {
@@ -28446,10 +28506,10 @@ function VideoWallBuilderCalculator() {
                                             ],
                                         }),
                                         _jsxs("div", {
-                                            className: "p-4 bg-purple-50 rounded-lg border border-purple-200",
+                                            className: "p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800",
                                             children: [
                                                 _jsx("h3", {
-                                                    className: "font-semibold text-purple-800 mb-3",
+                                                    className: "font-semibold text-purple-800 dark:text-purple-200 mb-3",
                                                     children: "Viewing Distance (AVIXA DISCAS)",
                                                 }),
                                                 _jsxs("div", {
@@ -28459,7 +28519,7 @@ function VideoWallBuilderCalculator() {
                                                             className: "flex justify-between",
                                                             children: [
                                                                 _jsx("span", {
-                                                                    className: "text-gray-600",
+                                                                    className: "text-gray-600 dark:text-gray-400",
                                                                     children: "Pixel Pitch:",
                                                                 }),
                                                                 _jsxs("span", {
@@ -28472,7 +28532,7 @@ function VideoWallBuilderCalculator() {
                                                             className: "flex justify-between",
                                                             children: [
                                                                 _jsx("span", {
-                                                                    className: "text-gray-600",
+                                                                    className: "text-gray-600 dark:text-gray-400",
                                                                     children: "Analytical (data/text):",
                                                                 }),
                                                                 _jsxs("span", {
@@ -28491,7 +28551,7 @@ function VideoWallBuilderCalculator() {
                                                             className: "flex justify-between",
                                                             children: [
                                                                 _jsx("span", {
-                                                                    className: "text-gray-600",
+                                                                    className: "text-gray-600 dark:text-gray-400",
                                                                     children: "Basic (presentations):",
                                                                 }),
                                                                 _jsxs("span", {
@@ -28510,7 +28570,7 @@ function VideoWallBuilderCalculator() {
                                                             className: "flex justify-between",
                                                             children: [
                                                                 _jsx("span", {
-                                                                    className: "text-gray-600",
+                                                                    className: "text-gray-600 dark:text-gray-400",
                                                                     children: "Video content:",
                                                                 }),
                                                                 _jsxs("span", {
@@ -28557,7 +28617,7 @@ function VideoWallBuilderCalculator() {
                                                         "div",
                                                         {
                                                             className:
-                                                                "bg-blue-500 rounded-sm flex items-center justify-center text-white font-bold border border-blue-400 overflow-hidden",
+                                                                "bg-blue-50 dark:bg-blue-900/200 rounded-sm flex items-center justify-center text-white font-bold border border-blue-400 overflow-hidden",
                                                             style: {
                                                                 aspectRatio: `${i} / ${o}`,
                                                                 fontSize: `clamp(8px, ${Math.min(2, 20 / Math.max(B.cols, B.rows))}vw, 14px)`,
@@ -28581,7 +28641,7 @@ function VideoWallBuilderCalculator() {
                                             ],
                                         }),
                                         _jsxs("p", {
-                                            className: "text-center text-gray-500 text-xs mt-1",
+                                            className: "text-center text-gray-500 dark:text-gray-400 text-xs mt-1",
                                             children: [
                                                 B.totalWidthFt.toFixed(1),
                                                 "' × ",
