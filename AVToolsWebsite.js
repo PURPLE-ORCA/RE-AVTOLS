@@ -459,7 +459,7 @@ className: "bg-white dark:bg-gray-800 dark:bg-gray-900 shadow-sm dark:shadow-gra
                                         children: _jsx("img", {
                                             src: "AV_TOOLS_LOGO.svg",
                                             alt: "AV Tools Logo",
-                                            className: "h-8 sm:h-10 w-auto",
+                                            className: "h-8 sm:h-10 w-auto dark:brightness-0 dark:invert",
                                         }),
                                     }),
                                     _jsxs("div", {

@@ -33,7 +33,7 @@ const ResetConfirmModal = ({
                                   className:
                                       "absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white dark:bg-gray-800/20 hover:bg-white dark:bg-gray-800/30 transition-colors",
                                   children: _jsx("svg", {
-                                      className: "w-5 h-5 text-white",
+                                      className: "w-5 h-5 text-gray-500 dark:text-white",
                                       fill: "none",
                                       viewBox: "0 0 24 24",
                                       stroke: "currentColor",
@@ -52,7 +52,7 @@ const ResetConfirmModal = ({
                                       className:
                                           "w-16 h-16 bg-white dark:bg-gray-800 rounded-full shadow-lg dark:shadow-gray-950/30 flex items-center justify-center",
                                       children: _jsx("svg", {
-                                          className: "w-9 h-9 text-blue-600",
+                                          className: "w-9 h-9 text-blue-600 dark:text-white",
                                           fill: "none",
                                           viewBox: "0 0 24 24",
                                           stroke: "currentColor",

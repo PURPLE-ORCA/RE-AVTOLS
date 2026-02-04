@@ -116,8 +116,8 @@ function BandwidthCalculator() {
                                     _jsxs("select", {
                                         value: s,
                                         onChange: (e) => a(e.target.value),
-                                        className:
-                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm",
+className:
+                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                         children: [
                                             _jsx("option", { value: "1280x720", children: "720p HD (1280×720)" }),
                                             _jsx("option", {
@@ -211,8 +211,8 @@ function BandwidthCalculator() {
                                     _jsxs("select", {
                                         value: i,
                                         onChange: (e) => n(Number(e.target.value)),
-                                        className:
-                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm",
+className:
+                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                         children: [
                                             _jsx("option", { value: "8", children: "8-bit (SDR, 16.7M colors)" }),
                                             _jsx("option", { value: "10", children: "10-bit (HDR, 1.07B colors)" }),
@@ -233,8 +233,8 @@ function BandwidthCalculator() {
                                     _jsx("select", {
                                         value: o,
                                         onChange: (e) => d(e.target.value),
-                                        className:
-                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm",
+className:
+                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                         children: t.map((e) =>
                                             _jsxs(
                                                 "option",
@@ -258,8 +258,8 @@ function BandwidthCalculator() {
                                     _jsxs("select", {
                                         value: c,
                                         onChange: (e) => m(Number(e.target.value)),
-                                        className:
-                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm",
+className:
+                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                         children: [
                                             _jsx("option", {
                                                 value: "1",
@@ -862,8 +862,8 @@ function ProjectorCalculator() {
                                     _jsxs("select", {
                                         value: r,
                                         onChange: (e) => l(e.target.value),
-                                        className:
-                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+className:
+                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                         children: [
                                             _jsx("option", { value: "ft", children: "Feet" }),
                                             _jsx("option", { value: "in", children: "Inches" }),
@@ -885,8 +885,8 @@ function ProjectorCalculator() {
                                             return (s = t.target.value), m(s), void ("custom" !== s && d(y(e, s)));
                                             var s;
                                         },
-                                        className:
-                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+className:
+                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                         children: [
                                             _jsx("option", { value: "16:9", children: "16:9 (Widescreen)" }),
                                             _jsx("option", { value: "16:10", children: "16:10 (WXGA)" }),
@@ -917,8 +917,8 @@ function ProjectorCalculator() {
                                                     "custom" !== t && m(t);
                                                 }
                                             })("" === e.target.value ? "" : parseFloat(e.target.value)),
-                                        className:
-                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+className:
+                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                     }),
                                 ],
                             }),
@@ -940,8 +940,8 @@ function ProjectorCalculator() {
                                                 m(s);
                                             })("" === t.target.value ? "" : parseFloat(t.target.value)),
                                         className:
-                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 " +
-                                            ("custom" === c ? "" : "bg-gray-50 dark:bg-gray-900/50"),
+"w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 " +
+                                            ("custom" === c ? "dark:bg-gray-700 dark:text-white dark:border-gray-600" : "bg-gray-50 dark:bg-gray-900/50 dark:text-gray-400 dark:border-gray-700"),
                                     }),
                                     _jsx("p", {
                                         className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
@@ -2772,8 +2772,8 @@ function ViewingAngleCalculator() {
                                         min: "0.1",
                                         value: e,
                                         onChange: (e) => t("" === e.target.value ? "" : parseFloat(e.target.value)),
-                                        className:
-                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+className:
+                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                     }),
                                 ],
                             }),
@@ -2788,8 +2788,8 @@ function ViewingAngleCalculator() {
                                         min: "0.1",
                                         value: s,
                                         onChange: (e) => a("" === e.target.value ? "" : parseFloat(e.target.value)),
-                                        className:
-                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+className:
+                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                     }),
                                 ],
                             }),
@@ -2803,8 +2803,8 @@ function ViewingAngleCalculator() {
                                     _jsxs("select", {
                                         value: r,
                                         onChange: (e) => l(e.target.value),
-                                        className:
-                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+className:
+                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                         children: [
                                             _jsx("option", { value: "in", children: "Inches" }),
                                             _jsx("option", { value: "ft", children: "Feet" }),
@@ -3274,8 +3274,8 @@ function DvLEDCalculator() {
                                         min: "0.1",
                                         value: e,
                                         onChange: (e) => t("" === e.target.value ? "" : parseFloat(e.target.value)),
-                                        className:
-                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+className:
+                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                     }),
                                 ],
                             }),
@@ -3288,8 +3288,8 @@ function DvLEDCalculator() {
                                     _jsxs("select", {
                                         value: s,
                                         onChange: (e) => a(e.target.value),
-                                        className:
-                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+className:
+                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                         children: [
                                             _jsx("option", { value: "ft", children: "Feet" }),
                                             _jsx("option", { value: "m", children: "Meters" }),
@@ -3850,8 +3850,8 @@ function VideoWallCalculator() {
                                         type: "number",
                                         value: e,
                                         onChange: (e) => t("" === e.target.value ? "" : parseFloat(e.target.value)),
-                                        className:
-                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+className:
+                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                     }),
                                     _jsx("p", {
                                         className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
@@ -3870,8 +3870,8 @@ function VideoWallCalculator() {
                                         type: "number",
                                         value: s,
                                         onChange: (e) => a("" === e.target.value ? "" : parseFloat(e.target.value)),
-                                        className:
-                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+className:
+                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                     }),
                                     _jsx("p", {
                                         className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
@@ -3889,8 +3889,8 @@ function VideoWallCalculator() {
                                         type: "number",
                                         value: o,
                                         onChange: (e) => d("" === e.target.value ? "" : parseFloat(e.target.value)),
-                                        className:
-                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+className:
+                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                     }),
                                     _jsx("p", {
                                         className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
@@ -3908,8 +3908,8 @@ function VideoWallCalculator() {
                                         type: "number",
                                         value: c,
                                         onChange: (e) => m("" === e.target.value ? "" : parseFloat(e.target.value)),
-                                        className:
-                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+className:
+                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                     }),
                                     _jsx("p", {
                                         className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
@@ -3928,8 +3928,8 @@ function VideoWallCalculator() {
                                         step: "0.1",
                                         value: x,
                                         onChange: (e) => u("" === e.target.value ? "" : parseFloat(e.target.value)),
-                                        className:
-                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+className:
+                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                     }),
                                     _jsx("p", {
                                         className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
@@ -3946,8 +3946,8 @@ function VideoWallCalculator() {
                                     _jsxs("select", {
                                         value: r,
                                         onChange: (e) => l(e.target.value),
-                                        className:
-                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+className:
+                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                         children: [
                                             _jsx("option", {
                                                 value: "8bit",
@@ -3975,8 +3975,8 @@ function VideoWallCalculator() {
                                     _jsxs("select", {
                                         value: i,
                                         onChange: (e) => n(Number(e.target.value)),
-                                        className:
-                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+className:
+                                            "w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                         children: [
                                             _jsx("option", { value: 60, children: "60 Hz (Standard)" }),
                                             _jsx("option", { value: 75, children: "75 Hz" }),
@@ -4636,8 +4636,8 @@ function DisplaySizeCalculator() {
                                     _jsxs("select", {
                                         value: c,
                                         onChange: (e) => m(e.target.value),
-                                        className:
-                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm",
+className:
+                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                         children: [
                                             _jsx("option", { value: "BDM", children: "BDM (Basic Decision Making)" }),
                                             _jsx("option", {
@@ -4657,8 +4657,8 @@ function DisplaySizeCalculator() {
                                     _jsxs("select", {
                                         value: x,
                                         onChange: (e) => u(e.target.value),
-                                        className:
-                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm",
+className:
+                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                         children: [
                                             _jsx("option", { value: "in", children: "Inches" }),
                                             _jsx("option", { value: "ft", children: "Feet" }),
@@ -4678,8 +4678,8 @@ function DisplaySizeCalculator() {
                                         step: "0.1",
                                         value: e,
                                         onChange: (e) => t("" === e.target.value ? "" : parseFloat(e.target.value)),
-                                        className:
-                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm",
+className:
+                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                     }),
                                     _jsx("p", {
                                         className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
@@ -4705,7 +4705,7 @@ function DisplaySizeCalculator() {
                                                         onChange: (e) =>
                                                             n("" === e.target.value ? "" : parseFloat(e.target.value)),
                                                         className:
-                                                            "w-16 sm:w-20 px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm",
+                                                            "w-16 sm:w-20 px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                                     }),
                                                     _jsx("span", { className: "text-gray-500 dark:text-gray-400", children: ":" }),
                                                     _jsx("input", {
@@ -4714,7 +4714,7 @@ function DisplaySizeCalculator() {
                                                         onChange: (e) =>
                                                             d("" === e.target.value ? "" : parseFloat(e.target.value)),
                                                         className:
-                                                            "w-16 sm:w-20 px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm",
+                                                            "w-16 sm:w-20 px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                                     }),
                                                 ],
                                             }),
@@ -5301,8 +5301,8 @@ function CameraCalculator() {
                                     _jsxs("select", {
                                         value: h,
                                         onChange: (e) => p(e.target.value),
-                                        className:
-                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm",
+className:
+                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                         children: [
                                             _jsx("optgroup", {
                                                 label: "Video Conferencing",
@@ -5367,8 +5367,8 @@ function CameraCalculator() {
                                     _jsxs("select", {
                                         value: r,
                                         onChange: (e) => l(e.target.value),
-                                        className:
-                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm",
+className:
+                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                         children: [
                                             _jsx("option", { value: "m", children: "Meters (m)" }),
                                             _jsx("option", { value: "ft", children: "Feet (ft)" }),
@@ -5385,8 +5385,8 @@ function CameraCalculator() {
                                     _jsxs("select", {
                                         value: i,
                                         onChange: (e) => n(e.target.value),
-                                        className:
-                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm",
+className:
+                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                         children: [
                                             _jsx("option", { value: "720p", children: "720p (1280×720)" }),
                                             _jsx("option", { value: "1080p", children: "1080p (1920×1080)" }),
@@ -5416,8 +5416,8 @@ function CameraCalculator() {
                                         min: "0.1",
                                         value: e,
                                         onChange: (e) => t("" === e.target.value ? "" : parseFloat(e.target.value)),
-                                        className:
-                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm",
+className:
+                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                     }),
                                     _jsx("p", {
                                         className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
@@ -6393,7 +6393,7 @@ function VideoWallBuilderCalculator() {
                                         onChange: (e) =>
                                             t("" === e.target.value ? "" : parseFloat(e.target.value) || 0),
                                         className:
-                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                     }),
                                 ],
                             }),
@@ -6410,7 +6410,7 @@ function VideoWallBuilderCalculator() {
                                         onChange: (e) =>
                                             a("" === e.target.value ? "" : parseFloat(e.target.value) || 0),
                                         className:
-                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                            "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                     }),
                                 ],
                             }),
@@ -6424,7 +6424,7 @@ function VideoWallBuilderCalculator() {
                                         value: r,
                                         onChange: (e) => l(e.target.value),
                                         className:
-                                            "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800",
+                                            "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600",
                                         children: [
                                             _jsx("option", { value: "in", children: "Inches (in)" }),
                                             _jsx("option", { value: "mm", children: "Millimeters (mm)" }),
@@ -6449,7 +6449,7 @@ function VideoWallBuilderCalculator() {
                                             }
                                         },
                                         className:
-                                            "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800",
+                                            "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600",
                                         children: [
                                             _jsx("option", { value: "1920x1080", children: "1920×1080 (FHD)" }),
                                             _jsx("option", { value: "2560x1440", children: "2560×1440 (QHD)" }),
@@ -6492,7 +6492,7 @@ function VideoWallBuilderCalculator() {
                                                                 : parseInt(e.target.value)
                                                         ),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                                     placeholder: "Width",
                                                 }),
                                             ],
@@ -6516,7 +6516,7 @@ function VideoWallBuilderCalculator() {
                                                                 : parseInt(e.target.value)
                                                         ),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                                     placeholder: "Height",
                                                 }),
                                             ],
@@ -6552,7 +6552,7 @@ function VideoWallBuilderCalculator() {
                                         step: "0.1",
                                         value: x,
                                         onChange: (e) => u("" === e.target.value ? 0 : parseFloat(e.target.value) || 0),
-                                        className: "w-32 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                        className: "w-32 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                     }),
                                     _jsx("span", { className: "text-sm text-gray-600 dark:text-gray-400", children: "mm" }),
                                     _jsxs("div", {
@@ -6694,7 +6694,7 @@ function VideoWallBuilderCalculator() {
                                             value: g,
                                             onChange: (e) => b(e.target.value),
                                             className:
-                                                "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800",
+                                                "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600",
                                             children: [
                                                 _jsx("option", { value: "width", children: "Width" }),
                                                 _jsx("option", { value: "height", children: "Height" }),
@@ -6831,7 +6831,7 @@ function VideoWallBuilderCalculator() {
                                             onChange: (e) =>
                                                 k("" === e.target.value ? "" : parseFloat(e.target.value) || 0),
                                             className:
-                                                "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                         }),
                                     ],
                                 }),
@@ -6848,7 +6848,7 @@ function VideoWallBuilderCalculator() {
                                             onChange: (e) =>
                                                 R("" === e.target.value ? "" : parseFloat(e.target.value) || 0),
                                             className:
-                                                "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                         }),
                                     ],
                                 }),
@@ -6865,7 +6865,7 @@ function VideoWallBuilderCalculator() {
                                                 var t;
                                             },
                                             className:
-                                                "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800",
+                                                "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600",
                                             children: [
                                                 _jsx("option", { value: "ft", children: "Feet (ft)" }),
                                                 _jsx("option", { value: "m", children: "Meters (m)" }),

@@ -286,7 +286,7 @@ function ConduitCalculator() {
                                                     value: y,
                                                     onChange: (e) => j(e.target.value),
                                                     className:
-                                                        "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                                     children: [
                                                         _jsx("option", { value: "", children: "-- Select Cable --" }),
                                                         _jsx("optgroup", {
@@ -450,7 +450,7 @@ function ConduitCalculator() {
                                                     onChange: (e) =>
                                                         v("" === e.target.value ? "" : parseInt(e.target.value) || ""),
                                                     className:
-                                                        "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                                 }),
                                             ],
                                         }),
@@ -529,7 +529,7 @@ function ConduitCalculator() {
                                                                 value: k,
                                                                 onChange: (e) => S(e.target.value),
                                                                 placeholder: "e.g., Custom Cat7",
-                                                                className: "w-full px-2 py-1 text-sm border rounded",
+                                                                className: "w-full px-2 py-1 text-sm border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                                             }),
                                                         ],
                                                     }),
@@ -550,7 +550,7 @@ function ConduitCalculator() {
                                                                             ? ""
                                                                             : parseFloat(e.target.value) || ""
                                                                     ),
-                                                                className: "w-full px-2 py-1 text-sm border rounded",
+                                                                className: "w-full px-2 py-1 text-sm border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                                             }),
                                                         ],
                                                     }),
@@ -563,7 +563,7 @@ function ConduitCalculator() {
                                                             _jsxs("select", {
                                                                 value: C,
                                                                 onChange: (e) => M(e.target.value),
-                                                                className: "w-full px-2 py-1 text-sm border rounded",
+                                                                className: "w-full px-2 py-1 text-sm border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                                                 children: [
                                                                     _jsx("option", { value: "in", children: "inches" }),
                                                                     _jsx("option", { value: "mm", children: "mm" }),
@@ -626,7 +626,7 @@ function ConduitCalculator() {
                                                                             f(s);
                                                                         })(t, e.target.value),
                                                                     className:
-                                                                        "w-16 px-2 py-1 text-sm border rounded text-center",
+                                                                        "w-16 px-2 py-1 text-sm border rounded text-center dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                                                 }),
                                                                 _jsx("button", {
                                                                     type: "button",
@@ -3038,7 +3038,7 @@ function AudioCalculator() {
                                                                         : parseInt(e.target.value) || ""
                                                                 ),
                                                             placeholder: "Min",
-                                                            className: "w-1/2 px-3 py-2 border rounded-lg",
+                                                            className: "w-1/2 px-3 py-2 border rounded-lg dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                                         }),
                                                         _jsx("input", {
                                                             type: "number",
@@ -3052,7 +3052,7 @@ function AudioCalculator() {
                                                                         : Math.min(59, parseInt(e.target.value) || "")
                                                                 ),
                                                             placeholder: "Sec",
-                                                            className: "w-1/2 px-3 py-2 border rounded-lg",
+                                                            className: "w-1/2 px-3 py-2 border rounded-lg dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                                         }),
                                                     ],
                                                 }),
