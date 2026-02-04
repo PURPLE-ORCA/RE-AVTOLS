@@ -441,184 +441,178 @@ function AVToolsWebsite() {
         children: [
             _jsx("style", {
                 children:
-                    '\n        button { cursor: pointer !important; }\n        [role="button"] { cursor: pointer !important; }\n        a { cursor: pointer !important; }\n        select { cursor: pointer !important; }\n        input[type="range"] { cursor: pointer !important; }\n        input[type="checkbox"] { cursor: pointer !important; }\n        input[type="radio"] { cursor: pointer !important; }\n        label { cursor: pointer !important; }\n        .cursor-pointer { cursor: pointer !important; }\n        input[type="number"] { cursor: text !important; }\n        input[type="text"] { cursor: text !important; }\n        textarea { cursor: text !important; }\n        \n        /* Prevent layout shifts and scroll jumping */\n        * { overflow-anchor: none; }\n        html { overflow-anchor: none; scroll-behavior: auto; }\n        \n        /* Stable containers for dynamic content */\n        .calculator-container { \n          min-height: 100vh;\n        }\n        \n        /* Floating toolbar styles */\n        .floating-toolbar-portal {\n          position: fixed !important;\n          bottom: 24px !important;\n          left: 50% !important;\n          transform: translateX(-50%) !important;\n          z-index: 99999 !important;\n          pointer-events: auto !important;\n        }\n        \n        /* Error message progress bar animation */\n        @keyframes shrink {\n          from { width: 100%; }\n          to { width: 0%; }\n        }\n        \n        /* Reset confirmation modal animation */\n        @keyframes modalFadeIn {\n          from {\n            opacity: 0;\n            transform: scale(0.95) translateY(-10px);\n          }\n          to {\n            opacity: 1;\n            transform: scale(1) translateY(0);\n          }\n        }\n        \n        /* Marquee animation for long rack names */\n        @keyframes marquee {\n          0%, 10% { transform: translateX(0); }\n          90%, 100% { transform: translateX(calc(-100% + 100px)); }\n        }\n        \n        .rack-name-marquee {\n          display: inline-block;\n          white-space: nowrap;\n          animation: marquee 5s ease-in-out infinite;\n          animation-play-state: paused;\n        }\n        \n        .rack-name-container:hover .rack-name-marquee {\n          animation-play-state: running;\n        }\n      ',
+                    '\n        button { cursor: pointer !important; }\n        [role="button"] { cursor: pointer !important; }\n        a { cursor: pointer !important; }\n        select { cursor: pointer !important; }\n        input[type="range"] { cursor: pointer !important; }\n        input[type="checkbox"] { cursor: pointer !important; }\n        input[type="radio"] { cursor: pointer !important; }\n        label { cursor: pointer !important; }\n        .cursor-pointer { cursor: pointer !important; }\n        input[type="number"] { cursor: text !important; }\n        input[type="text"] { cursor: text !important; }\n        textarea { cursor: text !important; }\n        \n        /* Prevent layout shifts and scroll jumping */\n        * { overflow-anchor: none; }\n        html { overflow-anchor: none; scroll-behavior: auto; }\n        \n        /* Stable containers for dynamic content */\n        .calculator-container { \n          min-height: 100vh;\n        }\n        \n        /* Floating toolbar styles */\n        .floating-toolbar-portal {\n          position: fixed !important;\n          bottom: 24px !important;\n          left: 50% !important;\n          transform: translateX(-50%) !important;\n          z-index: 99999 !important;\n          pointer-events: auto !important;\n        }\n        \n        /* Error message progress bar animation */\n        @keyframes shrink {\n          from { width: 100%; }\n          to { width: 0%; }\n        }\n        \n        /* Reset confirmation modal animation */\n        @keyframes modalFadeIn {\n          from {\n            opacity: 0;\n            transform: scale(0.95) translateY(-10px);\n          }\n          to {\n            opacity: 1;\n            transform: scale(1) translateY(0);\n          }\n        }\n        \n        /* Marquee animation for long rack names */\n        @keyframes marquee {\n          0%, 10% { transform: translateX(0); }\n          90%, 100% { transform: translateX(calc(-100% + 100px)); }\n        }\n        \n        .rack-name-marquee {\n          display: inline-block;\n          white-space: nowrap;\n          animation: marquee 5s ease-in-out infinite;\n          animation-play-state: paused;\n        }\n        \n        .rack-name-container:hover .rack-name-marquee {\n          animation: marquee 5s ease-in-out infinite;\n          animation-play-state: running;\n        }\n      ',
             }),
-            _jsx(
-                () =>
-                    _jsx("header", {
-className: "bg-white dark:bg-gray-800 dark:bg-gray-900 shadow-sm dark:shadow-gray-950/10 border-b dark:border-gray-800 sticky top-0 z-50 transition-colors",
-                        children: _jsx("nav", {
-                            className: "max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4",
-                            children: _jsxs("div", {
-                                className: "flex justify-between items-center",
+            _jsx("header", {
+                className: "bg-white dark:bg-gray-800 dark:bg-gray-900 shadow-sm dark:shadow-gray-950/10 border-b dark:border-gray-800 sticky top-0 z-50 transition-colors",
+                children: _jsx("nav", {
+                    className: "max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4",
+                    children: _jsxs("div", {
+                        className: "flex justify-between items-center",
+                        children: [
+                            _jsx("button", {
+                                onClick: () => o(),
+                                className:
+                                    "flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity cursor-pointer",
+                                children: _jsx("img", {
+                                    src: "AV_TOOLS_LOGO.svg",
+                                    alt: "AV Tools Logo",
+                                    className: "h-8 sm:h-10 w-auto dark:brightness-0 dark:invert",
+                                }),
+                            }),
+                            _jsxs("div", {
+                                className: "flex gap-4 sm:gap-6 items-center",
                                 children: [
                                     _jsx("button", {
-                                        onClick: () => o(),
-                                        className:
-                                            "flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity cursor-pointer",
-                                        children: _jsx("img", {
-                                            src: "AV_TOOLS_LOGO.svg",
-                                            alt: "AV Tools Logo",
-                                            className: "h-8 sm:h-10 w-auto dark:brightness-0 dark:invert",
-                                        }),
+                                        onClick: () => toggleTheme(),
+                                        className: "p-2 rounded-lg bg-gray-100 dark:bg-gray-700 dark:bg-gray-800 text-gray-600 dark:text-gray-400 dark:text-gray-300 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-700 transition-colors cursor-pointer",
+                                        title: theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode',
+                                        children: theme === 'light'
+                                            ? _jsx("svg", {
+                                                  className: "w-5 h-5",
+                                                  fill: "none",
+                                                  stroke: "currentColor",
+                                                  viewBox: "0 0 24 24",
+                                                  children: _jsx("path", {
+                                                      strokeLinecap: "round",
+                                                      strokeLinejoin: "round",
+                                                      strokeWidth: 2,
+                                                      d: "M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z",
+                                                  }),
+                                              })
+                                            : _jsx("svg", {
+                                                  className: "w-5 h-5",
+                                                  fill: "none",
+                                                  stroke: "currentColor",
+                                                  viewBox: "0 0 24 24",
+                                                  children: _jsx("path", {
+                                                      strokeLinecap: "round",
+                                                      strokeLinejoin: "round",
+                                                      strokeWidth: 2,
+                                                      d: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z",
+                                                  }),
+                                              }),
                                     }),
-                                    _jsxs("div", {
-                                        className: "flex gap-4 sm:gap-6 items-center",
-                                        children: [
-                                            _jsx("button", {
-                                                onClick: () => toggleTheme(),
-                                                className: "p-2 rounded-lg bg-gray-100 dark:bg-gray-700 dark:bg-gray-800 text-gray-600 dark:text-gray-400 dark:text-gray-300 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-700 transition-colors cursor-pointer",
-                                                title: theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode',
-                                                children: theme === 'light'
-                                                    ? _jsx("svg", {
-                                                          className: "w-5 h-5",
-                                                          fill: "none",
-                                                          stroke: "currentColor",
-                                                          viewBox: "0 0 24 24",
-                                                          children: _jsx("path", {
-                                                              strokeLinecap: "round",
-                                                              strokeLinejoin: "round",
-                                                              strokeWidth: 2,
-                                                              d: "M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z",
-                                                          }),
-                                                      })
-                                                    : _jsx("svg", {
-                                                          className: "w-5 h-5",
-                                                          fill: "none",
-                                                          stroke: "currentColor",
-                                                          viewBox: "0 0 24 24",
-                                                          children: _jsx("path", {
-                                                              strokeLinecap: "round",
-                                                              strokeLinejoin: "round",
-                                                              strokeWidth: 2,
-                                                              d: "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z",
-                                                          }),
-                                                      }),
-                                            }),
-                                            "tool" === e &&
-                                                _jsxs("button", {
-                                                    onClick: () => o(),
-                                                    className:
-                                                        "text-sm sm:text-base font-medium text-gray-600 dark:text-gray-400 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-1 sm:gap-2 cursor-pointer",
-                                                    children: [
-                                                        _jsx("span", { children: "←" }),
-                                                        " ",
-                                                        _jsx("span", {
-                                                            className: "hidden sm:inline",
-                                                            children: "Back to",
-                                                        }),
-                                                        " Tools",
-                                                    ],
+                                    "tool" === e &&
+                                        _jsxs("button", {
+                                            onClick: () => o(),
+                                            className:
+                                                "text-sm sm:text-base font-medium text-gray-600 dark:text-gray-400 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center gap-1 sm:gap-2 cursor-pointer",
+                                            children: [
+                                                _jsx("span", { children: "←" }),
+                                                " ",
+                                                _jsx("span", {
+                                                    className: "hidden sm:inline",
+                                                    children: "Back to",
                                                 }),
-                                        ],
-                                    }),
+                                                " Tools",
+                                            ],
+                                        }),
                                 ],
                             }),
-                        }),
+                        ],
                     }),
-                {}
-            ),
+                }),
+            }),
             _jsxs("main", {
                 className: "flex-grow calculator-container",
                 children: [
                     "home" === e && _jsx(x, {}),
                     "tool" === e &&
-                        _jsx(
-                            () =>
-                                ({
-                                    bandwidth: _jsx(BandwidthCalculator, {}),
-                                    conduit: _jsx(ConduitCalculator, {}),
-                                    audio: _jsx(AudioCalculator, {}),
-                                    projector: _jsx(ProjectorCalculator, {}),
-                                    poe: _jsx(POECalculator, {}),
-                                    brightness: _jsx(BrightnessCalculator, {}),
-                                    "viewing-angle": _jsx(ViewingAngleCalculator, {}),
-                                    dvled: _jsx(DvLEDCalculator, {}),
-                                    videowall: _jsx(VideoWallCalculator, {}),
-                                    "videowall-builder": _jsx(VideoWallBuilderCalculator, {}),
-                                    cooling: _jsx(CoolingCalculator, {}),
-                                    speaker: _jsx(SpeakerCalculator, {}),
-                                    "display-size": _jsx(DisplaySizeCalculator, {}),
-                                    camera: _jsx(CameraCalculator, {}),
-                                    dsp: _jsx(DSPCalculator, {}),
-                                    "rack-builder": _jsx(RackBuilderCalculator, {}),
-                                })[s] ||
-                                _jsxs("div", {
-                                    className: "max-w-2xl mx-auto px-6 py-16 text-center",
-                                    children: [
-                                        _jsx("div", { className: "text-6xl mb-4", children: "🔍" }),
-                                        _jsx("h2", {
-                                            className: "text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2",
-                                            children: "Tool Not Found",
-                                        }),
-                                        _jsx("p", {
-                                            className: "text-gray-600 dark:text-gray-400 mb-6",
-                                            children: "The requested calculator could not be found.",
-                                        }),
-                                        _jsx("button", {
-                                            onClick: () => o(),
-                                            className:
-                                                "px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer",
-                                            children: "Back to All Tools",
-                                        }),
-                                    ],
-                                }),
-                            {}
-                        ),
+                        (({
+                            bandwidth: _jsx(BandwidthCalculator, {}),
+                            conduit: _jsx(ConduitCalculator, {}),
+                            audio: _jsx(AudioCalculator, {}),
+                            projector: _jsx(ProjectorCalculator, {}),
+                            poe: _jsx(POECalculator, {}),
+                            brightness: _jsx(BrightnessCalculator, {}),
+                            "viewing-angle": _jsx(ViewingAngleCalculator, {}),
+                            dvled: _jsx(DvLEDCalculator, {}),
+                            videowall: _jsx(VideoWallCalculator, {}),
+                            "videowall-builder": _jsx(VideoWallBuilderCalculator, {}),
+                            cooling: _jsx(CoolingCalculator, {}),
+                            speaker: _jsx(SpeakerCalculator, {}),
+                            "display-size": _jsx(DisplaySizeCalculator, {}),
+                            camera: _jsx(CameraCalculator, {}),
+                            dsp: _jsx(DSPCalculator, {}),
+                            "rack-builder": _jsx(RackBuilderCalculator, {}),
+                        })[s] ||
+                            _jsxs("div", {
+                                className: "max-w-2xl mx-auto px-6 py-16 text-center",
+                                children: [
+                                    _jsx("div", { className: "text-6xl mb-4", children: "🔍" }),
+                                    _jsx("h2", {
+                                        className: "text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2",
+                                        children: "Tool Not Found",
+                                    }),
+                                    _jsx("p", {
+                                        className: "text-gray-600 dark:text-gray-400 mb-6",
+                                        children: "The requested calculator could not be found.",
+                                    }),
+                                    _jsx("button", {
+                                        onClick: () => o(),
+                                        className:
+                                            "px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer",
+                                        children: "Back to All Tools",
+                                    }),
+                                ],
+                            })),
                     "tools" === e && _jsx(x, {}),
                 ],
             }),
-            _jsx(
-                () =>
-                    _jsx("footer", {
-                        className: "bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-800 dark:to-blue-950 mt-10 sm:mt-16",
-                        children: _jsx("div", {
-                            className: "max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8",
-                            children: _jsxs("div", {
-                                className: "flex flex-col items-center gap-4 sm:gap-6 md:flex-row md:justify-between",
+            _jsx("footer", {
+                className: "bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-800 dark:to-blue-950 mt-10 sm:mt-16",
+                children: _jsx("div", {
+                    className: "max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8",
+                    children: _jsxs("div", {
+                        className: "flex flex-col items-center gap-4 sm:gap-6 md:flex-row md:justify-between",
+                        children: [
+                            _jsx("div", {
+                                className: "flex items-center gap-3",
+                                children: _jsx("img", {
+                                    src: "AV_TOOLS_LOGO.svg",
+                                    alt: "AV Tools Logo",
+                                    className: "h-6 sm:h-8 w-auto brightness-0 invert",
+                                }),
+                            }),
+                            _jsxs("div", {
+                                className:
+                                    "flex flex-wrap justify-center gap-2 sm:gap-4 text-xs sm:text-sm text-blue-200 dark:text-blue-300",
                                 children: [
-                                    _jsx("div", {
-                                        className: "flex items-center gap-3",
-                                        children: _jsx("img", {
-                                            src: "AV_TOOLS_LOGO.svg",
-                                            alt: "AV Tools Logo",
-                                            className: "h-6 sm:h-8 w-auto brightness-0 invert",
-                                        }),
+                                    _jsx("span", { children: "Video" }),
+                                    _jsx("span", { children: "•" }),
+                                    _jsx("span", { children: "Audio" }),
+                                    _jsx("span", { children: "•" }),
+                                    _jsx("span", { children: "IT Infrastructure" }),
+                                    _jsx("span", { children: "•" }),
+                                    _jsx("a", {
+                                        href: "/privacy-policy.html",
+                                        className: "underline hover:text-white transition-colors",
+                                        children: "Privacy Policy",
                                     }),
-                                    _jsxs("div", {
-                                        className:
-                                            "flex flex-wrap justify-center gap-2 sm:gap-4 text-xs sm:text-sm text-blue-200 dark:text-blue-300",
-                                        children: [
-                                            _jsx("span", { children: "Video" }),
-                                            _jsx("span", { children: "•" }),
-                                            _jsx("span", { children: "Audio" }),
-                                            _jsx("span", { children: "•" }),
-                                            _jsx("span", { children: "IT Infrastructure" }),
-                                            _jsx("span", { children: "•" }),
-                                            _jsx("a", {
-                                                href: "/privacy-policy.html",
-                                                className: "underline hover:text-white transition-colors",
-                                                children: "Privacy Policy",
-                                            }),
-                                        ],
-                                    }),
-                                    _jsxs("div", {
-                                        className: "text-center text-blue-100 dark:text-blue-200 text-xs sm:text-sm",
-                                        children: [
-                                            _jsx("p", { children: "AV Tools. All Rights Reserved." }),
-                                            _jsx("a", {
-                                                href: "mailto:contact@avtoolspro.com",
-                                                className: "underline hover:text-white",
-                                                children: "contact@avtoolspro.com",
-                                            }),
-                                        ],
+                                    _jsx("span", { children: "•" }),
+                                    _jsx("a", {
+                                        href: "https://www.youtube.com/@The_Av_Pro",
+                                        className: "underline hover:text-white transition-colors",
+                                        children: "Youtube tutorials",
                                     }),
                                 ],
                             }),
-                        }),
+                            _jsxs("div", {
+                                className: "text-center text-blue-100 dark:text-blue-200 text-xs sm:text-sm",
+                                children: [
+                                    _jsx("p", { children: "AV Tools. All Rights Reserved." }),
+                                    _jsx("a", {
+                                        href: "mailto:contact@avtoolspro.com",
+                                        className: "underline hover:text-white",
+                                        children: "contact@avtoolspro.com",
+                                    }),
+                                ],
+                            }),
+                        ],
                     }),
-                {}
-            ),
+                }),
+            }),
         ],
     });
 }
