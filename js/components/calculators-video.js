@@ -6646,8 +6646,8 @@ function VideoWallBuilderCalculator() {
                                                 onChange: () => p("dimension"),
                                                 className: "text-blue-600",
                                             }),
-                                            _jsx("span", {
-                                                className: "text-sm",
+_jsx("span", {
+                                                className: "text-sm dark:text-gray-300",
                                                 children: "Dimension + Aspect Ratio",
                                             }),
                                         ],
@@ -6661,7 +6661,7 @@ function VideoWallBuilderCalculator() {
                                                 onChange: () => p("size"),
                                                 className: "text-blue-600",
                                             }),
-                                            _jsx("span", { className: "text-sm", children: "Width × Height" }),
+                                            _jsx("span", { className: "text-sm dark:text-gray-300", children: "Width × Height" }),
                                         ],
                                     }),
                                     _jsxs("label", {
@@ -6673,7 +6673,7 @@ function VideoWallBuilderCalculator() {
                                                 onChange: () => p("manual"),
                                                 className: "text-blue-600",
                                             }),
-                                            _jsx("span", { className: "text-sm", children: "Manual Grid" }),
+                                            _jsx("span", { className: "text-sm dark:text-gray-300", children: "Manual Grid" }),
                                         ],
                                     }),
                                 ],
@@ -6718,7 +6718,7 @@ function VideoWallBuilderCalculator() {
                                                     onChange: (e) =>
                                                         y("" === e.target.value ? "" : parseFloat(e.target.value) || 0),
                                                     className:
-                                                        "flex-1 min-w-0 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "flex-1 min-w-0 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                                 }),
                                                 _jsxs("select", {
                                                     value: j,
@@ -6727,7 +6727,7 @@ function VideoWallBuilderCalculator() {
                                                         var t;
                                                     },
                                                     className:
-                                                        "px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800",
+                                                        "px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800 dark:text-white dark:border-gray-600",
                                                     children: [
                                                         _jsx("option", { value: "ft", children: "ft" }),
                                                         _jsx("option", { value: "m", children: "m" }),
@@ -6760,7 +6760,7 @@ function VideoWallBuilderCalculator() {
                                                                         : parseFloat(e.target.value) || 0
                                                                 ),
                                                             className:
-                                                                "w-16 px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-center",
+                                                                "w-16 px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-center dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                                         }),
                                                         _jsx("span", {
                                                             className: "font-bold truncate",
@@ -6776,7 +6776,7 @@ function VideoWallBuilderCalculator() {
                                                                         : parseFloat(e.target.value) || 0
                                                                 ),
                                                             className:
-                                                                "w-16 px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-center",
+                                                                "w-16 px-2 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 text-center dark:bg-gray-700 dark:text-white dark:border-gray-600",
                                                         }),
                                                     ],
                                                 }),
