@@ -2,22 +2,22 @@
 
 This document outlines the architectural strategy used for the AV Tools Pro website refactor (Feb 2026).
 
-## 1. Modularization Strategy: "Smart Separation"
+## 1. Modularization Strategy: "Vertical Slice"
 
-To maintain compatibility with legacy browsers and satisfy the "No Build Tools" requirement, the application uses a **Global Scope Script Concatenation** pattern. 
+To maintain compatibility with legacy browsers and satisfy the "No Build Tools" requirement while improving maintainability, the application uses a **Global Scope Script Concatenation** pattern with a **Vertical Slice** organization.
 
-Unlike modern ES Modules (`import/export`), which require a local server and specific MIME types, this approach loads scripts sequentially in the global memory space.
+Each tool (calculator) is contained within a single file that holds both its mathematical logic and its React UI component.
 
 ### Load Order Diagram
 
 ```mermaid
 graph TD
-    A[index.html] --> B(js/security.js)
-    B --> C(js/core.js)
+    A[index.html] --> B(js/core.js)
+    B --> C(js/security.js)
     C --> D(js/components/ResetConfirmModal.js)
-    D --> E(js/calculators-all.js)
-    E --> F(js/components/calculators-video.js)
-    F --> G(js/components/calculators-audio-it.js)
+    D --> E[js/tools/bandwidth-calculator.js]
+    E --> F[js/tools/projector-calculator.js]
+    F --> G[...other tools...]
     G --> H(AVToolsWebsite.js)
     H --> I{checkAndMount}
     I --> J[React Root Render]
@@ -35,9 +35,10 @@ The application has moved away from a Single Page Application (SPA) routing mode
 
 1.  **React Globals:** Provided via Unpkg CDN.
 2.  **Core Layer:** Defines the `_jsx` and `_jsxs` primitives used by the React components.
-3.  **Logic Layer:** Contains pure JavaScript functions (math/formulas) independent of the UI.
-4.  **UI Layer:** React functional components that handle user input and display results.
-5.  **Shell Layer:** The `AVToolsWebsite` component which manages the overall layout, theme, and routing.
+3.  **Tool Layer (`js/tools/`):** 16 independent files. Each file defines:
+    *   A global math function (e.g., `calculateBandwidth`).
+    *   A global React component (e.g., `BandwidthCalculator`).
+4.  **Shell Layer:** The `AVToolsWebsite` component which manages the overall layout, theme, and routing.
 
 ---
 *Prepared by Antigravity AI - Google DeepMind*

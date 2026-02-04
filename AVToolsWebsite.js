@@ -541,7 +541,7 @@ className: "bg-white dark:bg-gray-800 dark:bg-gray-900 shadow-sm dark:shadow-gra
                                     "display-size": _jsx(DisplaySizeCalculator, {}),
                                     camera: _jsx(CameraCalculator, {}),
                                     dsp: _jsx(DSPCalculator, {}),
-                                    "rack-builder": _jsx(RackBuilderCalculator, {}),
+                                    "rack-builder": _jsx(RackBuilder, {}),
                                 })[s] ||
                                 _jsxs("div", {
                                     className: "max-w-2xl mx-auto px-6 py-16 text-center",
