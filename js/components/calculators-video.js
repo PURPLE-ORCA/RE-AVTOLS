@@ -338,7 +338,7 @@ className:
                     }),
                     _jsxs("div", {
                         className:
-                            "mt-6 p-4 bg-gradient-to-r from-blue-50 via-green-50 to-purple-50 rounded-lg border border-gray-200 dark:border-gray-700",
+                            "mt-6 p-4 bg-gradient-to-r from-blue-50 via-green-50 to-purple-50 dark:from-blue-900/20 dark:via-green-900/20 dark:to-purple-900/20 rounded-lg border border-gray-200 dark:border-gray-700",
                         children: [
                             _jsx("h3", {
                                 className: "text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3",
@@ -382,7 +382,7 @@ className:
                                         ],
                                     }),
                                     _jsxs("div", {
-                                        className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-orange-200",
+                                        className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-orange-200 dark:border-orange-800",
                                         children: [
                                             _jsx("p", {
                                                 className: "font-semibold text-orange-600 mb-2",
@@ -405,6 +405,7 @@ className:
                                                 className: "font-semibold text-purple-600 mb-2",
                                                 children: "🇨🇳 DTMB (China/Cuba/Pak)",
                                             }),
+
                                             _jsxs("ul", {
                                                 className: "text-gray-600 dark:text-gray-400 space-y-1",
                                                 children: [
@@ -2646,10 +2647,10 @@ function ViewingAngleCalculator() {
             }),
             _jsxs("div", {
                 className:
-                    "bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-md dark:shadow-gray-950/20 p-6 mb-8 border border-blue-200 dark:border-blue-800",
+                    "bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl shadow-md dark:shadow-gray-950/20 p-6 mb-8 border border-blue-200 dark:border-blue-800",
                 children: [
                     _jsxs("h2", {
-                        className: "text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2",
+                        className: "text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3 flex items-center gap-2",
                         children: [
                             _jsx("span", { className: "text-blue-600", children: "📐" }),
                             " Industry Viewing Standards",
@@ -2676,7 +2677,7 @@ function ViewingAngleCalculator() {
                                         ],
                                     }),
                                     _jsx("div", {
-                                        className: "text-sm font-medium text-gray-800",
+                                        className: "text-sm font-medium text-gray-800 dark:text-gray-200",
                                         children: "THX Reference",
                                     }),
                                     _jsx("div", { className: "text-xs text-gray-500 dark:text-gray-400", children: "Cinema, immersive" }),
@@ -2696,7 +2697,7 @@ function ViewingAngleCalculator() {
                                         ],
                                     }),
                                     _jsx("div", {
-                                        className: "text-sm font-medium text-gray-800",
+                                        className: "text-sm font-medium text-gray-800 dark:text-gray-200",
                                         children: "SMPTE Standard",
                                     }),
                                     _jsx("div", {
@@ -2706,7 +2707,7 @@ function ViewingAngleCalculator() {
                                 ],
                             }),
                             _jsxs("div", {
-                                className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-teal-200",
+                                className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-teal-200 dark:border-teal-800",
                                 children: [
                                     _jsxs("div", {
                                         className: "flex items-center gap-2 mb-1",
@@ -2719,7 +2720,7 @@ function ViewingAngleCalculator() {
                                         ],
                                     }),
                                     _jsx("div", {
-                                        className: "text-sm font-medium text-gray-800",
+                                        className: "text-sm font-medium text-gray-800 dark:text-gray-200",
                                         children: "THX Minimum",
                                     }),
                                     _jsx("div", {
@@ -2742,7 +2743,7 @@ function ViewingAngleCalculator() {
                                         ],
                                     }),
                                     _jsx("div", {
-                                        className: "text-sm font-medium text-gray-800",
+                                        className: "text-sm font-medium text-gray-800 dark:text-gray-200",
                                         children: "Basic Viewing",
                                     }),
                                     _jsx("div", {
@@ -2755,6 +2756,7 @@ function ViewingAngleCalculator() {
                     }),
                 ],
             }),
+
             _jsxs("div", {
                 className: "bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-950/20 p-8 mb-8 border",
                 children: [
@@ -2846,9 +2848,10 @@ className:
                                     ? "bg-green-50 dark:bg-green-900/20 border-green-300"
                                     : "blue" === c.color
                                       ? "bg-blue-50 dark:bg-blue-900/20 border-blue-300"
-                                      : "teal" === c.color
-                                        ? "bg-teal-50 border-teal-300"
-                                        : "yellow" === c.color
+                                  : "teal" === c.color
+                                    ? "bg-teal-50 dark:bg-teal-900/20 border-teal-300 dark:border-teal-800"
+                                    : "yellow" === c.color
+
                                           ? "bg-yellow-50 dark:bg-yellow-900/20 border-yellow-300"
                                           : "bg-red-50 dark:bg-red-900/20 border-red-300"),
                             children: [
@@ -2879,9 +2882,10 @@ className:
                                                             ? "text-green-800 dark:text-green-200"
                                                             : "blue" === c.color
                                                               ? "text-blue-800 dark:text-blue-200"
-                                                              : "teal" === c.color
-                                                                ? "text-teal-800"
-                                                                : "yellow" === c.color
+                                                      : "teal" === c.color
+                                                        ? "text-teal-800 dark:text-teal-200"
+                                                        : "yellow" === c.color
+
                                                                   ? "text-yellow-800 dark:text-yellow-200"
                                                                   : "text-red-800 dark:text-red-200"),
                                                     children: c.label,
@@ -2893,9 +2897,10 @@ className:
                                                             ? "text-green-700"
                                                             : "blue" === c.color
                                                               ? "text-blue-700"
-                                                              : "teal" === c.color
-                                                                ? "text-teal-700"
-                                                                : "yellow" === c.color
+                                                      : "teal" === c.color
+                                                        ? "text-teal-700 dark:text-teal-300"
+                                                        : "yellow" === c.color
+
                                                                   ? "text-yellow-700"
                                                                   : "text-red-700"),
                                                     children: c.description,
@@ -3126,52 +3131,54 @@ function DvLEDCalculator() {
             const t = {
                 purple: {
                     bg: "bg-purple-50 dark:bg-purple-900/20",
-                    border: "border-purple-300",
-                    text: "text-purple-700",
-                    badge: "bg-purple-100 text-purple-800 dark:text-purple-200",
+                    border: "border-purple-300 dark:border-purple-800",
+                    text: "text-purple-700 dark:text-purple-300",
+                    badge: "bg-purple-100 dark:bg-purple-700 text-purple-800 dark:text-purple-200",
                 },
+
                 indigo: {
-                    bg: "bg-indigo-50",
-                    border: "border-indigo-300",
-                    text: "text-indigo-700",
-                    badge: "bg-indigo-100 text-indigo-800",
+                    bg: "bg-indigo-50 dark:bg-indigo-900/20",
+                    border: "border-indigo-300 dark:border-indigo-800",
+                    text: "text-indigo-700 dark:text-indigo-300",
+                    badge: "bg-indigo-100 dark:bg-indigo-700 text-indigo-800 dark:text-indigo-200",
                 },
                 blue: {
                     bg: "bg-blue-50 dark:bg-blue-900/20",
-                    border: "border-blue-300",
-                    text: "text-blue-700",
-                    badge: "bg-blue-100 text-blue-800 dark:text-blue-200",
+                    border: "border-blue-300 dark:border-blue-800",
+                    text: "text-blue-700 dark:text-blue-300",
+                    badge: "bg-blue-100 dark:bg-blue-700 text-blue-800 dark:text-blue-200",
                 },
                 cyan: {
-                    bg: "bg-cyan-50",
-                    border: "border-cyan-300",
-                    text: "text-cyan-700",
-                    badge: "bg-cyan-100 text-cyan-800",
+                    bg: "bg-cyan-50 dark:bg-cyan-900/20",
+                    border: "border-cyan-300 dark:border-cyan-800",
+                    text: "text-cyan-700 dark:text-cyan-300",
+                    badge: "bg-cyan-100 dark:bg-cyan-700 text-cyan-800 dark:text-cyan-200",
                 },
                 green: {
                     bg: "bg-green-50 dark:bg-green-900/20",
-                    border: "border-green-300",
-                    text: "text-green-700",
-                    badge: "bg-green-100 text-green-800 dark:text-green-200",
+                    border: "border-green-300 dark:border-green-800",
+                    text: "text-green-700 dark:text-green-300",
+                    badge: "bg-green-100 dark:bg-green-700 text-green-800 dark:text-green-200",
                 },
                 yellow: {
                     bg: "bg-yellow-50 dark:bg-yellow-900/20",
-                    border: "border-yellow-300",
-                    text: "text-yellow-700",
-                    badge: "bg-yellow-100 text-yellow-800 dark:text-yellow-200",
+                    border: "border-yellow-300 dark:border-yellow-800",
+                    text: "text-yellow-700 dark:text-yellow-300",
+                    badge: "bg-yellow-100 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-200",
                 },
                 orange: {
-                    bg: "bg-orange-50",
-                    border: "border-orange-300",
-                    text: "text-orange-700",
-                    badge: "bg-orange-100 text-orange-800",
+                    bg: "bg-orange-50 dark:bg-orange-900/20",
+                    border: "border-orange-300 dark:border-orange-800",
+                    text: "text-orange-700 dark:text-orange-300",
+                    badge: "bg-orange-100 dark:bg-orange-700 text-orange-800 dark:text-orange-200",
                 },
                 red: {
                     bg: "bg-red-50 dark:bg-red-900/20",
-                    border: "border-red-300",
-                    text: "text-red-700",
-                    badge: "bg-red-100 text-red-800 dark:text-red-200",
+                    border: "border-red-300 dark:border-red-800",
+                    text: "text-red-700 dark:text-red-300",
+                    badge: "bg-red-100 dark:bg-red-700 text-red-800 dark:text-red-200",
                 },
+
                 gray: {
                     bg: "bg-gray-50 dark:bg-gray-900/50",
                     border: "border-gray-300 dark:border-gray-600",
@@ -3219,15 +3226,16 @@ function DvLEDCalculator() {
             }),
             _jsxs("div", {
                 className:
-                    "bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl shadow-md dark:shadow-gray-950/20 p-6 mb-8 border border-purple-200 dark:border-purple-800",
+                    "bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-xl shadow-md dark:shadow-gray-950/20 p-6 mb-8 border border-purple-200 dark:border-purple-800",
                 children: [
                     _jsxs("h2", {
-                        className: "text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2",
+                        className: "text-lg font-semibold text-gray-800 dark:text-gray-100 mb-3 flex items-center gap-2",
                         children: [
                             _jsx("span", { className: "text-purple-600", children: "📊" }),
                             " Pixel Pitch Use Case Guide",
                         ],
                     }),
+
                     _jsx("p", {
                         className: "text-sm text-gray-600 dark:text-gray-400 mb-4",
                         children:
@@ -3434,7 +3442,8 @@ className:
                                                             e === d &&
                                                                 _jsx("span", {
                                                                     className:
-                                                                        "text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full ml-auto",
+                                                                  "text-xs bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 px-2 py-0.5 rounded-full ml-auto",
+
                                                                     children: "Best Match",
                                                                 }),
                                                         ],

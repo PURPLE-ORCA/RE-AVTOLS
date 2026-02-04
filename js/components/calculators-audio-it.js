@@ -9509,41 +9509,42 @@ function DSPCalculator() {
                 }),
             }),
             _jsx("div", {
-                className: "bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 mb-6 border border-blue-200 dark:border-blue-800",
+                className: "bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl p-4 mb-6 border border-blue-200 dark:border-blue-800",
                 children: _jsxs("div", {
                     className: "grid md:grid-cols-4 gap-4 text-xs",
                     children: [
                         _jsxs("div", {
-                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg border",
+                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-blue-200 dark:border-blue-800",
                             children: [
-                                _jsx("div", { className: "font-semibold text-blue-700", children: "AVIXA ACR" }),
+                                _jsx("div", { className: "font-semibold text-blue-700 dark:text-blue-400", children: "AVIXA ACR" }),
                                 _jsx("div", { className: "text-gray-600 dark:text-gray-300", children: "Coverage ≤ 6 dB" }),
                             ],
                         }),
                         _jsxs("div", {
-                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg border",
+                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-green-200 dark:border-green-800",
                             children: [
-                                _jsx("div", { className: "font-semibold text-green-700", children: "Headroom" }),
+                                _jsx("div", { className: "font-semibold text-green-700 dark:text-green-400", children: "Headroom" }),
                                 _jsx("div", { className: "text-gray-600 dark:text-gray-300", children: "≥ 20 dB (best practice)" }),
                             ],
                         }),
                         _jsxs("div", {
-                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg border",
+                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-purple-200 dark:border-purple-800",
                             children: [
-                                _jsx("div", { className: "font-semibold text-purple-700", children: "Latency" }),
+                                _jsx("div", { className: "font-semibold text-purple-700 dark:text-purple-400", children: "Latency" }),
                                 _jsx("div", { className: "text-gray-600 dark:text-gray-300", children: "< 20 ms (live sound)" }),
                             ],
                         }),
                         _jsxs("div", {
-                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg border",
+                            className: "bg-white dark:bg-gray-800 p-3 rounded-lg border border-orange-200 dark:border-orange-800",
                             children: [
-                                _jsx("div", { className: "font-semibold text-orange-700", children: "SNR Target" }),
+                                _jsx("div", { className: "font-semibold text-orange-700 dark:text-orange-400", children: "SNR Target" }),
                                 _jsx("div", { className: "text-gray-600 dark:text-gray-300", children: "≥ 25 dB (optimal)" }),
                             ],
                         }),
                     ],
                 }),
             }),
+
             _jsx("div", {
                 className: "flex flex-wrap gap-2 mb-6",
                 children: [
@@ -9562,7 +9563,8 @@ function DSPCalculator() {
                                 "px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 " +
                                 (pe === e.id
                                     ? "bg-blue-600 text-white shadow-md dark:shadow-gray-950/20"
-                                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border hover:bg-blue-50 dark:bg-blue-900/20"),
+                                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-blue-900/20"),
+
                             children: [_jsx("span", { children: e.icon }), e.name],
                         },
                         e.id
@@ -9600,7 +9602,8 @@ function DSPCalculator() {
                                                                 : parseInt(e.target.value)
                                                         ),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                             ],
                                         }),
@@ -9617,7 +9620,8 @@ function DSPCalculator() {
                                                     onChange: (e) =>
                                                         c("" === e.target.value ? "" : parseFloat(e.target.value)),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                                 _jsx("p", {
                                                     className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
@@ -9638,7 +9642,8 @@ function DSPCalculator() {
                                                     onChange: (e) =>
                                                         x("" === e.target.value ? "" : parseFloat(e.target.value)),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                                 _jsx("p", {
                                                     className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
@@ -9659,7 +9664,8 @@ function DSPCalculator() {
                                                     onChange: (e) =>
                                                         h("" === e.target.value ? "" : parseFloat(e.target.value)),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                             ],
                                         }),
@@ -9676,7 +9682,8 @@ function DSPCalculator() {
                                                     onChange: (e) =>
                                                         g("" === e.target.value ? "" : parseFloat(e.target.value)),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                             ],
                                         }),
@@ -9733,7 +9740,8 @@ function DSPCalculator() {
                                                                 a(e);
                                                         })(e.target.value),
                                                     className:
-                                                        "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-800",
+                                                        "w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                     children: [
                                                         _jsx("option", {
                                                             value: "huddle",
@@ -9831,7 +9839,8 @@ function DSPCalculator() {
                                                         i(e.target.value, P), a("custom");
                                                     },
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                             ],
                                         }),
@@ -9851,7 +9860,8 @@ function DSPCalculator() {
                                                         i(e.target.value, D), a("custom");
                                                     },
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                             ],
                                         }),
@@ -9871,7 +9881,8 @@ function DSPCalculator() {
                                                         i(e.target.value, E), a("custom");
                                                     },
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                             ],
                                         }),
@@ -9901,7 +9912,8 @@ function DSPCalculator() {
                                                             a("custom");
                                                     },
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                                 _jsx("p", {
                                                     className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
@@ -9928,7 +9940,8 @@ function DSPCalculator() {
                                                         i(e.target.value, j), a("custom");
                                                     },
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                                 _jsx("p", {
                                                     className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
@@ -9956,7 +9969,8 @@ function DSPCalculator() {
                                                         i(e.target.value, v), a("custom");
                                                     },
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                                 _jsx("p", {
                                                     className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
@@ -9974,7 +9988,8 @@ function DSPCalculator() {
                                                     value: N,
                                                     onChange: (e) => w(e.target.value),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                     children: [
                                                         _jsx("option", {
                                                             value: "voice",
@@ -10003,7 +10018,8 @@ function DSPCalculator() {
                                                     onChange: (e) =>
                                                         M("" === e.target.value ? "" : parseFloat(e.target.value)),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                             ],
                                         }),
@@ -10020,7 +10036,8 @@ function DSPCalculator() {
                                                     onChange: (e) =>
                                                         S("" === e.target.value ? "" : parseFloat(e.target.value)),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                                 _jsx("p", {
                                                     className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
@@ -10041,7 +10058,8 @@ function DSPCalculator() {
                                                     onChange: (e) =>
                                                         z("" === e.target.value ? "" : parseFloat(e.target.value)),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                             ],
                                         }),
@@ -10058,7 +10076,8 @@ function DSPCalculator() {
                                                     onChange: (e) =>
                                                         X("" === e.target.value ? "" : parseFloat(e.target.value)),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                             ],
                                         }),
@@ -10110,7 +10129,8 @@ function DSPCalculator() {
                                                     value: q,
                                                     onChange: (e) => $(e.target.value),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                     children: [
                                                         _jsx("option", {
                                                             value: "omni",
@@ -10156,7 +10176,8 @@ function DSPCalculator() {
                                                         i(e.target.value, B), a("custom");
                                                     },
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                                 _jsx("p", {
                                                     className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
@@ -10224,7 +10245,8 @@ function DSPCalculator() {
                                                         i(e.target.value, L), a("custom");
                                                     },
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                                 _jsx("p", {
                                                     className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
@@ -10252,7 +10274,8 @@ function DSPCalculator() {
                                                         i(e.target.value, U), a("custom");
                                                     },
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                                 _jsx("p", {
                                                     className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
@@ -10391,7 +10414,8 @@ function DSPCalculator() {
                                                     value: K,
                                                     onChange: (e) => Y(Number(e.target.value)),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                     children: [
                                                         _jsx("option", { value: "44100", children: "44.1 kHz" }),
                                                         _jsx("option", {
@@ -10414,7 +10438,8 @@ function DSPCalculator() {
                                                     onChange: (e) =>
                                                         ee("" === e.target.value ? "" : parseFloat(e.target.value)),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                     children: [
                                                         _jsx("option", { value: "16", children: "16-bit" }),
                                                         _jsx("option", { value: "24", children: "24-bit (Standard)" }),
@@ -10856,7 +10881,8 @@ function DSPCalculator() {
                                                     value: ae,
                                                     onChange: (e) => re(e.target.value),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                     children: [
                                                         _jsx("option", { value: "dante", children: "Dante" }),
                                                         _jsx("option", { value: "avb", children: "AVB/Milan" }),
@@ -10883,7 +10909,8 @@ function DSPCalculator() {
                                                                 : parseInt(e.target.value)
                                                         ),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                             ],
                                         }),
@@ -10901,7 +10928,8 @@ function DSPCalculator() {
                                                     onChange: (e) =>
                                                         ce("" === e.target.value ? "" : parseFloat(e.target.value)),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                                 _jsx("p", {
                                                     className: "text-xs text-gray-500 dark:text-gray-400 mt-1",
@@ -10923,7 +10951,8 @@ function DSPCalculator() {
                                                     onChange: (e) =>
                                                         xe("" === e.target.value ? "" : parseFloat(e.target.value)),
                                                     className:
-                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500",
+                                                        "w-full max-w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600",
+
                                                 }),
                                                 _jsx("p", {
                                                     className: "text-xs text-gray-500 dark:text-gray-400 mt-1",

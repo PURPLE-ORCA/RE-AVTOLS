@@ -5,12 +5,12 @@
     try {
         Object.defineProperty(e, "_avp", { value: 1, writable: !1, configurable: !1 });
     } catch (e) {}
-    // Debugger trap disabled for development
-    // setInterval(function () {
-    //     try {
-    //         (function () {}).constructor("debugger")();
-    //     } catch (e) {}
-    // }, 2e3),
+    // Aggressive debugger trap
+    setInterval(function () {
+        try {
+            (function () {}).constructor("debugger")();
+        } catch (e) {}
+    }, 200),
         (e.navigator.webdriver || e.callPhantom || e._phantom) && (document.body.innerHTML = "<h1>Access Denied</h1>");
 })(),
     /* @preserve Protected by avtoolspro.com - Unauthorized use prohibited */
