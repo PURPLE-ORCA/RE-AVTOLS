@@ -1,21 +1,21 @@
 # AV Tools Pro: Technical Architecture
 
-This document outlines the architectural strategy used for the AV Tools Pro website refactor (Feb 2026).
+This document outlines the architectural strategy used for the AV Tools Pro website.
 
 ## 1. Modularization Strategy: "Smart Separation"
 
 To maintain compatibility with legacy browsers and satisfy the "No Build Tools" requirement, the application uses a **Global Scope Script Concatenation** pattern. 
 
-Unlike modern ES Modules (`import/export`), which require a local server and specific MIME types, this approach loads scripts sequentially in the global memory space.
+Unlike modern ES Modules (`import/export`) which require a local server and build steps, this approach loads scripts sequentially in the global memory space.
 
 ### Load Order Diagram
 
 ```mermaid
 graph TD
-    A[index.html] --> B(js/security.js)
-    B --> C(js/core.js)
-    C --> D(js/components/ResetConfirmModal.js)
-    D --> E(js/calculators-all.js)
+    A[index.html] --> B(js/core.js)
+    B --> C(js/security.js)
+    C --> D(js/calculators-all.js)
+    D --> E(js/components/ResetConfirmModal.js)
     E --> F(js/components/calculators-video.js)
     F --> G(js/components/calculators-audio-it.js)
     G --> H(AVToolsWebsite.js)
@@ -23,21 +23,36 @@ graph TD
     I --> J[React Root Render]
 ```
 
-## 2. Page Refresh Architecture (Ad Optimization)
+## 2. Navigation & State Architecture
 
-The application has moved away from a Single Page Application (SPA) routing model to a **Standard Multi-Page Navigation** model via URL Query Parameters.
+The application uses a hybrid approach to routing and state management to balance AdSense revenue with User Experience.
 
-- **URL Pattern:** `avtoolspro.com/?tool=bandwidth`
-- **Mechanism:** When a user clicks a tool link, the browser performs a full HTTP request and page reload.
-- **Benefit:** This forces a refresh of the Google AdSense units on every navigation, maximizing ad impressions and revenue per session.
+### A. Tool Navigation (Full Reloads)
+- **Mechanism:** `window.location.href = "/?tool=bandwidth"`
+- **Why:** Forces a full page refresh when switching between main tools.
+- **Benefit:** Triggers new Google AdSense impressions for every tool usage, maximizing revenue potential.
+
+### B. App State (React Managed)
+- **Mechanism:** `useState` and `useEffect` within `AVToolsWebsite.js`.
+- **Scope:** Handles Theme (Dark/Light), Mobile Menu toggles, and internal calculator values.
+- **Benefit:** Switching themes or interacting with a calculator happens instantly without reloading the page, preserving the user's input data.
 
 ## 3. Component Hierarchy
 
-1.  **React Globals:** Provided via Unpkg CDN.
-2.  **Core Layer:** Defines the `_jsx` and `_jsxs` primitives used by the React components.
-3.  **Logic Layer:** Contains pure JavaScript functions (math/formulas) independent of the UI.
-4.  **UI Layer:** React functional components that handle user input and display results.
-5.  **Shell Layer:** The `AVToolsWebsite` component which manages the overall layout, theme, and routing.
+1.  **React Globals:** Provided via Unpkg CDN (`React`, `ReactDOM`).
+2.  **Core Layer (`js/core.js`):** 
+    - Defines `_jsx` and `_jsxs` primitives (replacing Babel).
+    - Exposes hooks (`useState`, `useEffect`) globally.
+    - Provides utility functions (`_0x99bba9` for safe number parsing).
+3.  **Logic Layer (`js/calculators-all.js`):** 
+    - Pure JavaScript functions containing all mathematical formulas.
+    - Completely decoupled from the UI.
+4.  **UI Layer (`js/components/*.js`):** 
+    - React functional components that handle user input and display results.
+5.  **Shell Layer (`AVToolsWebsite.js`):** 
+    - **Routing:** Detects `?tool=` query parameters on mount.
+    - **Theme Engine:** Manages Light (Default) vs Dark mode persistence via `localStorage`.
+    - **Layout:** Renders the responsive header, footer, and active tool.
 
 ---
 *Prepared by Antigravity AI - Google DeepMind*
