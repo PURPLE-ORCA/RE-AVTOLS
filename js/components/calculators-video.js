@@ -464,14 +464,14 @@ className:
                             className: "grid md:grid-cols-4 gap-4 mb-6",
                             children: [
                                 _jsxs("div", {
-                                    className: "bg-blue-50 dark:bg-blue-900/20 p-5 rounded-lg border-2 border-blue-200 dark:border-blue-800",
+                                    className: "bg-blue-50 dark:bg-blue-900/20 p-5 rounded-lg border-2 border-blue-200 dark:border-white",
                                     children: [
                                         _jsx("div", {
                                             className: "text-xs text-gray-600 dark:text-gray-400",
                                             children: "Raw Uncompressed",
                                         }),
                                         _jsx("div", {
-                                            className: "text-2xl font-bold text-blue-700",
+                                            className: "text-2xl font-bold text-blue-700 dark:text-white",
                                             children:
                                                 g.rawBitrateGbps >= 1
                                                     ? `${g.rawBitrateGbps} Gbps`
@@ -680,7 +680,7 @@ className:
                                 _jsx("div", {
                                     className: "overflow-x-auto",
                                     children: _jsxs("table", {
-                                        className: "w-full text-xs",
+                                        className: "w-full text-sm dark:text-white",
                                         children: [
                                             _jsx("thead", {
                                                 children: _jsxs("tr", {
@@ -5504,13 +5504,13 @@ className:
                         ],
                     }),
                     _jsxs("div", {
-                        className: "mt-6 p-4 bg-indigo-50 rounded-lg border border-indigo-200",
+                        className: "mt-6 p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg border border-indigo-200 dark:border-indigo-800",
                         children: [
                             _jsxs("label", {
-                                className: "block text-sm font-medium text-indigo-800 mb-2",
+                                className: "block text-sm font-medium text-indigo-800 dark:text-indigo-200 mb-2",
                                 children: [
                                     "🔍 Optical Zoom Factor: ",
-                                    _jsxs("span", { className: "font-bold text-indigo-600", children: [o, "x"] }),
+                                    _jsxs("span", { className: "font-bold text-indigo-600 dark:text-indigo-400", children: [o, "x"] }),
                                 ],
                             }),
                             _jsx("input", {
@@ -5521,10 +5521,10 @@ className:
                                 value: o,
                                 onChange: (e) => d(Number(e.target.value) || 1),
                                 className:
-                                    "w-full h-2 bg-indigo-200 rounded-lg appearance-none cursor-pointer accent-indigo-600",
+                                    "w-full h-2 bg-indigo-200 dark:bg-indigo-900 rounded-lg appearance-none cursor-pointer accent-indigo-600",
                             }),
                             _jsxs("div", {
-                                className: "flex justify-between text-xs text-indigo-400 mt-1",
+                                className: "flex justify-between text-xs text-indigo-400 dark:text-indigo-300 mt-1",
                                 children: [
                                     _jsx("span", { children: "1x (No zoom)" }),
                                     _jsx("span", { children: "10x" }),
@@ -5544,7 +5544,7 @@ className:
                                                 "px-3 py-1 text-xs rounded border cursor-pointer transition-colors " +
                                                 (o === e
                                                     ? "bg-indigo-600 text-white border-indigo-600"
-                                                    : "bg-white dark:bg-gray-800 text-indigo-700 border-indigo-300 hover:bg-indigo-100"),
+                                                    : "bg-white dark:bg-gray-800 text-indigo-700 dark:text-indigo-300 border-indigo-300 dark:border-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-900/30"),
                                             children: [e, "x"],
                                         },
                                         e
@@ -5552,7 +5552,7 @@ className:
                                 ),
                             }),
                             _jsx("p", {
-                                className: "text-xs text-indigo-600 mt-2",
+                                className: "text-xs text-indigo-600 dark:text-indigo-400 mt-2",
                                 children:
                                     "Optical zoom increases effective pixel density (PPM), improving DORI capability at distance",
                             }),
@@ -7440,7 +7440,7 @@ _jsx("span", {
                                                         "div",
                                                         {
                                                             className:
-                                                                "bg-blue-50 dark:bg-blue-900/200 rounded-sm flex items-center justify-center text-white font-bold border border-blue-400 overflow-hidden",
+                                                                "bg-blue-50 dark:bg-blue-900/200 rounded-sm flex items-center justify-center text-white font-bold border border-blue-400 dark:border-white overflow-hidden",
                                                             style: {
                                                                 aspectRatio: `${i} / ${o}`,
                                                                 fontSize: `clamp(8px, ${Math.min(2, 20 / Math.max(B.cols, B.rows))}vw, 14px)`,
